@@ -654,7 +654,7 @@
         if (!confirm(`Aún te faltan ${total - contestadas} reactivos por contestar. ¿Seguro que quieres continuar?`)) {
           return;
         }
-      });
+      }
 
       thurstoneItems.forEach(item => {
         const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
@@ -677,7 +677,7 @@
         if (!confirm(`Aún te faltan ${total - contestadas} reactivos por contestar. ¿Seguro que quieres continuar?`)) {
           return;
         }
-      });
+      }
 
       aptitudeItems.forEach(item => {
         const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
