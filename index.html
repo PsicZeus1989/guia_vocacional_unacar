@@ -159,6 +159,15 @@
       padding: 10px 12px;
       border-bottom: 1px solid #e4e7ee;
     }
+    .question-item.unanswered {
+      background: #fff4f4;
+      border-left: 4px solid #e53935;
+    }
+    .question-item.unanswered .question-title::after {
+      content: " ← falta responder";
+      color: #e53935;
+      font-size: 0.8rem;
+    }
     .question-item:last-child {
       border-bottom: none;
     }
@@ -646,14 +655,24 @@
     function handleInteresesNext() {
       const total = thurstoneItems.length;
       let contestadas = 0;
+      const faltantes = [];
+
       thurstoneItems.forEach(item => {
         const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
-        if (sel) contestadas++;
-      });
-      if (contestadas < total) {
-        if (!confirm(`Aún te faltan ${total - contestadas} reactivos por contestar. ¿Seguro que quieres continuar?`)) {
-          return;
+        const itemDiv = document.querySelector(`.question-item[data-thurstone-id="${item.id}"]`);
+        if (sel) {
+          contestadas++;
+          if (itemDiv) itemDiv.classList.remove("unanswered");
+        } else {
+          faltantes.push(item.id);
+          if (itemDiv) itemDiv.classList.add("unanswered");
         }
+      });
+
+      if (faltantes.length > 0) {
+        alert(`Te faltan ${faltantes.length} reactivos por contestar. Los hemos marcado en color para que puedas identificarlos.`);
+        actualizarProgresoIntereses();
+        return;
       }
 
       thurstoneItems.forEach(item => {
@@ -669,14 +688,24 @@
     function handleAptitudesNext() {
       const total = aptitudeItems.length;
       let contestadas = 0;
+      const faltantes = [];
+
       aptitudeItems.forEach(item => {
         const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
-        if (sel) contestadas++;
-      });
-      if (contestadas < total) {
-        if (!confirm(`Aún te faltan ${total - contestadas} reactivos por contestar. ¿Seguro que quieres continuar?`)) {
-          return;
+        const itemDiv = document.querySelector(`.question-item[data-apt-id="${item.id}"]`);
+        if (sel) {
+          contestadas++;
+          if (itemDiv) itemDiv.classList.remove("unanswered");
+        } else {
+          faltantes.push(item.id);
+          if (itemDiv) itemDiv.classList.add("unanswered");
         }
+      });
+
+      if (faltantes.length > 0) {
+        alert(`Te faltan ${faltantes.length} reactivos por contestar. Los hemos marcado en color para que puedas identificarlos.`);
+        actualizarProgresoAptitudes();
+        return;
       }
 
       aptitudeItems.forEach(item => {
@@ -824,6 +853,7 @@
       thurstoneItems.forEach(item => {
         const div = document.createElement("div");
         div.className = "question-item";
+        div.setAttribute("data-thurstone-id", item.id);
 
         const textoBase = `Reactivo ${item.id}. ¿En cuál de las siguientes ocupaciones preferirías trabajar?`;
         const optA = item.options.find(o => o.key === "a");
@@ -850,6 +880,10 @@
       cont.addEventListener("change", (ev) => {
         if (ev.target && ev.target.name && ev.target.name.startsWith("thurstone-")) {
           actualizarProgresoIntereses();
+          const itemDiv = ev.target.closest(".question-item");
+          if (itemDiv) {
+            itemDiv.classList.remove("unanswered");
+          }
         }
       });
     }
@@ -861,6 +895,7 @@
       aptitudeItems.forEach((item, idx) => {
         const div = document.createElement("div");
         div.className = "question-item";
+        div.setAttribute("data-apt-id", item.id);
 
         const textoBase = `${idx + 1}. ${item.text}`;
 
@@ -893,6 +928,10 @@
       cont.addEventListener("change", (ev) => {
         if (ev.target && ev.target.name && ev.target.name.startsWith("apt-")) {
           actualizarProgresoAptitudes();
+          const itemDiv = ev.target.closest(".question-item");
+          if (itemDiv) {
+            itemDiv.classList.remove("unanswered");
+          }
         }
       });
     }
