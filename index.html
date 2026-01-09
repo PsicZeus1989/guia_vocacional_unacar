@@ -230,15 +230,82 @@
       font-size: 0.85rem;
       color: #444;
     }
-    @media (max-width: 600px) {
+    
+    .unacar-header {
+      background: #003b5c;
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .unacar-logos {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .unacar-logo {
+      height: 52px;
+      width: auto;
+      max-width: 110px;
+      object-fit: contain;
+    }
+    .unacar-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .unacar-header-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .unacar-header-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.95;
+    }
+    .unacar-header-line2 {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .unacar-footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #555;
+      text-align: center;
+    }
+@media (max-width: 600px) {
       .card {
         padding: 18px 14px;
+      }
+      .unacar-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .unacar-logos {
+        justify-content: flex-start;
       }
     }
   </style>
 </head>
 <body>
   <div class="app-container">
+    <header class="unacar-header">
+      <div class="unacar-logos">
+        <img src="img/logo_unacar.png" alt="Universidad Autónoma del Carmen" class="unacar-logo">
+        <img src="img/logo_dgse.png" alt="Dirección General de Servicios al Estudiante" class="unacar-logo">
+        <img src="img/logo_usp.png" alt="Unidad de Servicios Psicopedagógicos" class="unacar-logo">
+      </div>
+      <div class="unacar-header-text">
+        <div class="unacar-header-title">Universidad Autónoma del Carmen</div>
+        <div class="unacar-header-subtitle">Dirección General de Servicios al Estudiante</div>
+        <div class="unacar-header-line2">Unidad de Servicios Psicopedagógicos · Guía de orientación vocacional para aspirantes</div>
+      </div>
+    </header>
     <div class="card">
       <div class="step-indicator">
         <div class="step-pill step-pill-0 active">Bienvenida</div>
@@ -1010,7 +1077,13 @@
       html += "</ul>";
 
       html += "<p class='small'>Nota: Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional. En caso de tener más dudas, busca orientación vocacional con un profesional de tu confianza.</p>";
-      html += "</body></html>";
+      html += "
+  <footer class="unacar-footer">
+    <p>Universidad Autónoma del Carmen · Dirección General de Servicios al Estudiante · Unidad de Servicios Psicopedagógicos</p>
+    <p>Guía de orientación vocacional (versión piloto). Este instrumento es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.</p>
+  </footer>
+
+</body></html>";
 
       win.document.open();
       win.document.write(html);
