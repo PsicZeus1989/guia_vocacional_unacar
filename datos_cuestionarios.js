@@ -55,7 +55,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Quimico",
+        "text": "Químico",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -89,7 +89,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Matematico",
+        "text": "Matemático",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -123,13 +123,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Medico Cirujano",
+        "text": "Médico Cirujano",
         "area": "C. Biologicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Admin. de Empresas",
+        "text": "Admón. de Empresas",
         "area": "Ejecutivas",
         "score": 1
       }
@@ -140,7 +140,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Quimico Farmaceutico",
+        "text": "Químico Farmacéutico",
         "area": "C. Biologicas",
         "score": 1
       },
@@ -157,13 +157,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Profesor de Biologia",
+        "text": "Profesor de Biología",
         "area": "C. Biologicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Contador Publico",
+        "text": "Contador Público",
         "area": "Calculo",
         "score": 1
       }
@@ -191,13 +191,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Profesor de Quimica",
+        "text": "Profesor de Química",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Psicologo",
+        "text": "Psicólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -208,13 +208,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Microbiologo",
+        "text": "Microbiólogo",
         "area": "C. Biologicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Redactor de Articulos",
+        "text": "Redactor de Artículos",
         "area": "Literarias",
         "score": 1
       }
@@ -225,7 +225,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Agronomo",
+        "text": "Agrónomo",
         "area": "C. Biologicas",
         "score": 1
       },
@@ -242,13 +242,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Fisiologo",
+        "text": "Fisiólogo",
         "area": "C. Biologicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Actor Dramatico",
+        "text": "Actor Dramático",
         "area": "Artisticas",
         "score": 1
       }
@@ -259,7 +259,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Biologia",
+        "text": "Investigador en Biología",
         "area": "C. Biologicas",
         "score": 1
       },
@@ -276,7 +276,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Tecnico Laboratorista",
+        "text": "Técnico Laboratorista",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -293,7 +293,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Tecnico de Radiologia",
+        "text": "Técnico de Radiología",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -384,7 +384,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Actor Comico",
+        "text": "Actor Cómico",
         "area": "Artisticas",
         "score": 1
       }
@@ -452,7 +452,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Escenografo",
+        "text": "Escenógrafo",
         "area": "Artisticas",
         "score": 1
       }
@@ -503,7 +503,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Fotografo Profesional",
+        "text": "Fotógrafo Profesional",
         "area": "Artisticas",
         "score": 1
       }
@@ -520,7 +520,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "pianista",
+        "text": "Pianista",
         "area": "Musicales",
         "score": 1
       }
@@ -554,7 +554,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Cantante de Opera",
+        "text": "Cantante de Ópera",
         "area": "Musicales",
         "score": 1
       }
@@ -571,7 +571,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Musico de Orquesta",
+        "text": "Músico de Orquesta",
         "area": "Musicales",
         "score": 1
       }
@@ -588,7 +588,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Profesor de Musica",
+        "text": "Profesor de Música",
         "area": "Musicales",
         "score": 1
       }
@@ -622,7 +622,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Ingeniero Agronomo",
+        "text": "Ingeniero Agrónomo",
         "area": "C. Biologicas",
         "score": 1
       }
@@ -639,7 +639,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Medico General",
+        "text": "Médico General",
         "area": "C. Biologicas",
         "score": 1
       }
@@ -656,7 +656,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Medico Especialista",
+        "text": "Médico Especialista",
         "area": "C. Biologicas",
         "score": 1
       }
@@ -673,7 +673,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Urologo",
+        "text": "Urólogo",
         "area": "C. Biologicas",
         "score": 1
       }
@@ -684,13 +684,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Psicologo Clinico",
+        "text": "Psicólogo Clínico",
         "area": "Humanitarias",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Vendedor de Automoviles",
+        "text": "Vendedor de Automóviles",
         "area": "Negocios",
         "score": 1
       }
@@ -701,7 +701,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Psicologo Industrial",
+        "text": "Psicólogo Industrial",
         "area": "Humanitarias",
         "score": 1
       },
@@ -718,7 +718,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "SocioLogo",
+        "text": "Sociólogo",
         "area": "Humanitarias",
         "score": 1
       },
@@ -735,7 +735,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Antropologo",
+        "text": "Antropólogo",
         "area": "Humanitarias",
         "score": 1
       },
@@ -769,7 +769,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Arqueologo",
+        "text": "Arqueólogo",
         "area": "Humanitarias",
         "score": 1
       },
@@ -786,7 +786,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Politologo",
+        "text": "Politólogo",
         "area": "Humanitarias",
         "score": 1
       },
@@ -803,7 +803,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Profesor de Filosofia",
+        "text": "Profesor de Filosofía",
         "area": "Humanitarias",
         "score": 1
       },
@@ -837,13 +837,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Psicologo Social",
+        "text": "Psicólogo Social",
         "area": "Humanitarias",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Maestro de Musica",
+        "text": "Maestro de Música",
         "area": "Musicales",
         "score": 1
       }
@@ -854,7 +854,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Fisica",
+        "text": "Investigador en Física",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -871,13 +871,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Quimica",
+        "text": "Investigador en Química",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Sociologo",
+        "text": "Sociólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -888,13 +888,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Ingeniero Mecanico",
+        "text": "Ingeniero Mecánico",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Psicologo",
+        "text": "Psicólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -911,7 +911,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Antropologo",
+        "text": "Antropólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -922,13 +922,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Ingeniero Petroquimico",
+        "text": "Ingeniero Petroquímico",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Politologo",
+        "text": "Politólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -956,13 +956,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Matematico",
+        "text": "Matemático",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "SocioLogo",
+        "text": "Sociólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -973,13 +973,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Fisico",
+        "text": "Físico",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Profesor de Filosofia",
+        "text": "Profesor de Filosofía",
         "area": "Humanitarias",
         "score": 1
       }
@@ -990,13 +990,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Quimico",
+        "text": "Químico",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Psicologo",
+        "text": "Psicólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -1007,13 +1007,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Meteorologo",
+        "text": "Meteorólogo",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Antropologo",
+        "text": "Antropólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -1064,7 +1064,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Profesor de Filosofia",
+        "text": "Profesor de Filosofía",
         "area": "Humanitarias",
         "score": 1
       }
@@ -1081,7 +1081,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Psicologo Clinico",
+        "text": "Psicólogo Clínico",
         "area": "Humanitarias",
         "score": 1
       }
@@ -1098,7 +1098,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Teologo",
+        "text": "Teólogo",
         "area": "Humanitarias",
         "score": 1
       }
@@ -1160,7 +1160,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Topografo",
+        "text": "Topógrafo",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -1177,7 +1177,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Ingeniero Cartografo",
+        "text": "Ingeniero Cartógrafo",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -1268,7 +1268,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Fotografo",
+        "text": "Fotógrafo",
         "area": "Artisticas",
         "score": 1
       }
@@ -1279,7 +1279,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Fisica",
+        "text": "Investigador en Física",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -1296,7 +1296,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Quimica",
+        "text": "Investigador en Química",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -1330,7 +1330,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Meteorologia",
+        "text": "Investigador en Meteorología",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -1381,7 +1381,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Profesor de Filosofia",
+        "text": "Profesor de Filosofía",
         "area": "Humanitarias",
         "score": 1
       },
@@ -1398,7 +1398,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Antropologo",
+        "text": "Antropólogo",
         "area": "Humanitarias",
         "score": 1
       },
@@ -1432,7 +1432,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "SocioLogo",
+        "text": "Sociólogo",
         "area": "Humanitarias",
         "score": 1
       },
@@ -1534,13 +1534,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Fisica",
+        "text": "Investigador en Física",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "pianista",
+        "text": "Pianista",
         "area": "Musicales",
         "score": 1
       }
@@ -1551,13 +1551,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Quimica",
+        "text": "Investigador en Química",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Cantante de Opera",
+        "text": "Cantante de Ópera",
         "area": "Musicales",
         "score": 1
       }
@@ -1568,7 +1568,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Biologia",
+        "text": "Investigador en Biología",
         "area": "C. Biologicas",
         "score": 1
       },
@@ -1585,13 +1585,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Meteorologia",
+        "text": "Investigador en Meteorología",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Musico de Orquesta",
+        "text": "Músico de Orquesta",
         "area": "Musicales",
         "score": 1
       }
@@ -1602,13 +1602,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador en Biologia",
+        "text": "Investigador en Biología",
         "area": "C. Biologicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Profesor de Musica",
+        "text": "Profesor de Música",
         "area": "Musicales",
         "score": 1
       }
@@ -1619,7 +1619,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Profesor de Fisica",
+        "text": "Profesor de Física",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -1636,13 +1636,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Profesor de Quimica",
+        "text": "Profesor de Química",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Fotografo Profesional",
+        "text": "Fotógrafo Profesional",
         "area": "Artisticas",
         "score": 1
       }
@@ -1659,7 +1659,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Actor Dramatico",
+        "text": "Actor Dramático",
         "area": "Artisticas",
         "score": 1
       }
@@ -1676,7 +1676,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Profesor de Musica",
+        "text": "Profesor de Música",
         "area": "Musicales",
         "score": 1
       }
@@ -1714,7 +1714,7 @@ const aptitudeItems = [
     "section": "A",
     "sectionName": "Verbal",
     "number": 2,
-    "text": "¿Para redactar composiciones o articulos periodisticos?"
+    "text": "¿Para redactar composiciones o artículos periodísticos?"
   },
   {
     "id": "A3",
@@ -1742,14 +1742,14 @@ const aptitudeItems = [
     "section": "B",
     "sectionName": "Numérica",
     "number": 1,
-    "text": "¿Para ejecutar con exactitud y rapidez operaciones arimeticas?"
+    "text": "¿Para ejecutar con exactitud y rapidez operaciones ariméticas?"
   },
   {
     "id": "B2",
     "section": "B",
     "sectionName": "Numérica",
     "number": 2,
-    "text": "¿Para hacer calculos mentales?"
+    "text": "¿Para hacer cálculos mentales?"
   },
   {
     "id": "B3",
@@ -1763,7 +1763,7 @@ const aptitudeItems = [
     "section": "B",
     "sectionName": "Numérica",
     "number": 4,
-    "text": "¿Para comprender formulas matematicas?"
+    "text": "¿Para comprender fórmulas matemáticas?"
   },
   {
     "id": "B5",
@@ -1777,21 +1777,21 @@ const aptitudeItems = [
     "section": "C",
     "sectionName": "Mecánica constructivista",
     "number": 1,
-    "text": "¿Para arreglar desperfectos menores en aparatos y maquinas?"
+    "text": "¿Para arreglar desperfectos menores en aparatos y máquinas?"
   },
   {
     "id": "C2",
     "section": "C",
     "sectionName": "Mecánica constructivista",
     "number": 2,
-    "text": "¿Para comprender el funcionamientos de maquinas y motores?"
+    "text": "¿Para comprender el funcionamientos de máquinas y motores?"
   },
   {
     "id": "C3",
     "section": "C",
     "sectionName": "Mecánica constructivista",
     "number": 3,
-    "text": "¿Para construir juguetes mecanicos?"
+    "text": "¿Para construir juguetes mecánicos?"
   },
   {
     "id": "C4",
@@ -1812,21 +1812,21 @@ const aptitudeItems = [
     "section": "D",
     "sectionName": "Artística",
     "number": 1,
-    "text": "¿Para dibujar a lapiz y tinta?"
+    "text": "¿Para dibujar a lápiz y tinta?"
   },
   {
     "id": "D2",
     "section": "D",
     "sectionName": "Artística",
     "number": 2,
-    "text": "¿Para pintar al oleo o acuarela?"
+    "text": "¿Para pintar al óleo o acuarela?"
   },
   {
     "id": "D3",
     "section": "D",
     "sectionName": "Artística",
     "number": 3,
-    "text": "¿Para trazar diseños artistico-decorativos?"
+    "text": "¿Para trazar diseños artístico-decorativos?"
   },
   {
     "id": "D4",
@@ -1868,21 +1868,21 @@ const aptitudeItems = [
     "section": "E",
     "sectionName": "Musical",
     "number": 4,
-    "text": "¿Para llevar el compas y el ritmo con facilidad?"
+    "text": "¿Para llevar el compás y el ritmo con facilidad?"
   },
   {
     "id": "E5",
     "section": "E",
     "sectionName": "Musical",
     "number": 5,
-    "text": "¿Para reconocer cuando una persona canta o toca sin afinacion?"
+    "text": "¿Para reconocer cuando una persona canta o toca sin afinación?"
   },
   {
     "id": "F1",
     "section": "F",
     "sectionName": "Científica",
     "number": 1,
-    "text": "¿Para observar y analizar los fenomenos que ocurren en la naturaleza?"
+    "text": "¿Para observar y analizar los fenómenos que ocurren en la naturaleza?"
   },
   {
     "id": "F2",
@@ -1896,21 +1896,21 @@ const aptitudeItems = [
     "section": "F",
     "sectionName": "Científica",
     "number": 3,
-    "text": "¿Para comprender los principios de la fisica, la quimica y la biologia?"
+    "text": "¿Para comprender los principios de la física, la química y la biología?"
   },
   {
     "id": "F4",
     "section": "F",
     "sectionName": "Científica",
     "number": 4,
-    "text": "¿Para captar las causas de los fenomenos o los procesos que observas?"
+    "text": "¿Para captar las causas de los fenómenos o los procesos que observas?"
   },
   {
     "id": "F5",
     "section": "F",
     "sectionName": "Científica",
     "number": 5,
-    "text": "¿Para interesarte por las revistas o la literatura cientifica?"
+    "text": "¿Para interesarte por las revistas o la literatura científica?"
   },
   {
     "id": "G1",
@@ -1966,28 +1966,28 @@ const aptitudeItems = [
     "section": "H",
     "sectionName": "Destreza manual",
     "number": 3,
-    "text": "¿Para trabajar con precision con objetos pequeños o delicados?"
+    "text": "¿Para trabajar con precisión con objetos pequeños o delicados?"
   },
   {
     "id": "H4",
     "section": "H",
     "sectionName": "Destreza manual",
     "number": 4,
-    "text": "¿Para seguir instrucciones practicas paso a paso en trabajos manuales?"
+    "text": "¿Para seguir instrucciones prácticas paso a paso en trabajos manuales?"
   },
   {
     "id": "H5",
     "section": "H",
     "sectionName": "Destreza manual",
     "number": 5,
-    "text": "¿Para aprender con facilidad tecnicas nuevas de trabajo manual?"
+    "text": "¿Para aprender con facilidad técnicas nuevas de trabajo manual?"
   },
   {
     "id": "I1",
     "section": "I",
     "sectionName": "Práctica",
     "number": 1,
-    "text": "¿Para resolver problemas practicos de la vida diaria de forma eficiente?"
+    "text": "¿Para resolver problemas prácticos de la vida diaria de forma eficiente?"
   },
   {
     "id": "I2",
@@ -2001,21 +2001,21 @@ const aptitudeItems = [
     "section": "I",
     "sectionName": "Práctica",
     "number": 3,
-    "text": "¿Para tomar decisiones rapidas en situaciones cotidianas?"
+    "text": "¿Para tomar decisiones rápidas en situaciones cotidianas?"
   },
   {
     "id": "I4",
     "section": "I",
     "sectionName": "Práctica",
     "number": 4,
-    "text": "¿Para adaptarte con facilidad a las exigencias practicas de tu entorno?"
+    "text": "¿Para adaptarte con facilidad a las exigencias prácticas de tu entorno?"
   },
   {
     "id": "I5",
     "section": "I",
     "sectionName": "Práctica",
     "number": 5,
-    "text": "¿Para encontrar soluciones eficaces cuando enfrentas obstaculos diarios?"
+    "text": "¿Para encontrar soluciones eficaces cuando enfrentas obstáculos diarios?"
   },
   {
     "id": "J1",
@@ -2050,7 +2050,7 @@ const aptitudeItems = [
     "section": "J",
     "sectionName": "Ejecutiva",
     "number": 5,
-    "text": "¿Para hablar en publico ante un grupo pequeño sin sentirte demasiado incomodo(a)?"
+    "text": "¿Para hablar en público ante un grupo pequeño sin sentirte demasiado incómodo(a)?"
   },
   {
     "id": "K1",
@@ -2078,7 +2078,7 @@ const aptitudeItems = [
     "section": "K",
     "sectionName": "Oficina",
     "number": 4,
-    "text": "¿Para registrar datos o informacion sin cometer errores importantes?"
+    "text": "¿Para registrar datos o información sin cometer errores importantes?"
   },
   {
     "id": "K5",
