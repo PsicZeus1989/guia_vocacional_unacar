@@ -129,7 +129,7 @@ const thurstoneItems = [
       },
       {
         "key": "b",
-        "text": "Admón. de Empresas",
+        "text": "Administrador de Empresas",
         "area": "Ejecutivas",
         "score": 1
       }
