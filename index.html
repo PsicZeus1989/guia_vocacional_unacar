@@ -334,11 +334,19 @@
           Al finalizar, verás un resumen con los factores en los que presentas mayor afinidad y una lista de carreras sugeridas
           con base en tus resultados.
         </p>
+        <p>
+          Si ya realizaste esta guía anteriormente y guardaste un archivo de respuestas, puedes cargarlo para ver de nuevo tus resultados.
+        </p>
         <div class="btn-row">
           <button class="btn-primary" type="button" onclick="goToStep(1)">
-            Comenzar
+            Comenzar nueva guía
+          </button>
+          <button class="btn-secondary" type="button" onclick="document.getElementById('input-cargar-reporte').click()">
+            Cargar archivo de respuestas
           </button>
         </div>
+        <input type="file" id="input-cargar-reporte" accept="application/json" style="display:none" />
+
       </div>
 
       <!-- Paso 1: Datos generales -->
@@ -508,6 +516,7 @@
 
         <div class="btn-row">
           <button class="btn-secondary" type="button" onclick="goToStep(0)">Volver al inicio</button>
+          <button class="btn-secondary" type="button" onclick="downloadRawReport()">Descargar respuestas (archivo para volver a cargar)</button>
           <button class="btn-primary" type="button" onclick="generatePDF()">Descargar / guardar reporte en PDF</button>
         </div>
       </div>
@@ -1006,7 +1015,87 @@
     // Versión sin librería externa: abre una vista imprimible y
     // el usuario puede elegir "Guardar como PDF" en el diálogo de impresión.
     
-    function generatePDF() {
+    
+    function buildExportObject() {
+      return {
+        version: 1,
+        timestamp: new Date().toISOString(),
+        datosAlumno: { ...datosAlumno },
+        respuestasIntereses: { ...respuestasIntereses },
+        respuestasAptitudes: { ...respuestasAptitudes }
+      };
+    }
+
+    function downloadRawReport() {
+      const exp = buildExportObject();
+
+      const jsonStr = JSON.stringify(exp, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const nombreLimpio = (datosAlumno.nombre || "reporte")
+        .replace(/[^a-z0-9_-]/gi, "_");
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `orientacion_unacar_respuestas_${nombreLimpio}.json`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function applyImportedReport(data) {
+      if (!data || typeof data !== "object") {
+        alert("El archivo no tiene el formato esperado.");
+        return;
+      }
+      if (!data.datosAlumno || !data.respuestasIntereses || !data.respuestasAptitudes) {
+        alert("El archivo no contiene la información completa de respuestas.");
+        return;
+      }
+
+      // Volcamos los datos del alumno
+      Object.keys(datosAlumno).forEach(k => delete datosAlumno[k]);
+      Object.assign(datosAlumno, data.datosAlumno || {});
+
+      // Volcamos respuestas
+      Object.keys(respuestasIntereses).forEach(k => delete respuestasIntereses[k]);
+      Object.keys(data.respuestasIntereses || {}).forEach(k => {
+        respuestasIntereses[k] = data.respuestasIntereses[k];
+      });
+
+      Object.keys(respuestasAptitudes).forEach(k => delete respuestasAptitudes[k]);
+      Object.keys(data.respuestasAptitudes || {}).forEach(k => {
+        respuestasAptitudes[k] = data.respuestasAptitudes[k];
+      });
+
+      // Calculamos resultados y vamos directo al paso 4
+      calcularYMostrarResultados();
+      goToStep(4);
+    }
+
+    function handleReportFileInput(evt) {
+      const file = evt.target.files && evt.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target.result;
+          const data = JSON.parse(text);
+          applyImportedReport(data);
+        } catch (err) {
+          console.error("Error al leer el archivo de reporte:", err);
+          alert("No se pudo leer el archivo. Verifica que sea un archivo generado por esta guía.");
+        } finally {
+          // Limpiar el valor del input para permitir volver a seleccionar el mismo archivo si es necesario
+          evt.target.value = "";
+        }
+      };
+      reader.readAsText(file, "utf-8");
+    }
+function generatePDF() {
       if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
         alert("Primero completa los cuestionarios y visualiza tus resultados.");
         return;
@@ -1104,6 +1193,11 @@
       }
       if (typeof aptitudeItems !== "undefined" && aptitudeItems.length > 0) {
         renderAptitudes();
+      }
+
+      const inputReporte = document.getElementById("input-cargar-reporte");
+      if (inputReporte) {
+        inputReporte.addEventListener("change", handleReportFileInput);
       }
     });
   </script>
