@@ -4,7 +4,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Fisico",
+        "text": "Físico",
         "area": "C. Fisicas",
         "score": 1
       },
@@ -21,13 +21,13 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Ingeniero Mecanico",
+        "text": "Ingeniero Mecánico",
         "area": "C. Fisicas",
         "score": 1
       },
       {
         "key": "b",
-        "text": "Neurologo",
+        "text": "Neurólogo",
         "area": "C. Biologicas",
         "score": 1
       }
@@ -38,7 +38,7 @@ const thurstoneItems = [
     "options": [
       {
         "key": "a",
-        "text": "Investigador Cientifico",
+        "text": "Investigador Científico",
         "area": "C. Fisicas",
         "score": 1
       },
