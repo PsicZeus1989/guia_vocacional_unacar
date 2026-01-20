@@ -232,9 +232,9 @@
     }
     
     .unacar-header {
-      background: #003b5c;
-      color: #ffffff;
-      padding: 10px 16px;
+      background: #ffffff;
+      color: #003b5c;
+      padding: 12px 18px;
       border-radius: 16px;
       margin-bottom: 16px;
       display: flex;
@@ -242,17 +242,19 @@
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+      border: 1px solid #d0d4e0;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
     }
     .unacar-logos {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
       flex-wrap: wrap;
     }
     .unacar-logo {
-      height: 52px;
+      height: 72px;
       width: auto;
-      max-width: 110px;
+      max-width: 140px;
       object-fit: contain;
     }
     .unacar-header-text {
@@ -688,7 +690,17 @@
       return programFactors.find(p => p.name === name) || null;
     }
 
-    let currentStep = 0;
+    
+    // Configuración opcional para enviar resultados a un servidor.
+    // Si en el futuro se desea guardar la información en una base de datos,
+    // basta con establecer enabled = true y configurar la URL del endpoint.
+    const BACKEND_CONFIG = {
+      enabled: false,              // Cambiar a true cuando exista un servidor listo
+      endpoint: "",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
+      apiKey: ""                   // Opcional: para enviar una llave o token de autenticación en el encabezado
+    };
+
+let currentStep = 0;
     const datosAlumno = {};
     const respuestasIntereses = {};
     const respuestasAptitudes = {};
@@ -902,6 +914,9 @@
         }
         compatDiv.appendChild(div);
       });
+
+      // Enviar los resultados al servidor si se ha configurado un endpoint.
+      enviarResultadosAlServidor();
     }
 
     function poblarSelectCarreras() {
@@ -1095,6 +1110,78 @@
       };
       reader.readAsText(file, "utf-8");
     }
+
+    function buildBackendPayload() {
+      // Construye un paquete con la información necesaria para un servidor:
+      // datos del alumno, respuestas completas y resultados calculados.
+      const base = buildExportObject();
+      const tieneResultados = cachedResultados &&
+        cachedResultados.factores &&
+        cachedResultados.topFactores &&
+        cachedResultados.topCarreras;
+
+      const resumen = tieneResultados ? {
+        factores: cachedResultados.factores,
+        topFactores: (cachedResultados.topFactores || []).map(f => ({
+          id: f.id,
+          label: f.label,
+          value: f.value,
+          interest: f.interest,
+          aptitude: f.aptitude
+        })),
+        topCarreras: (cachedResultados.topCarreras || []).map(c => ({
+          name: c.program.name,
+          score: c.score,
+          factors: c.program.factors
+        }))
+      } : null;
+
+      return {
+        app: "guia_vocacional_unacar",
+        version_app: 1,
+        exportRaw: base,
+        resultados: resumen
+      };
+    }
+
+    function enviarResultadosAlServidor() {
+      if (!BACKEND_CONFIG || !BACKEND_CONFIG.enabled || !BACKEND_CONFIG.endpoint) {
+        // Sin configuración, no hace nada. Así el archivo funciona igual sin servidor.
+        return;
+      }
+
+      let payload;
+      try {
+        payload = buildBackendPayload();
+      } catch (err) {
+        console.error("No se pudo construir el payload para el servidor:", err);
+        return;
+      }
+
+      try {
+        const headers = {
+          "Content-Type": "application/json"
+        };
+        if (BACKEND_CONFIG.apiKey) {
+          headers["X-API-Key"] = BACKEND_CONFIG.apiKey;
+        }
+
+        fetch(BACKEND_CONFIG.endpoint, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(payload)
+        }).then(res => {
+          if (!res.ok) {
+            console.error("Error al enviar resultados al servidor. Código:", res.status);
+          }
+        }).catch(err => {
+          console.error("Error de red al enviar resultados al servidor:", err);
+        });
+      } catch (err) {
+        console.error("Error inesperado al intentar enviar resultados al servidor:", err);
+      }
+    }
+
 function generatePDF() {
       if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
         alert("Primero completa los cuestionarios y visualiza tus resultados.");
@@ -1116,15 +1203,23 @@ function generatePDF() {
       html += "<title>Reporte de orientación vocacional UNACAR</title>";
       html += "<style>";
       html += "body { font-family: Arial, sans-serif; font-size: 12px; margin: 24px; }";
-      html += "h1 { font-size: 18px; margin-bottom: 4px; }";
+      html += "h1 { font-size: 18px; margin-bottom: 4px; text-align: center; }";
       html += "h2 { font-size: 15px; margin-top: 16px; margin-bottom: 6px; }";
       html += "p { margin: 2px 0; }";
       html += "ul { margin: 4px 0 8px 18px; padding: 0; }";
       html += "li { margin-bottom: 2px; }";
-      html += ".small { font-size: 10px; color: #555; margin-top: 10px; }";
+      html += ".header-inst { text-align: center; margin-bottom: 8px; }";
+      html += ".header-inst-line { font-weight: 600; }";
+      html += ".note-legal { font-size: 11px; margin-top: 18px; padding: 8px 10px; border: 1px solid #b91c1c; background:#fff5f5; color:#7f1d1d; }";
       html += "</style></head><body>";
 
-      html += "<h1>Guía de Orientación Vocacional UNACAR</h1>";
+      html += "<div class='header-inst'>";
+      html += "<div class='header-inst-line'>Universidad Autónoma del Carmen</div>";
+      html += "<div class='header-inst-line'>Dirección General de Servicios al Estudiante</div>";
+      html += "<div class='header-inst-line'>Unidad de Servicios Psicopedagógicos</div>";
+      html += "</div>";
+      html += "<h1>Guía de orientación vocacional</h1>";
+      html += "<p style='text-align:center;'><strong>Reporte individual</strong></p>acional UNACAR</h1>";
       html += "<p><strong>Reporte individual</strong></p>";
 
       html += "<h2>Datos del alumno</h2>";
@@ -1166,7 +1261,7 @@ function generatePDF() {
       });
       html += "</ul>";
 
-      html += "<p class='small'>Nota: Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional. En caso de tener más dudas, busca orientación vocacional con un profesional de tu confianza.</p>";
+      html += "<p class='note-legal'><strong>Nota importante:</strong> Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional. En caso de tener más dudas, busca orientación vocacional con un profesional de tu confianza.</p>";
       html += "</body></html>";
 
       win.document.open();
@@ -1201,5 +1296,12 @@ function generatePDF() {
       }
     });
   </script>
+
+  <footer class="unacar-footer">
+    <p>Universidad Autónoma del Carmen · Dirección General de Servicios al Estudiante · Unidad de Servicios Psicopedagógicos</p>
+    <p>Guía de orientación vocacional (versión piloto). Este instrumento es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.</p>
+    <p>Esta herramienta es de uso universal, sin fines de lucro y de uso exclusivo de la Universidad Autónoma del Carmen (UNACAR). Su uso implica la aceptación de estos términos.</p>
+  </footer>
+
 </body>
 </html>
