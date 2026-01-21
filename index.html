@@ -671,7 +671,7 @@
       return sum / values.length;
     }
 
-    function getTopFactors(factorScores, topN = 5) {
+    function getTopFactors(factorScores, topN = 6) {
       return Object.values(factorScores)
         .sort((a, b) => b.value - a.value)
         .slice(0, topN);
@@ -872,7 +872,7 @@ let currentStep = 0;
       const intereses = scoreThurstone(respuestasIntereses);
       const aptitudes = scoreAptitudes(respuestasAptitudes);
       const factores = computeFactors(intereses, aptitudes);
-      const topFactores = getTopFactors(factores, 5);
+      const topFactores = getTopFactors(factores, 6);
       const compatData = computeCareerCompatibilities(factores, 6);
       const topCarreras = compatData.all.slice(0, 3);
 
