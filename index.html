@@ -685,6 +685,38 @@
       return scored.slice(0, topN);
     }
 
+    // Calcula compatibilidades de todas las carreras y normaliza a 0–100 %
+    // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
+    // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
+    function computeCareerCompatibilities(factorScores, topFactorCount = 6) {
+      const allFactorsArr = Object.values(factorScores || {}).sort((a, b) => b.value - a.value);
+      const selected = allFactorsArr.slice(0, topFactorCount);
+      const topIds = selected.map(f => f.id);
+      const globalTotal = topIds.length > 0 ? topIds.length : 1;
+
+      const withPercent = programFactors.map(p => {
+        const required = Array.isArray(p.factors) ? p.factors : [];
+        let matches = 0;
+        topIds.forEach(id => {
+          if (required.includes(id)) matches++;
+        });
+        const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
+        const percent = (matches / denom) * 100;
+        return {
+          program: p,
+          percent,
+          matches,
+          topFactorCount: denom
+        };
+      }).sort((a, b) => b.percent - a.percent);
+
+      return {
+        all: withPercent,
+        topFactorIds: topIds,
+        topFactorCount: globalTotal
+      };
+    }
+
     function findProgramByName(name) {
       if (!name) return null;
       return programFactors.find(p => p.name === name) || null;
@@ -695,8 +727,8 @@
     // Si en el futuro se desea guardar la información en una base de datos,
     // basta con establecer enabled = true y configurar la URL del endpoint.
     const BACKEND_CONFIG = {
-      enabled: true,              // Cambiar a true cuando exista un servidor listo
-      endpoint: "https://script.google.com/macros/s/AKfycbyNFkLPp7OJym5_k8hgo0VjYynU6936oO7C-89u0fp5TJilazPrLqH6wMjukcuEemEc/exec",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
+      enabled: false,              // Cambiar a true cuando exista un servidor listo
+      endpoint: "",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
       apiKey: ""                   // Opcional: para enviar una llave o token de autenticación en el encabezado
     };
 
@@ -710,7 +742,10 @@ let currentStep = 0;
       aptitudes: null,
       factores: null,
       topFactores: null,
-      topCarreras: null
+      topCarreras: null,
+      maxCareerScore: null,
+      topFactorIds: null,
+      topFactorCount: null
     };
 
     function goToStep(step) {
@@ -838,13 +873,16 @@ let currentStep = 0;
       const aptitudes = scoreAptitudes(respuestasAptitudes);
       const factores = computeFactors(intereses, aptitudes);
       const topFactores = getTopFactors(factores, 5);
-      const topCarreras = getTopCareers(factores, 3);
+      const compatData = computeCareerCompatibilities(factores, 6);
+      const topCarreras = compatData.all.slice(0, 3);
 
       cachedResultados.intereses = intereses;
       cachedResultados.aptitudes = aptitudes;
       cachedResultados.factores = factores;
       cachedResultados.topFactores = topFactores;
       cachedResultados.topCarreras = topCarreras;
+      cachedResultados.topFactorIds = compatData.topFactorIds;
+      cachedResultados.topFactorCount = compatData.topFactorCount;
 
       const ra = document.getElementById("resumen-alumno");
       ra.innerHTML = `
@@ -880,9 +918,10 @@ let currentStep = 0;
         div.className = "result-card";
         div.innerHTML = `
           <h4>${idx + 1}. ${c.program.name}</h4>
-          <p><strong>Compatibilidad relativa:</strong> ${c.score.toFixed(2)}</p>
+          <p><strong>Compatibilidad estimada:</strong> ${c.percent.toFixed(0)}%</p>
           <p style="font-size:0.8rem; color:#555;">
-            Factores considerados: ${c.program.factors.join(", ")}
+            Coincidencias con tus factores principales: ${c.matches} de ${c.topFactorCount}.<br/>
+            Factores considerados para esta carrera: ${c.program.factors.join(", ")}
           </p>
         `;
         cc.appendChild(div);
@@ -903,11 +942,20 @@ let currentStep = 0;
             <p>No se encontró esta carrera en el catálogo de programas de la guía.</p>
           `;
         } else {
-          const score = scoreCareerForStudent(prog, factores);
+          const topIds = cachedResultados.topFactorIds || [];
+          const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
+          const required = Array.isArray(prog.factors) ? prog.factors : [];
+          let matches = 0;
+          topIds.forEach(id => {
+            if (required.includes(id)) matches++;
+          });
+          const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
+          const percent = (matches / denom) * 100;
           div.innerHTML = `
             <h4>${idx === 0 ? "Primera" : "Segunda"} opción: ${prog.name}</h4>
-            <p><strong>Compatibilidad relativa con tus factores:</strong> ${score.toFixed(2)}</p>
+            <p><strong>Compatibilidad estimada con tus factores principales:</strong> ${percent.toFixed(0)}%</p>
             <p style="font-size:0.8rem; color:#555;">
+              Coincidencias con tus factores principales: ${matches} de ${denom}.<br/>
               Factores asociados a esta carrera: ${prog.factors.join(", ")}
             </p>
           `;
@@ -1131,9 +1179,12 @@ let currentStep = 0;
         })),
         topCarreras: (cachedResultados.topCarreras || []).map(c => ({
           name: c.program.name,
-          score: c.score,
+          percent: c.percent,
+          matches: c.matches,
+          topFactorCount: c.topFactorCount,
           factors: c.program.factors
-        }))
+        })),
+        topFactorIds: cachedResultados.topFactorIds || null
       } : null;
 
       return {
@@ -1199,19 +1250,22 @@ function generatePDF() {
       html += "ul { margin: 4px 0 8px 18px; padding: 0; }";
       html += "li { margin-bottom: 2px; }";
       html += ".header-inst { text-align: center; margin-bottom: 8px; }";
+      html += ".header-uni { font-weight: 700; font-size: 18px; }";
+      html += ".header-dgse { font-weight: 600; font-size: 15px; }";
+      html += ".header-usp { font-weight: 600; font-size: 15px; }";
+      html += ".subtitulo-reporte { font-size: 12px; text-align: center; margin-top: 4px; }";
       html += ".header-inst-line { font-weight: 600; }";
       html += ".note-legal { font-size: 11px; margin-top: 18px; padding: 8px 10px; border: 1px solid #b91c1c; background:#fff5f5; color:#7f1d1d; }";
       html += "</style></head><body>";
 
       html += "<div class='header-inst'>";
-      html += "<div class='header-inst-line'>Universidad Autónoma del Carmen</div>";
-      html += "<div class='header-inst-line'>Dirección General de Servicios al Estudiante</div>";
-      html += "<div class='header-inst-line'>Unidad de Servicios Psicopedagógicos</div>";
+      html += "<div class='header-uni'>Universidad Autónoma del Carmen</div>";
+      html += "<div class='header-dgse'>Dirección General de Servicios al Estudiante</div>";
+      html += "<div class='header-usp'>Unidad de Servicios Psicopedagógicos</div>";
       html += "</div>";
       html += "<h1>Guía de orientación vocacional</h1>";
-      html += "<p style='text-align:center;'><strong>Reporte individual</strong></p>acional UNACAR</h1>";
-      html += "<p><strong>Reporte individual</strong></p>";
-
+      html += "<p class='subtitulo-reporte'><strong>Reporte individual</strong></p>";
+      
       html += "<h2>Datos del alumno</h2>";
       html += `<p><strong>Nombre:</strong> ${datosAlumno.nombre || "-"} </p>`;
       html += `<p><strong>Edad:</strong> ${datosAlumno.edad || "-"} &nbsp;&nbsp; <strong>Fecha de nacimiento:</strong> ${datosAlumno.fecha_nacimiento || "-"} </p>`;
@@ -1231,7 +1285,7 @@ function generatePDF() {
       html += "<h2>Carreras sugeridas por la guía</h2>";
       html += "<ul>";
       topCarreras.forEach((c, idx) => {
-        html += `<li>${idx + 1}. ${c.program.name} – compatibilidad relativa: ${c.score.toFixed(2)}</li>`;
+        html += `<li>${idx + 1}. ${c.program.name} – compatibilidad estimada: ${c.percent.toFixed(0)}% (coincidencias: ${c.matches} de ${c.topFactorCount} factores principales)</li>`;
       });
       html += "</ul>";
 
@@ -1245,8 +1299,16 @@ function generatePDF() {
         if (!prog) {
           html += `<li>${etiqueta}: ${nombre} (no se encontró esta carrera en el catálogo de la guía)</li>`;
         } else {
-          const score = scoreCareerForStudent(prog, factores);
-          html += `<li>${etiqueta}: ${prog.name} – compatibilidad relativa: ${score.toFixed(2)} (factores: ${prog.factors.join(", ")})</li>`;
+          const topIds = cachedResultados.topFactorIds || [];
+          const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
+          const required = Array.isArray(prog.factors) ? prog.factors : [];
+          let matches = 0;
+          topIds.forEach(id => {
+            if (required.includes(id)) matches++;
+          });
+          const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
+          const percent = (matches / denom) * 100;
+          html += `<li>${etiqueta}: ${prog.name} – compatibilidad estimada: ${percent.toFixed(0)}% (coincidencias: ${matches} de ${denom} factores principales; factores de la carrera: ${prog.factors.join(", ")})</li>`;
         }
       });
       html += "</ul>";
