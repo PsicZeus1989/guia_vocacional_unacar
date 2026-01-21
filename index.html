@@ -695,8 +695,8 @@
     // Si en el futuro se desea guardar la información en una base de datos,
     // basta con establecer enabled = true y configurar la URL del endpoint.
     const BACKEND_CONFIG = {
-      enabled: true,              // Cambiar a true cuando exista un servidor listo
-      endpoint: "https://script.google.com/macros/s/AKfycbwAuZ03lXgrTnAUhlqeryDmALduO-Ri2ZLO5qmddw9G0_B7Zd4F_mh0HWUqre0VTRRq/exec",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
+      enabled: false,              // Cambiar a true cuando exista un servidor listo
+      endpoint: "",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
       apiKey: ""                   // Opcional: para enviar una llave o token de autenticación en el encabezado
     };
 
@@ -1159,21 +1159,11 @@ let currentStep = 0;
       }
 
       try {
-        const headers = {
-          "Content-Type": "application/json"
-        };
-        if (BACKEND_CONFIG.apiKey) {
-          headers["X-API-Key"] = BACKEND_CONFIG.apiKey;
-        }
-
+        // Usamos mode: "no-cors" para evitar problemas de CORS con Apps Script.
         fetch(BACKEND_CONFIG.endpoint, {
           method: "POST",
-          headers,
+          mode: "no-cors",
           body: JSON.stringify(payload)
-        }).then(res => {
-          if (!res.ok) {
-            console.error("Error al enviar resultados al servidor. Código:", res.status);
-          }
         }).catch(err => {
           console.error("Error de red al enviar resultados al servidor:", err);
         });
