@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guía de Orientación Vocacional - UNACAR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #006699;
+      --primary-soft: #e0f3fb;
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --text-main: #222222;
+      --text-muted: #555555;
+      --border-radius: 12px;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+    .app-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      padding: 24px 20px;
+      margin-bottom: 24px;
+    }
+    h1, h2, h3 {
+      margin-top: 0;
+      color: #003b5c;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.4rem;
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .step-indicator {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .step-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #dde2e7;
+      font-size: 0.8rem;
+      color: #444;
+    }
+    .step-pill.active {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+    }
+    .step {
+      display: none;
+    }
+    .step.active {
+      display: block;
+    }
+    .btn-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 10px 18px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #00527a;
+    }
+    .btn-secondary {
+      background: #e0e4ea;
+      color: #222;
+    }
+    .btn-secondary:hover {
+      background: #cdd3dc;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px 20px;
+    }
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #c9ced6;
+      font-size: 0.9rem;
+    }
+    input:focus,
+    select:focus {
+      outline: 2px solid var(--primary-soft);
+      border-color: var(--primary);
+    }
+    .hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .alert {
+      background: #fff7e0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.85rem;
+      border-left: 4px solid #f5b400;
+      margin: 8px 0 12px;
+    }
+    .question-list {
+      max-height: 70vh;
+      overflow-y: auto;
+      padding-right: 8px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #dde2ea;
+      background: #fafbfc;
+    }
+    .question-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid #e4e7ee;
+    }
+    .question-item.unanswered {
+      background: #fff4f4;
+      border-left: 4px solid #e53935;
+    }
+    .question-item.unanswered .question-title::after {
+      content: " ← falta responder";
+      color: #e53935;
+      font-size: 0.8rem;
+    }
+    .question-item:last-child {
+      border-bottom: none;
+    }
+    .question-title {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      font-size: 0.88rem;
+    }
+    .options-row label {
+      font-weight: 400;
+      margin-bottom: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .progress-bar {
+      width: 100%;
+      background: #e6ebf2;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 8px;
+      margin-top: 6px;
+      margin-bottom: 4px;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.25s ease;
+    }
+    .progress-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .result-card {
+      border-radius: 10px;
+      border: 1px solid #dde2ea;
+      padding: 10px 12px;
+      background: #fafbff;
+    }
+    .result-card h4 {
+      margin: 0 0 4px;
+      font-size: 0.98rem;
+      color: #003b5c;
+    }
+    .result-card p {
+      margin: 2px 0;
+      font-size: 0.85rem;
+      color: #444;
+    }
+    
+    .unacar-header {
+      background: #ffffff;
+      color: #003b5c;
+      padding: 12px 18px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      border: 1px solid #d0d4e0;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    }
+    .unacar-logos {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .unacar-logo {
+      height: 72px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+    }
+    .unacar-header-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .unacar-header-title {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .unacar-header-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.95;
+    }
+    .unacar-header-line2 {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .unacar-footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #555;
+      text-align: center;
+    }
+@media (max-width: 600px) {
+      .card {
+        padding: 18px 14px;
+      }
+      .unacar-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .unacar-logos {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <header class="unacar-header">
+      <div class="unacar-logos">
+        <img src="img/logo_unacar.png" alt="Universidad Autónoma del Carmen" class="unacar-logo">
+        <img src="img/logo_dgse.png" alt="Dirección General de Servicios al Estudiante" class="unacar-logo">
+        <img src="img/logo_usp.png" alt="Unidad de Servicios Psicopedagógicos" class="unacar-logo">
+      </div>
+      <div class="unacar-header-text">
+        <div class="unacar-header-title">Universidad Autónoma del Carmen</div>
+        <div class="unacar-header-subtitle">Dirección General de Servicios al Estudiante</div>
+        <div class="unacar-header-line2">Unidad de Servicios Psicopedagógicos · Guía de orientación vocacional para aspirantes</div>
+      </div>
+    </header>
+    <div class="card">
+      <div class="step-indicator">
+        <div class="step-pill step-pill-0 active">Bienvenida</div>
+        <div class="step-pill step-pill-1">Datos generales</div>
+        <div class="step-pill step-pill-2">Cuestionario de intereses</div>
+        <div class="step-pill step-pill-3">Cuestionario de aptitudes</div>
+        <div class="step-pill step-pill-4">Resultados</div>
+      </div>
+
+      <!-- Paso 0: Bienvenida -->
+      <div class="step step-0 active">
+        <h1>Guía de Orientación Vocacional UNACAR</h1>
+        <p class="subtitle">
+          Una herramienta para explorar qué carreras de la Universidad Autónoma del Carmen se ajustan mejor a tus intereses y aptitudes.
+        </p>
+        <p>
+          Esta guía está pensada para estudiantes de nivel medio superior que están por elegir una carrera universitaria.
+          A través de dos cuestionarios, se analizan tus intereses y tus aptitudes en diferentes áreas y se genera una
+          sugerencia de programas educativos de la UNACAR que podrían ser compatibles contigo.
+        </p>
+        <div class="alert">
+          <strong>Importante:</strong> Esta guía es un apoyo para la toma de decisiones, pero <strong>no sustituye</strong>
+          un proceso formal de orientación vocacional ni una atención personalizada con un profesional.
+        </div>
+        <p>
+          Al finalizar, verás un resumen con los factores en los que presentas mayor afinidad y una lista de carreras sugeridas
+          con base en tus resultados.
+        </p>
+        <p>
+          Si ya realizaste esta guía anteriormente y guardaste un archivo de respuestas, puedes cargarlo para ver de nuevo tus resultados.
+        </p>
+        <div class="btn-row">
+          <button class="btn-primary" type="button" onclick="goToStep(1)">
+            Comenzar nueva guía
+          </button>
+          <button class="btn-secondary" type="button" onclick="document.getElementById('input-cargar-reporte').click()">
+            Cargar archivo de respuestas
+          </button>
+        </div>
+        <input type="file" id="input-cargar-reporte" accept="application/json" style="display:none" />
+
+      </div>
+
+      <!-- Paso 1: Datos generales -->
+      <div class="step step-1">
+        <h2>Datos generales</h2>
+        <p class="subtitle">
+          Por favor, completa tu información. Esto nos ayuda a identificar tus resultados y conocer mejor el
+          contexto desde el que estás eligiendo tu carrera.
+        </p>
+
+        <form id="form-datos">
+          <div class="form-grid">
+            <div>
+              <label for="nombre">Nombre completo*</label>
+              <input type="text" id="nombre" name="nombre" required />
+            </div>
+            <div>
+              <label for="edad">Edad*</label>
+              <input type="number" id="edad" name="edad" min="14" required />
+            </div>
+            <div>
+              <label for="fecha_nacimiento">Fecha de nacimiento*</label>
+              <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required />
+            </div>
+            <div>
+              <label for="ciudad">Ciudad*</label>
+              <input type="text" id="ciudad" name="ciudad" required />
+            </div>
+            <div>
+              <label for="estado">Estado*</label>
+              <input type="text" id="estado" name="estado" required />
+            </div>
+            <div>
+              <label for="preparatoria">Preparatoria / Bachillerato*</label>
+              <input type="text" id="preparatoria" name="preparatoria" required />
+            </div>
+            <div>
+              <label for="correo">Correo electrónico*</label>
+              <input type="email" id="correo" name="correo" required />
+              <div class="hint">Se utilizará solo para identificar tu reporte si la UNACAR decide implementarlo así.</div>
+            </div>
+            <div>
+              <label for="opcion1">Primera opción de carrera en la UNACAR*</label>
+              <select id="opcion1" name="opcion1" required>
+                <option value="">Selecciona una opción</option>
+              </select>
+            </div>
+            <div>
+              <label for="opcion2">Segunda opción de carrera en la UNACAR*</label>
+              <select id="opcion2" name="opcion2" required>
+                <option value="">Selecciona una opción</option>
+              </select>
+              <div class="hint">Si aún no tienes segunda opción clara, elige la que más te llame la atención por ahora.</div>
+            </div>
+          </div>
+        </form>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="goToStep(0)">Regresar</button>
+          <button class="btn-primary" type="button" onclick="handleDatosNext()">Continuar</button>
+        </div>
+      </div>
+
+      <!-- Paso 2: Cuestionario de intereses (Thurstone) -->
+      <div class="step step-2">
+        <h2>Cuestionario de intereses</h2>
+        <p class="subtitle">
+          Inventario de intereses: elige en qué ocupación preferirías trabajar.
+        </p>
+        <p>
+          A continuación verás una serie de pares de ocupaciones u oficios. En cada reactivo, piensa en la pregunta:
+          <strong>“¿En cuál de estas opciones preferiría trabajar?”</strong> y marca solo una alternativa por renglón.
+        </p>
+        <ul class="hint">
+          <li>No hay respuestas “buenas” o “malas”.</li>
+          <li>Responde con sinceridad, pensando en lo que realmente te gustaría, no solo en lo que crees que “deberías” elegir.</li>
+          <li>Es importante contestar <strong>todos</strong> los reactivos.</li>
+        </ul>
+
+        <div>
+          <div class="progress-bar">
+            <div id="progress-intereses" class="progress-bar-inner"></div>
+          </div>
+          <div class="progress-text">
+            <span id="progress-intereses-text">0 / 0 contestadas</span>
+          </div>
+        </div>
+
+        <div id="contenedor-intereses" class="question-list">
+          <!-- Aquí se inyectan las preguntas de Thurstone -->
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="goToStep(1)">Regresar</button>
+          <button class="btn-primary" type="button" onclick="handleInteresesNext()">Continuar</button>
+        </div>
+      </div>
+
+      <!-- Paso 3: Cuestionario de aptitudes -->
+      <div class="step step-3">
+        <h2>Cuestionario de aptitudes</h2>
+        <p class="subtitle">
+          ¿Qué tanto te consideras competente en distintas actividades?
+        </p>
+        <p>
+          En este cuestionario se presentan diferentes actividades. Para cada una, marca la opción que mejor describa
+          qué tan competente te consideras actualmente para realizarla.
+        </p>
+        <ul class="hint">
+          <li><strong>1</strong> = Me considero <strong>incompetente</strong> para esa actividad.</li>
+          <li><strong>2</strong> = Me considero <strong>medianamente apto(a)</strong>.</li>
+          <li><strong>3</strong> = Me considero <strong>bastante apto(a)</strong>.</li>
+          <li><strong>4</strong> = Me considero <strong>muy apto(a)</strong>.</li>
+        </ul>
+        <p class="hint">
+          No pienses tanto en calificaciones escolares, sino en qué tan capaz te sientes tú al realizar cada actividad.
+        </p>
+
+        <div>
+          <div class="progress-bar">
+            <div id="progress-aptitudes" class="progress-bar-inner"></div>
+          </div>
+          <div class="progress-text">
+            <span id="progress-aptitudes-text">0 / 0 contestadas</span>
+          </div>
+        </div>
+
+        <div id="contenedor-aptitudes" class="question-list">
+          <!-- Aquí se inyectan las preguntas de aptitudes -->
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="goToStep(2)">Regresar</button>
+          <button class="btn-primary" type="button" onclick="handleAptitudesNext()">Ver resultados</button>
+        </div>
+      </div>
+
+      <!-- Paso 4: Resultados -->
+      <div class="step step-4">
+        <h2>Resultados preliminares</h2>
+        <p class="subtitle">
+          Este resumen se basa en tus respuestas de intereses y aptitudes. Úsalo como guía, no como una decisión definitiva.
+        </p>
+
+        <div id="resumen-alumno" class="result-card" style="margin-bottom: 16px;">
+          <!-- Se llena con los datos generales -->
+        </div>
+
+        <h3>Tus factores más altos</h3>
+        <div id="contenedor-factores" class="results-grid">
+          <!-- Tarjetas de factores -->
+        </div>
+
+        <h3>Carreras de la UNACAR sugeridas</h3>
+        <div id="contenedor-carreras" class="results-grid">
+          <!-- Tarjetas de carreras -->
+        </div>
+
+        <h3>Compatibilidad con tus opciones elegidas</h3>
+        <div id="compat-elecciones" class="results-grid">
+          <!-- Compatibilidad con opción 1 y opción 2 -->
+        </div>
+
+        <div class="alert">
+          Recuerda que estos resultados son una guía. En caso de tener más dudas, busca orientación vocacional con un profesional.
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-secondary" type="button" onclick="goToStep(0)">Volver al inicio</button>
+          <button class="btn-secondary" type="button" onclick="downloadRawReport()">Descargar respuestas (archivo para volver a cargar)</button>
+          <button class="btn-primary" type="button" onclick="generatePDF()">Descargar / guardar reporte en PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datos de cuestionarios -->
+  <script src="datos_cuestionarios.js"></script>
+
+  <!-- Lógica principal -->
+  <script>
+    const factorDefinitions = [
+      { id: 1, key: "cientifico", label: "Científico", interestArea: "C. Biologicas", aptitudeSection: "F", divisor: 2,
+        description: "Te interesan la investigación, la observación rigurosa y la comprensión de fenómenos naturales y científicos. Disfrutas analizar datos, hacer hipótesis y buscar explicaciones lógicas sobre cómo funciona el mundo." },
+      { id: 2, key: "numerico", label: "Numérico", interestArea: "Calculo", aptitudeSection: "B", divisor: 2,
+        description: "Te sientes cómodo trabajando con números, operaciones, porcentajes y problemas cuantitativos. Sueles disfrutar actividades donde hay que calcular, comparar cantidades o interpretar resultados numéricos." },
+      { id: 3, key: "razonamiento_mecanico", label: "Razonamiento mecánico", interestArea: "C. Fisicas", aptitudeSection: "C", divisor: 2,
+        description: "Te resulta interesante entender cómo funcionan máquinas, herramientas, estructuras o sistemas físicos. Te es natural imaginar mecanismos, movimientos, fuerzas y soluciones técnicas o estructurales." },
+      { id: 4, key: "artistico", label: "Artístico", interestArea: "Artisticas", aptitudeSection: "D", divisor: 2,
+        description: "Te atrae crear, diseñar o expresarte a través de formas, colores, imágenes o composiciones. Tiendes a buscar maneras originales de comunicar ideas y emociones, valorando la estética y la creatividad." },
+      { id: 5, key: "musical", label: "Musical", interestArea: "Musicales", aptitudeSection: "E", divisor: 2,
+        description: "Tienes sensibilidad para el ritmo, la melodía y el sonido. Te interesa escuchar, interpretar o incluso crear música, y sueles percibir matices sonoros que quizá otras personas pasan por alto." },
+      { id: 6, key: "social", label: "Social", interestArea: "Humanitarias", aptitudeSection: "G", divisor: 2,
+        description: "Te interesa trabajar con personas, comprender sus necesidades y acompañarlas. Disfrutas ayudar, orientar, enseñar o brindar apoyo, y valoras el contacto humano y el trabajo en equipo." },
+      { id: 7, key: "destreza_manual", label: "Destreza manual", interestArea: null, aptitudeSection: "H", divisor: 1,
+        description: "Tienes facilidad para usar tus manos con precisión: armar, reparar, manipular herramientas o materiales. Te sientes cómodo en actividades que requieren coordinación ojo–mano y cuidado en los detalles." },
+      { id: 8, key: "practica", label: "Práctico", interestArea: null, aptitudeSection: "I", divisor: 1,
+        description: "Prefieres actividades concretas y aplicadas, donde puedas ver resultados tangibles. Te gusta resolver problemas de forma directa, organizar tareas y pasar a la acción más que quedarte solo en lo teórico." },
+      { id: 9, key: "ejecutivo_persuasivo", label: "Ejecutivo-persuasivo", interestArea: "Ejecutivas", aptitudeSection: "J", divisor: 2,
+        description: "Te ves coordinando, liderando o tomando decisiones. Te gusta organizar personas y recursos, proponer proyectos y convencer a otros de tus ideas, con habilidad para hablar en público y negociar." },
+      { id: 10, key: "verbal_literaria", label: "Verbal-literario", interestArea: "Literarias", aptitudeSection: "A", divisor: 2,
+        description: "Disfrutas leer, escribir, explicar y usar el lenguaje para comunicar ideas. Te interesa redactar, argumentar y comprender textos, así como expresar pensamientos de forma clara y estructurada." },
+      { id: 11, key: "trabajo_oficina", label: "Trabajo de oficina", interestArea: null, aptitudeSection: "K", divisor: 1,
+        description: "Te sientes cómodo en tareas administrativas: registrar información, organizar documentos, manejar agendas o sistemas de archivo. Valorás el orden, la precisión y los procedimientos claros." },
+      { id: 12, key: "negocios", label: "Negocios", interestArea: "Negocios", aptitudeSection: null, divisor: 1,
+        description: "Te interesan las actividades relacionadas con empresas, ventas, emprendimiento y gestión económica. Te llama la atención identificar oportunidades, planear proyectos y tomar decisiones orientadas a resultados." }
+    ];
+
+    const programFactors = [
+      { name: "Lic. En Derecho", factors: [1, 6, 10, 11] },
+      { name: "Lic. En Criminología y Criminalística", factors: [1, 2, 6, 9, 10, 11] },
+      { name: "Lic en Administración de Empresas", factors: [2, 6, 9, 10, 11] },
+      { name: "Lic. En Contaduría", factors: [2, 6, 9, 10, 11] },
+      { name: "Lic. En Administración Turística", factors: [2, 6, 8, 9, 10, 11] },
+      { name: "Lic. En Mercadotecnia", factors: [2, 4, 6, 9, 10, 11] },
+      { name: "Lic. En Negocios Internacionales", factors: [1, 2, 6, 9, 10, 11] },
+      { name: "Lic. En Educación", factors: [1, 6, 9, 11] },
+      { name: "Lic. En Lengua Inglesa", factors: [1, 6, 10, 11] },
+      { name: "Lic. En Educación y Gestión Cultural", factors: [1, 4, 6, 9, 10, 11] },
+      { name: "Lic. En Ingenieria Química", factors: [1, 2, 3, 9, 11] },
+      { name: "Lic. En Ingenieria Petrolera", factors: [1, 2, 3, 8] },
+      { name: "Lic. En Geología", factors: [1, 2, 3, 7, 8] },
+      { name: "Lic. En Ingeniería en Sistemas Computacionales", factors: [1, 2, 3, 8, 9, 11] },
+      { name: "Lic. En Ingeniería en Diseño Multimedia", factors: [1, 2, 3, 4, 8, 11] },
+      { name: "Lic. En Ingeniería en Tecnologías de Cómputo y Comunicaciones", factors: [1, 2, 3, 8, 9, 11] },
+      { name: "Lic. En Ingeniería Mecatrónica", factors: [1, 2, 3, 7, 8, 9] },
+      { name: "Lic. En Ingeniería Civil", factors: [1, 2, 3, 8, 9] },
+      { name: "Lic. En Ingeniería Mecánica", factors: [1, 2, 3, 8, 9] },
+      { name: "Lic. En Ingeniería Geofísica", factors: [1, 2, 3, 7, 8] },
+      { name: "Lic. En Ingeniería en Energía", factors: [1, 2, 3, 9] },
+      { name: "Lic. En Arquitectura Sustentable", factors: [1, 2, 3, 4, 8, 11] },
+      { name: "Lic. En Educación Fisica y Deportes", factors: [1, 3, 6, 7, 8, 9] },
+      { name: "Lic. En Enfermería", factors: [1, 3, 6, 9, 11] },
+      { name: "Lic. En Nutrición", factors: [1, 3, 6, 9, 10, 11] },
+      { name: "Lic. En Psicología", factors: [1, 3, 6, 9, 10, 11] },
+      { name: "Lic. En Fisioterapia", factors: [1, 3, 6, 7, 8, 9, 11] },
+      { name: "Lic. En Medicina", factors: [1, 2, 3, 6, 8, 9, 11] },
+      { name: "Lic. En Biología Marina", factors: [1, 2, 3, 4, 11] }
+    ];
+
+    const thurstoneAreas = [
+      "Artisticas",
+      "C. Biologicas",
+      "C. Fisicas",
+      "Calculo",
+      "Ejecutivas",
+      "Humanitarias",
+      "Literarias",
+      "Musicales",
+      "Negocios",
+      "Persuasivas"
+    ];
+
+    const aptitudeSections = [
+      { code: "A", name: "Verbal" },
+      { code: "B", name: "Numérica" },
+      { code: "C", name: "Mecánica constructivista" },
+      { code: "D", name: "Artística" },
+      { code: "E", name: "Musical" },
+      { code: "F", name: "Científica" },
+      { code: "G", name: "Social" },
+      { code: "H", name: "Destreza manual" },
+      { code: "I", name: "Práctica" },
+      { code: "J", name: "Ejecutiva" },
+      { code: "K", name: "Oficina" }
+    ];
+
+    function scoreThurstone(responses) {
+      const scores = {};
+      thurstoneAreas.forEach(area => { scores[area] = 0; });
+
+      thurstoneItems.forEach(item => {
+        const chosenKey = responses[String(item.id)];
+        if (!chosenKey) return;
+        const option = item.options.find(o => o.key === chosenKey);
+        if (!option) return;
+        scores[option.area] += option.score;
+      });
+      return scores;
+    }
+
+    function scoreAptitudes(responses) {
+      const scores = {};
+      aptitudeSections.forEach(sec => { scores[sec.code] = 0; });
+
+      aptitudeItems.forEach(item => {
+        const raw = responses[item.id];
+        if (raw == null) return;
+        const value = Number(raw);
+        if (Number.isNaN(value)) return;
+        scores[item.section] += value;
+      });
+      return scores;
+    }
+
+    function computeFactors(thurstoneScores, aptitudeScores) {
+      const factorScores = {};
+      factorDefinitions.forEach(f => {
+        const interest = f.interestArea ? (thurstoneScores[f.interestArea] || 0) : 0;
+        const aptitude = f.aptitudeSection ? (aptitudeScores[f.aptitudeSection] || 0) : 0;
+        const raw = interest + aptitude;
+        const value = raw / f.divisor;
+
+        factorScores[f.id] = {
+          id: f.id,
+          label: f.label,
+          value,
+          interest,
+          aptitude,
+          description: f.description
+        };
+      });
+      return factorScores;
+    }
+
+    function scoreCareerForStudent(career, factorScores) {
+      const values = career.factors.map(id => (factorScores[id]?.value || 0));
+      if (values.length === 0) return 0;
+      const sum = values.reduce((a, b) => a + b, 0);
+      return sum / values.length;
+    }
+
+    function getTopFactors(factorScores, topN = 6) {
+      return Object.values(factorScores)
+        .sort((a, b) => b.value - a.value)
+        .slice(0, topN);
+    }
+
+    function getTopCareers(factorScores, topN = 3) {
+      const scored = programFactors.map(p => ({
+        program: p,
+        score: scoreCareerForStudent(p, factorScores)
+      })).sort((a, b) => b.score - a.score);
+      return scored.slice(0, topN);
+    }
+
+    // Calcula compatibilidades de todas las carreras y normaliza a 0–100 %
+    // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
+    // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
+    function computeCareerCompatibilities(factorScores, topFactorCount = 6) {
+      const allFactorsArr = Object.values(factorScores || {}).sort((a, b) => b.value - a.value);
+      const selected = allFactorsArr.slice(0, topFactorCount);
+      const topIds = selected.map(f => f.id);
+      const globalTotal = topIds.length > 0 ? topIds.length : 1;
+
+      const withPercent = programFactors.map(p => {
+        const required = Array.isArray(p.factors) ? p.factors : [];
+        let matches = 0;
+        topIds.forEach(id => {
+          if (required.includes(id)) matches++;
+        });
+        const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
+        const percent = (matches / denom) * 100;
+        return {
+          program: p,
+          percent,
+          matches,
+          topFactorCount: denom
+        };
+      }).sort((a, b) => b.percent - a.percent);
+
+      return {
+        all: withPercent,
+        topFactorIds: topIds,
+        topFactorCount: globalTotal
+      };
+    }
+
+    function findProgramByName(name) {
+      if (!name) return null;
+      return programFactors.find(p => p.name === name) || null;
+    }
+
+    
+    // Configuración opcional para enviar resultados a un servidor.
+    // Si en el futuro se desea guardar la información en una base de datos,
+    // basta con establecer enabled = true y configurar la URL del endpoint.
+    const BACKEND_CONFIG = {
+      enabled: true,              // Cambiar a true cuando exista un servidor listo
+      endpoint: "https://script.google.com/macros/s/AKfycbzo8hh-1qh-7_nEH05Oyt6EkYOl6SsGSXETaVoycmLWXOuNm4iVm8g9H4u22nRd-P3O/exec",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
+      apiKey: ""                   // Opcional: para enviar una llave o token de autenticación en el encabezado
+    };
+
+let currentStep = 0;
+    const datosAlumno = {};
+    const respuestasIntereses = {};
+    const respuestasAptitudes = {};
+
+    const cachedResultados = {
+      intereses: null,
+      aptitudes: null,
+      factores: null,
+      topFactores: null,
+      topCarreras: null,
+      maxCareerScore: null,
+      topFactorIds: null,
+      topFactorCount: null
+    };
+
+    function goToStep(step) {
+      currentStep = step;
+      document.querySelectorAll(".step").forEach((el, idx) => {
+        el.classList.toggle("active", idx === step);
+      });
+      document.querySelectorAll(".step-pill").forEach((el, idx) => {
+        el.classList.toggle("active", idx === step);
+      });
+    }
+
+    function handleDatosNext() {
+      const form = document.getElementById("form-datos");
+      if (!form.reportValidity()) return;
+
+      const fd = new FormData(form);
+      fd.forEach((value, key) => {
+        datosAlumno[key] = value.toString().trim();
+      });
+
+      if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"]) {
+        alert("Tu primera y segunda opción de carrera no deben ser la misma. Elige una diferente.");
+        return;
+      }
+
+      goToStep(2);
+    }
+
+    function handleInteresesNext() {
+      const total = thurstoneItems.length;
+      let contestadas = 0;
+      const faltantes = [];
+
+      thurstoneItems.forEach(item => {
+        const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
+        const itemDiv = document.querySelector(`.question-item[data-thurstone-id="${item.id}"]`);
+        if (sel) {
+          contestadas++;
+          if (itemDiv) itemDiv.classList.remove("unanswered");
+        } else {
+          faltantes.push(item.id);
+          if (itemDiv) itemDiv.classList.add("unanswered");
+        }
+      });
+
+      if (faltantes.length > 0) {
+        alert(`Te faltan ${faltantes.length} reactivos por contestar. Los hemos marcado en color para que puedas identificarlos.`);
+        actualizarProgresoIntereses();
+        return;
+      }
+
+      thurstoneItems.forEach(item => {
+        const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
+        if (sel) {
+          respuestasIntereses[item.id] = sel.value;
+        }
+      });
+
+      goToStep(3);
+    }
+
+    function handleAptitudesNext() {
+      const total = aptitudeItems.length;
+      let contestadas = 0;
+      const faltantes = [];
+
+      aptitudeItems.forEach(item => {
+        const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
+        const itemDiv = document.querySelector(`.question-item[data-apt-id="${item.id}"]`);
+        if (sel) {
+          contestadas++;
+          if (itemDiv) itemDiv.classList.remove("unanswered");
+        } else {
+          faltantes.push(item.id);
+          if (itemDiv) itemDiv.classList.add("unanswered");
+        }
+      });
+
+      if (faltantes.length > 0) {
+        alert(`Te faltan ${faltantes.length} reactivos por contestar. Los hemos marcado en color para que puedas identificarlos.`);
+        actualizarProgresoAptitudes();
+        return;
+      }
+
+      aptitudeItems.forEach(item => {
+        const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
+        if (sel) {
+          respuestasAptitudes[item.id] = sel.value;
+        }
+      });
+
+      calcularYMostrarResultados();
+      goToStep(4);
+    }
+
+    function actualizarProgresoIntereses() {
+      const total = thurstoneItems.length;
+      let contestadas = 0;
+      thurstoneItems.forEach(item => {
+        const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
+        if (sel) contestadas++;
+      });
+      const pct = total ? (contestadas / total) * 100 : 0;
+      document.getElementById("progress-intereses").style.width = pct + "%";
+      document.getElementById("progress-intereses-text").textContent =
+        `${contestadas} / ${total} contestadas`;
+    }
+
+    function actualizarProgresoAptitudes() {
+      const total = aptitudeItems.length;
+      let contestadas = 0;
+      aptitudeItems.forEach(item => {
+        const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
+        if (sel) contestadas++;
+      });
+      const pct = total ? (contestadas / total) * 100 : 0;
+      document.getElementById("progress-aptitudes").style.width = pct + "%";
+      document.getElementById("progress-aptitudes-text").textContent =
+        `${contestadas} / ${total} contestadas`;
+    }
+
+    function calcularYMostrarResultados() {
+      const intereses = scoreThurstone(respuestasIntereses);
+      const aptitudes = scoreAptitudes(respuestasAptitudes);
+      const factores = computeFactors(intereses, aptitudes);
+      const topFactores = getTopFactors(factores, 6);
+      const compatData = computeCareerCompatibilities(factores, 6);
+      const topCarreras = compatData.all.slice(0, 3);
+
+      cachedResultados.intereses = intereses;
+      cachedResultados.aptitudes = aptitudes;
+      cachedResultados.factores = factores;
+      cachedResultados.topFactores = topFactores;
+      cachedResultados.topCarreras = topCarreras;
+      cachedResultados.topFactorIds = compatData.topFactorIds;
+      cachedResultados.topFactorCount = compatData.topFactorCount;
+
+      const ra = document.getElementById("resumen-alumno");
+      ra.innerHTML = `
+        <h4>Datos del alumno</h4>
+        <p><strong>Nombre:</strong> ${datosAlumno.nombre || "-"} </p>
+        <p><strong>Edad:</strong> ${datosAlumno.edad || "-"} &nbsp; &bull; &nbsp;
+           <strong>Fecha de nacimiento:</strong> ${datosAlumno.fecha_nacimiento || "-"}</p>
+        <p><strong>Ciudad y estado:</strong> ${datosAlumno.ciudad || "-"}, ${datosAlumno.estado || "-"}</p>
+        <p><strong>Preparatoria:</strong> ${datosAlumno.preparatoria || "-"} </p>
+        <p><strong>Correo:</strong> ${datosAlumno.correo || "-"} </p>
+        <p><strong>Primera opción UNACAR:</strong> ${datosAlumno.opcion1 || "-"}<br/>
+           <strong>Segunda opción UNACAR:</strong> ${datosAlumno.opcion2 || "-"}
+        </p>
+      `;
+
+      const cf = document.getElementById("contenedor-factores");
+      cf.innerHTML = "";
+      topFactores.forEach(f => {
+        const div = document.createElement("div");
+        div.className = "result-card";
+        div.innerHTML = `
+          <h4>${f.id}. ${f.label}</h4>
+          <p><strong>Puntaje promedio del factor:</strong> ${f.value.toFixed(2)}</p>
+          <p>${f.description || ""}</p>
+        `;
+        cf.appendChild(div);
+      });
+
+      const cc = document.getElementById("contenedor-carreras");
+      cc.innerHTML = "";
+      topCarreras.forEach((c, idx) => {
+        const div = document.createElement("div");
+        div.className = "result-card";
+        div.innerHTML = `
+          <h4>${idx + 1}. ${c.program.name}</h4>
+          <p><strong>Compatibilidad estimada:</strong> ${c.percent.toFixed(0)}%</p>
+          <p style="font-size:0.8rem; color:#555;">
+            Coincidencias con tus factores principales: ${c.matches} de ${c.topFactorCount}.<br/>
+            Factores considerados para esta carrera: ${c.program.factors.join(", ")}
+          </p>
+        `;
+        cc.appendChild(div);
+      });
+
+      const compatDiv = document.getElementById("compat-elecciones");
+      compatDiv.innerHTML = "";
+      ["opcion1", "opcion2"].forEach((key, idx) => {
+        const nombre = datosAlumno[key];
+        if (!nombre) return;
+        const prog = findProgramByName(nombre);
+        const div = document.createElement("div");
+        div.className = "result-card";
+
+        if (!prog) {
+          div.innerHTML = `
+            <h4>${idx === 0 ? "Primera" : "Segunda"} opción: ${nombre}</h4>
+            <p>No se encontró esta carrera en el catálogo de programas de la guía.</p>
+          `;
+        } else {
+          const topIds = cachedResultados.topFactorIds || [];
+          const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
+          const required = Array.isArray(prog.factors) ? prog.factors : [];
+          let matches = 0;
+          topIds.forEach(id => {
+            if (required.includes(id)) matches++;
+          });
+          const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
+          const percent = (matches / denom) * 100;
+          div.innerHTML = `
+            <h4>${idx === 0 ? "Primera" : "Segunda"} opción: ${prog.name}</h4>
+            <p><strong>Compatibilidad estimada con tus factores principales:</strong> ${percent.toFixed(0)}%</p>
+            <p style="font-size:0.8rem; color:#555;">
+              Coincidencias con tus factores principales: ${matches} de ${denom}.<br/>
+              Factores asociados a esta carrera: ${prog.factors.join(", ")}
+            </p>
+          `;
+        }
+        compatDiv.appendChild(div);
+      });
+
+      // Enviar los resultados al servidor si se ha configurado un endpoint.
+      enviarResultadosAlServidor();
+    }
+
+    function poblarSelectCarreras() {
+      const select1 = document.getElementById("opcion1");
+      const select2 = document.getElementById("opcion2");
+      const nombres = Array.from(new Set(programFactors.map(p => p.name))).sort();
+
+      nombres.forEach(nombre => {
+        const opt1 = document.createElement("option");
+        opt1.value = nombre;
+        opt1.textContent = nombre;
+        select1.appendChild(opt1);
+
+        const opt2 = document.createElement("option");
+        opt2.value = nombre;
+        opt2.textContent = nombre;
+        select2.appendChild(opt2);
+      });
+    }
+
+    function renderIntereses() {
+      const cont = document.getElementById("contenedor-intereses");
+      cont.innerHTML = "";
+
+      thurstoneItems.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "question-item";
+        div.setAttribute("data-thurstone-id", item.id);
+
+        const textoBase = `Reactivo ${item.id}. ¿En cuál de las siguientes ocupaciones preferirías trabajar?`;
+        const optA = item.options.find(o => o.key === "a");
+        const optB = item.options.find(o => o.key === "b");
+
+        div.innerHTML = `
+          <div class="question-title">${textoBase}</div>
+          <div class="options-row">
+            <label>
+              <input type="radio" name="thurstone-${item.id}" value="a" />
+              a) ${optA ? optA.text : "Opción A"}
+            </label>
+            <label>
+              <input type="radio" name="thurstone-${item.id}" value="b" />
+              b) ${optB ? optB.text : "Opción B"}
+            </label>
+          </div>
+        `;
+        cont.appendChild(div);
+      });
+
+      actualizarProgresoIntereses();
+
+      cont.addEventListener("change", (ev) => {
+        if (ev.target && ev.target.name && ev.target.name.startsWith("thurstone-")) {
+          actualizarProgresoIntereses();
+          const itemDiv = ev.target.closest(".question-item");
+          if (itemDiv) {
+            itemDiv.classList.remove("unanswered");
+          }
+        }
+      });
+    }
+
+    function renderAptitudes() {
+      const cont = document.getElementById("contenedor-aptitudes");
+      cont.innerHTML = "";
+
+      aptitudeItems.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "question-item";
+        div.setAttribute("data-apt-id", item.id);
+
+        const textoBase = `${idx + 1}. ${item.text}`;
+
+        div.innerHTML = `
+          <div class="question-title">${textoBase}</div>
+          <div class="options-row">
+            <label>
+              <input type="radio" name="apt-${item.id}" value="1" />
+              1) Me considero incompetente
+            </label>
+            <label>
+              <input type="radio" name="apt-${item.id}" value="2" />
+              2) Medianamente apto(a)
+            </label>
+            <label>
+              <input type="radio" name="apt-${item.id}" value="3" />
+              3) Bastante apto(a)
+            </label>
+            <label>
+              <input type="radio" name="apt-${item.id}" value="4" />
+              4) Muy apto(a)
+            </label>
+          </div>
+        `;
+        cont.appendChild(div);
+      });
+
+      actualizarProgresoAptitudes();
+
+      cont.addEventListener("change", (ev) => {
+        if (ev.target && ev.target.name && ev.target.name.startsWith("apt-")) {
+          actualizarProgresoAptitudes();
+          const itemDiv = ev.target.closest(".question-item");
+          if (itemDiv) {
+            itemDiv.classList.remove("unanswered");
+          }
+        }
+      });
+    }
+
+    // Versión sin librería externa: abre una vista imprimible y
+    // el usuario puede elegir "Guardar como PDF" en el diálogo de impresión.
+    
+    
+    function buildExportObject() {
+      return {
+        version: 1,
+        timestamp: new Date().toISOString(),
+        datosAlumno: { ...datosAlumno },
+        respuestasIntereses: { ...respuestasIntereses },
+        respuestasAptitudes: { ...respuestasAptitudes }
+      };
+    }
+
+    function downloadRawReport() {
+      const exp = buildExportObject();
+
+      const jsonStr = JSON.stringify(exp, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+
+      const nombreLimpio = (datosAlumno.nombre || "reporte")
+        .replace(/[^a-z0-9_-]/gi, "_");
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `orientacion_unacar_respuestas_${nombreLimpio}.json`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    function applyImportedReport(data) {
+      if (!data || typeof data !== "object") {
+        alert("El archivo no tiene el formato esperado.");
+        return;
+      }
+      if (!data.datosAlumno || !data.respuestasIntereses || !data.respuestasAptitudes) {
+        alert("El archivo no contiene la información completa de respuestas.");
+        return;
+      }
+
+      // Volcamos los datos del alumno
+      Object.keys(datosAlumno).forEach(k => delete datosAlumno[k]);
+      Object.assign(datosAlumno, data.datosAlumno || {});
+
+      // Volcamos respuestas
+      Object.keys(respuestasIntereses).forEach(k => delete respuestasIntereses[k]);
+      Object.keys(data.respuestasIntereses || {}).forEach(k => {
+        respuestasIntereses[k] = data.respuestasIntereses[k];
+      });
+
+      Object.keys(respuestasAptitudes).forEach(k => delete respuestasAptitudes[k]);
+      Object.keys(data.respuestasAptitudes || {}).forEach(k => {
+        respuestasAptitudes[k] = data.respuestasAptitudes[k];
+      });
+
+      // Calculamos resultados y vamos directo al paso 4
+      calcularYMostrarResultados();
+      goToStep(4);
+    }
+
+    function handleReportFileInput(evt) {
+      const file = evt.target.files && evt.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target.result;
+          const data = JSON.parse(text);
+          applyImportedReport(data);
+        } catch (err) {
+          console.error("Error al leer el archivo de reporte:", err);
+          alert("No se pudo leer el archivo. Verifica que sea un archivo generado por esta guía.");
+        } finally {
+          // Limpiar el valor del input para permitir volver a seleccionar el mismo archivo si es necesario
+          evt.target.value = "";
+        }
+      };
+      reader.readAsText(file, "utf-8");
+    }
+
+    function buildBackendPayload() {
+      // Construye un paquete con la información necesaria para un servidor:
+      // datos del alumno, respuestas completas y resultados calculados.
+      const base = buildExportObject();
+      const tieneResultados = cachedResultados &&
+        cachedResultados.factores &&
+        cachedResultados.topFactores &&
+        cachedResultados.topCarreras;
+
+      const resumen = tieneResultados ? {
+        factores: cachedResultados.factores,
+        topFactores: (cachedResultados.topFactores || []).map(f => ({
+          id: f.id,
+          label: f.label,
+          value: f.value,
+          interest: f.interest,
+          aptitude: f.aptitude
+        })),
+        topCarreras: (cachedResultados.topCarreras || []).map(c => ({
+          name: c.program.name,
+          percent: c.percent,
+          matches: c.matches,
+          topFactorCount: c.topFactorCount,
+          factors: c.program.factors
+        })),
+        topFactorIds: cachedResultados.topFactorIds || null
+      } : null;
+
+      return {
+        app: "guia_vocacional_unacar",
+        version_app: 1,
+        exportRaw: base,
+        resultados: resumen
+      };
+    }
+
+    function enviarResultadosAlServidor() {
+      if (!BACKEND_CONFIG || !BACKEND_CONFIG.enabled || !BACKEND_CONFIG.endpoint) {
+        // Sin configuración, no hace nada. Así el archivo funciona igual sin servidor.
+        return;
+      }
+
+      let payload;
+      try {
+        payload = buildBackendPayload();
+      } catch (err) {
+        console.error("No se pudo construir el payload para el servidor:", err);
+        return;
+      }
+
+      try {
+        // Usamos mode: "no-cors" para evitar problemas de CORS con Apps Script.
+        fetch(BACKEND_CONFIG.endpoint, {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(payload)
+        }).catch(err => {
+          console.error("Error de red al enviar resultados al servidor:", err);
+        });
+      } catch (err) {
+        console.error("Error inesperado al intentar enviar resultados al servidor:", err);
+      }
+    }
+
+function generatePDF() {
+      if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
+        alert("Primero completa los cuestionarios y visualiza tus resultados.");
+        return;
+      }
+
+      const factores = cachedResultados.factores;
+      const topFactores = cachedResultados.topFactores;
+      const topCarreras = cachedResultados.topCarreras;
+
+      const win = window.open("", "_blank");
+      if (!win) {
+        alert("El navegador bloqueó la ventana emergente. Permite las ventanas emergentes para esta página para poder generar el PDF.");
+        return;
+      }
+
+      let html = "";
+      html += "<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'>";
+      html += "<title>Reporte de orientación vocacional UNACAR</title>";
+      html += "<style>";
+      html += "body { font-family: Arial, sans-serif; font-size: 12px; margin: 24px; }";
+      html += "h1 { font-size: 18px; margin-bottom: 4px; text-align: center; }";
+      html += "h2 { font-size: 15px; margin-top: 16px; margin-bottom: 6px; }";
+      html += "p { margin: 2px 0; }";
+      html += "ul { margin: 4px 0 8px 18px; padding: 0; }";
+      html += "li { margin-bottom: 2px; }";
+      html += ".header-inst { text-align: center; margin-bottom: 8px; }";
+      html += ".header-uni { font-weight: 700; font-size: 18px; }";
+      html += ".header-dgse { font-weight: 600; font-size: 15px; }";
+      html += ".header-usp { font-weight: 600; font-size: 15px; }";
+      html += ".subtitulo-reporte { font-size: 12px; text-align: center; margin-top: 4px; }";
+      html += ".header-inst-line { font-weight: 600; }";
+      html += ".note-legal { font-size: 11px; margin-top: 18px; padding: 8px 10px; border: 1px solid #b91c1c; background:#fff5f5; color:#7f1d1d; }";
+      html += "</style></head><body>";
+
+      html += "<div class='header-inst'>";
+      html += "<div class='header-uni'>Universidad Autónoma del Carmen</div>";
+      html += "<div class='header-dgse'>Dirección General de Servicios al Estudiante</div>";
+      html += "<div class='header-usp'>Unidad de Servicios Psicopedagógicos</div>";
+      html += "</div>";
+      html += "<h1>Guía de orientación vocacional</h1>";
+      html += "<p class='subtitulo-reporte'><strong>Reporte individual</strong></p>";
+      
+      html += "<h2>Datos del alumno</h2>";
+      html += `<p><strong>Nombre:</strong> ${datosAlumno.nombre || "-"} </p>`;
+      html += `<p><strong>Edad:</strong> ${datosAlumno.edad || "-"} &nbsp;&nbsp; <strong>Fecha de nacimiento:</strong> ${datosAlumno.fecha_nacimiento || "-"} </p>`;
+      html += `<p><strong>Ciudad y estado:</strong> ${datosAlumno.ciudad || "-"}, ${datosAlumno.estado || "-"} </p>`;
+      html += `<p><strong>Preparatoria / Bachillerato:</strong> ${datosAlumno.preparatoria || "-"} </p>`;
+      html += `<p><strong>Correo electrónico:</strong> ${datosAlumno.correo || "-"} </p>`;
+      html += `<p><strong>Primera opción UNACAR:</strong> ${datosAlumno.opcion1 || "-"} </p>`;
+      html += `<p><strong>Segunda opción UNACAR:</strong> ${datosAlumno.opcion2 || "-"} </p>`;
+
+      html += "<h2>Factores más altos</h2>";
+      html += "<ul>";
+      topFactores.forEach(f => {
+        html += `<li><strong>${f.id}. ${f.label}</strong> – Puntaje promedio: ${f.value.toFixed(2)}<br/>${f.description || ""}</li>`;
+      });
+      html += "</ul>";
+
+      html += "<h2>Carreras sugeridas por la guía</h2>";
+      html += "<ul>";
+      topCarreras.forEach((c, idx) => {
+        html += `<li>${idx + 1}. ${c.program.name} – compatibilidad estimada: ${c.percent.toFixed(0)}% (coincidencias: ${c.matches} de ${c.topFactorCount} factores principales)</li>`;
+      });
+      html += "</ul>";
+
+      html += "<h2>Compatibilidad con tus opciones elegidas</h2>";
+      html += "<ul>";
+      ["opcion1", "opcion2"].forEach((key, idx) => {
+        const nombre = datosAlumno[key];
+        const etiqueta = idx === 0 ? "Primera opción" : "Segunda opción";
+        if (!nombre) return;
+        const prog = findProgramByName(nombre);
+        if (!prog) {
+          html += `<li>${etiqueta}: ${nombre} (no se encontró esta carrera en el catálogo de la guía)</li>`;
+        } else {
+          const topIds = cachedResultados.topFactorIds || [];
+          const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
+          const required = Array.isArray(prog.factors) ? prog.factors : [];
+          let matches = 0;
+          topIds.forEach(id => {
+            if (required.includes(id)) matches++;
+          });
+          const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
+          const percent = (matches / denom) * 100;
+          html += `<li>${etiqueta}: ${prog.name} – compatibilidad estimada: ${percent.toFixed(0)}% (coincidencias: ${matches} de ${denom} factores principales; factores de la carrera: ${prog.factors.join(", ")})</li>`;
+        }
+      });
+      html += "</ul>";
+
+      html += "<p class='note-legal'><strong>Nota importante:</strong> Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional. En caso de tener más dudas, busca orientación vocacional con un profesional de tu confianza.</p>";
+      html += "</body></html>";
+
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+      win.focus();
+
+      // Lanza el diálogo de impresión para que el usuario pueda elegir "Guardar como PDF".
+      win.print();
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof thurstoneItems === "undefined" || !Array.isArray(thurstoneItems) || thurstoneItems.length === 0) {
+        console.warn("thurstoneItems no está definido o está vacío.");
+      }
+      if (typeof aptitudeItems === "undefined" || !Array.isArray(aptitudeItems) || aptitudeItems.length === 0) {
+        console.warn("aptitudeItems no está definido o está vacío.");
+      }
+
+      poblarSelectCarreras();
+      if (typeof thurstoneItems !== "undefined" && thurstoneItems.length > 0) {
+        renderIntereses();
+      }
+      if (typeof aptitudeItems !== "undefined" && aptitudeItems.length > 0) {
+        renderAptitudes();
+      }
+
+      const inputReporte = document.getElementById("input-cargar-reporte");
+      if (inputReporte) {
+        inputReporte.addEventListener("change", handleReportFileInput);
+      }
+    });
+  </script>
+
+  <footer class="unacar-footer">
+    <p>Universidad Autónoma del Carmen · Dirección General de Servicios al Estudiante · Unidad de Servicios Psicopedagógicos</p>
+    <p>Guía de orientación vocacional (versión piloto). Este instrumento es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.</p>
+    <p>Esta herramienta es de uso universal, sin fines de lucro y de uso exclusivo de la Universidad Autónoma del Carmen (UNACAR). Su uso implica la aceptación de estos términos.</p>
+  </footer>
+
+</body>
+</html>
