@@ -408,6 +408,7 @@
               <label for="opcion2">Segunda opción de carrera en la UNACAR*</label>
               <select id="opcion2" name="opcion2" required>
                 <option value="">Selecciona una opción</option>
+                <option value="NO_SE">No sé</option>
               </select>
               <div class="hint">Si aún no tienes segunda opción clara, elige la que más te llame la atención por ahora.</div>
             </div>
@@ -703,31 +704,62 @@
     // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
     // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
     function computeCareerCompatibilities(factorScores, topFactorCount = 6) {
+      // Ponderación por posición (manual): 1° y 2° pesan más, luego 3°, luego 4°-5°, y el 6° pesa menos.
+      // Pesos acordados: 4, 4, 3, 2, 2, 1
+      const weights = [4, 4, 3, 2, 2, 1];
+
       const allFactorsArr = Object.values(factorScores || {}).sort((a, b) => b.value - a.value);
       const selected = allFactorsArr.slice(0, topFactorCount);
       const topIds = selected.map(f => f.id);
       const globalTotal = topIds.length > 0 ? topIds.length : 1;
 
+      // Máximo posible ajustado al número de factores de la carrera:
+      // - Si la carrera tiene >= 6 factores, el máximo es la suma de los 6 pesos.
+      // - Si la carrera tiene < 6 factores, el máximo es la suma de los mayores K pesos, donde K = #factores de la carrera.
+      function maxPointsForCareer(requiredCount) {
+        const k = Math.min(globalTotal, requiredCount > 0 ? requiredCount : globalTotal);
+        const slice = weights.slice(0, k);
+        const maxPts = slice.reduce((a, b) => a + b, 0);
+        return { k, maxPts: maxPts || 1 };
+      }
+
       const withPercent = programFactors.map(p => {
         const required = Array.isArray(p.factors) ? p.factors : [];
+        const { k, maxPts } = maxPointsForCareer(required.length);
+
         let matches = 0;
-        topIds.forEach(id => {
-          if (required.includes(id)) matches++;
+        let points = 0;
+        const matchedFactorIds = [];
+
+        topIds.forEach((id, idx) => {
+          if (required.includes(id)) {
+            matches++;
+            points += (weights[idx] || 0);
+            matchedFactorIds.push(id);
+          }
         });
-        const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
-        const percent = (matches / denom) * 100;
+
+        const percent = (points / maxPts) * 100;
+
         return {
           program: p,
           percent,
+          // Para compatibilidad con Google Sheet / versiones anteriores:
+          score: percent,
           matches,
-          topFactorCount: denom
+          topFactorCount: k,
+          points,
+          maxPoints: maxPts,
+          matchedFactorIds,
+          weights
         };
       }).sort((a, b) => b.percent - a.percent);
 
       return {
         all: withPercent,
         topFactorIds: topIds,
-        topFactorCount: globalTotal
+        topFactorCount: globalTotal,
+        weights
       };
     }
 
@@ -781,7 +813,13 @@ let currentStep = 0;
         datosAlumno[key] = value.toString().trim();
       });
 
-      if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"]) {
+      
+
+      // Permitir "No sé" como segunda opción (sin tratarlo como carrera real)
+      if (datosAlumno["opcion2"] === "NO_SE") {
+        datosAlumno["opcion2"] = "No sé";
+      }
+if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"]) {
         alert("Tu primera y segunda opción de carrera no deben ser la misma. Elige una diferente.");
         return;
       }
@@ -888,7 +926,11 @@ let currentStep = 0;
       const factores = computeFactors(intereses, aptitudes);
       const topFactores = getTopFactors(factores, 6);
       const compatData = computeCareerCompatibilities(factores, 6);
-      const topCarreras = compatData.all.slice(0, 3);
+      let topCarreras = compatData.all.filter(c => c.percent >= 50).slice(0, 3);
+      if (topCarreras.length < 3) {
+        const extras = compatData.all.filter(c => !topCarreras.includes(c)).slice(0, 3 - topCarreras.length);
+        topCarreras = topCarreras.concat(extras);
+      }
 
       cachedResultados.intereses = intereses;
       cachedResultados.aptitudes = aptitudes;
@@ -933,8 +975,10 @@ let currentStep = 0;
         div.innerHTML = `
           <h4>${idx + 1}. ${c.program.name}</h4>
           <p><strong>Compatibilidad estimada:</strong> ${c.percent.toFixed(0)}%</p>
+          <p><strong>Resultado:</strong> ${c.percent >= 50 ? "Factible" : "Baja compatibilidad"} (umbral: 50%)</p>
           <p style="font-size:0.8rem; color:#555;">
-            Coincidencias con tus factores principales: ${c.matches} de ${c.topFactorCount}.<br/>
+            Coincidencias (TOP 6): ${c.matches} de ${c.topFactorCount}.<br/>
+            Ponderación por jerarquía: ${c.points.toFixed(0)} de ${c.maxPoints} puntos posibles.<br/>
             Factores considerados para esta carrera: ${c.program.factors.join(", ")}
           </p>
         `;
@@ -946,7 +990,18 @@ let currentStep = 0;
       ["opcion1", "opcion2"].forEach((key, idx) => {
         const nombre = datosAlumno[key];
         if (!nombre) return;
-        const prog = findProgramByName(nombre);
+        
+        if (nombre === "No sé") {
+          const div = document.createElement("div");
+          div.className = "result-card";
+          div.innerHTML = `
+            <h4>${idx === 0 ? "Primera" : "Segunda"} opción: No sé</h4>
+            <p>Elegiste no definir una segunda opción por ahora.</p>
+          `;
+          compatDiv.appendChild(div);
+          return;
+        }
+const prog = findProgramByName(nombre);
         const div = document.createElement("div");
         div.className = "result-card";
 
@@ -959,17 +1014,29 @@ let currentStep = 0;
           const topIds = cachedResultados.topFactorIds || [];
           const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
           const required = Array.isArray(prog.factors) ? prog.factors : [];
+          const weights = (cachedResultados.weights && Array.isArray(cachedResultados.weights)) ? cachedResultados.weights : [4,4,3,2,2,1];
+
+          const k = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal);
+          const maxPts = weights.slice(0, k).reduce((a, b) => a + b, 0) || 1;
+
           let matches = 0;
-          topIds.forEach(id => {
-            if (required.includes(id)) matches++;
+          let points = 0;
+
+          topIds.forEach((id, pos) => {
+            if (required.includes(id)) {
+              matches++;
+              points += (weights[pos] || 0);
+            }
           });
-          const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
-          const percent = (matches / denom) * 100;
+
+          const percent = (points / maxPts) * 100;
           div.innerHTML = `
             <h4>${idx === 0 ? "Primera" : "Segunda"} opción: ${prog.name}</h4>
             <p><strong>Compatibilidad estimada con tus factores principales:</strong> ${percent.toFixed(0)}%</p>
+            <p><strong>Resultado:</strong> ${percent >= 50 ? "Factible" : "Baja compatibilidad"} (umbral: 50%)</p>
             <p style="font-size:0.8rem; color:#555;">
-              Coincidencias con tus factores principales: ${matches} de ${denom}.<br/>
+              Coincidencias (TOP 6): ${matches} de ${k}.<br/>
+              Ponderación por jerarquía: ${points.toFixed(0)} de ${maxPts} puntos posibles.<br/>
               Factores asociados a esta carrera: ${prog.factors.join(", ")}
             </p>
           `;
@@ -1193,12 +1260,16 @@ let currentStep = 0;
         })),
         topCarreras: (cachedResultados.topCarreras || []).map(c => ({
           name: c.program.name,
+          score: c.percent,
           percent: c.percent,
           matches: c.matches,
           topFactorCount: c.topFactorCount,
+          points: c.points,
+          maxPoints: c.maxPoints,
           factors: c.program.factors
         })),
-        topFactorIds: cachedResultados.topFactorIds || null
+        topFactorIds: cachedResultados.topFactorIds || null,
+        weights: cachedResultados.weights || [4,4,3,2,2,1]
       } : null;
 
       return {
@@ -1299,7 +1370,7 @@ function generatePDF() {
       html += "<h2>Carreras sugeridas por la guía</h2>";
       html += "<ul>";
       topCarreras.forEach((c, idx) => {
-        html += `<li>${idx + 1}. ${c.program.name} – compatibilidad estimada: ${c.percent.toFixed(0)}% (coincidencias: ${c.matches} de ${c.topFactorCount} factores principales)</li>`;
+        html += `<li>${idx + 1}. ${c.program.name} – compatibilidad estimada: ${c.percent.toFixed(0)}% (resultado: ${c.percent >= 50 ? "Factible" : "Baja compatibilidad"}; puntos: ${c.points.toFixed(0)}/${c.maxPoints}; coincidencias: ${c.matches}/${c.topFactorCount})</li>`;
       });
       html += "</ul>";
 
@@ -1309,20 +1380,35 @@ function generatePDF() {
         const nombre = datosAlumno[key];
         const etiqueta = idx === 0 ? "Primera opción" : "Segunda opción";
         if (!nombre) return;
-        const prog = findProgramByName(nombre);
+        
+        if (nombre === "No sé") {
+          html += `<li>${etiqueta}: No sé (sin segunda opción definida)</li>`;
+          return;
+        }
+const prog = findProgramByName(nombre);
         if (!prog) {
           html += `<li>${etiqueta}: ${nombre} (no se encontró esta carrera en el catálogo de la guía)</li>`;
         } else {
           const topIds = cachedResultados.topFactorIds || [];
           const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
           const required = Array.isArray(prog.factors) ? prog.factors : [];
+          const weights = (cachedResultados.weights && Array.isArray(cachedResultados.weights)) ? cachedResultados.weights : [4,4,3,2,2,1];
+
+          const k = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal);
+          const maxPts = weights.slice(0, k).reduce((a, b) => a + b, 0) || 1;
+
           let matches = 0;
-          topIds.forEach(id => {
-            if (required.includes(id)) matches++;
+          let points = 0;
+
+          topIds.forEach((id, pos) => {
+            if (required.includes(id)) {
+              matches++;
+              points += (weights[pos] || 0);
+            }
           });
-          const denom = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal) || 1;
-          const percent = (matches / denom) * 100;
-          html += `<li>${etiqueta}: ${prog.name} – compatibilidad estimada: ${percent.toFixed(0)}% (coincidencias: ${matches} de ${denom} factores principales; factores de la carrera: ${prog.factors.join(", ")})</li>`;
+
+          const percent = (points / maxPts) * 100;
+          html += `<li>${etiqueta}: ${prog.name} – compatibilidad estimada: ${percent.toFixed(0)}% (resultado: ${percent >= 50 ? "Factible" : "Baja compatibilidad"}; puntos: ${points.toFixed(0)}/${maxPts}; coincidencias: ${matches}/${k}; factores de la carrera: ${prog.factors.join(", ")})</li>`;
         }
       });
       html += "</ul>";
