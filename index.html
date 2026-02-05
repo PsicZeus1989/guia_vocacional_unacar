@@ -1382,27 +1382,8 @@ function enviarResultadosAlServidor() {
 }
 
 
-      let payload;
-      try {
-        payload = buildBackendPayload();
-      } catch (err) {
-        console.error("No se pudo construir el payload para el servidor:", err);
-        return;
-      }
 
-      try {
-        // Usamos mode: "no-cors" para evitar problemas de CORS con Apps Script.
-        fetch(BACKEND_CONFIG.endpoint, {
-          method: "POST",
-          mode: "no-cors",
-          body: JSON.stringify(payload)
-        }).catch(err => {
-          console.error("Error de red al enviar resultados al servidor:", err);
-        });
-      } catch (err) {
-        console.error("Error inesperado al intentar enviar resultados al servidor:", err);
-      }
-    }
+
 
 function generatePDF() {
       if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
