@@ -542,6 +542,8 @@
 
   <!-- Datos de cuestionarios -->
   <script src="datos_cuestionarios.js"></script>
+  <!-- Supabase (opcional para guardar resultados) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- Lógica principal -->
   <script>
@@ -773,10 +775,22 @@
     // Si en el futuro se desea guardar la información en una base de datos,
     // basta con establecer enabled = true y configurar la URL del endpoint.
     const BACKEND_CONFIG = {
-      enabled: true,              // Cambiar a true cuando exista un servidor listo
+      enabled: false,              // Cambiar a true cuando exista un servidor listo
       endpoint: "https://script.google.com/macros/s/AKfycbzo8hh-1qh-7_nEH05Oyt6EkYOl6SsGSXETaVoycmLWXOuNm4iVm8g9H4u22nRd-P3O/exec",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
       apiKey: ""                   // Opcional: para enviar una llave o token de autenticación en el encabezado
     };
+
+// Guardado de resultados en Supabase (recomendado para uso público)
+// 1) Crea un proyecto en Supabase
+// 2) Crea la tabla y políticas (te dejo el SQL en el instructivo)
+// 3) Pega aquí tu Project URL y tu Publishable/Anon key
+const SUPABASE_CONFIG = {
+  enabled: true,              // Pon false para desactivar guardado
+  url: "",                    // Ej: "https://xxxx.supabase.co"
+  anonKey: "",                // Ej: "sb_publishable_..." o "anon ..."
+  table: "vocacional_resultados"
+};
+
 
 let currentStep = 0;
     const datosAlumno = {};
@@ -920,7 +934,7 @@ if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"])
         `${contestadas} / ${total} contestadas`;
     }
 
-    function calcularYMostrarResultados() {
+    function calcularYMostrarResultados(triggerSave = true) {
       const intereses = scoreThurstone(respuestasIntereses);
       const aptitudes = scoreAptitudes(respuestasAptitudes);
       const factores = computeFactors(intereses, aptitudes);
@@ -1045,7 +1059,7 @@ const prog = findProgramByName(nombre);
       });
 
       // Enviar los resultados al servidor si se ha configurado un endpoint.
-      enviarResultadosAlServidor();
+      if (triggerSave) enviarResultadosAlServidor();
     }
 
     function poblarSelectCarreras() {
@@ -1215,7 +1229,7 @@ const prog = findProgramByName(nombre);
       });
 
       // Calculamos resultados y vamos directo al paso 4
-      calcularYMostrarResultados();
+      calcularYMostrarResultados(false);
       goToStep(4);
     }
 
@@ -1280,11 +1294,93 @@ const prog = findProgramByName(nombre);
       };
     }
 
-    function enviarResultadosAlServidor() {
-      if (!BACKEND_CONFIG || !BACKEND_CONFIG.enabled || !BACKEND_CONFIG.endpoint) {
-        // Sin configuración, no hace nada. Así el archivo funciona igual sin servidor.
-        return;
-      }
+    
+let _supabaseClient = null;
+
+function getSupabaseClient() {
+  if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled) return null;
+  if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return null;
+  try {
+    if (_supabaseClient) return _supabaseClient;
+    if (typeof supabase === "undefined" || !supabase.createClient) {
+      console.warn("Supabase JS no está disponible (¿bloqueado por red?).");
+      return null;
+    }
+    const { createClient } = supabase;
+    _supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+    return _supabaseClient;
+  } catch (e) {
+    console.error("No se pudo inicializar Supabase:", e);
+    return null;
+  }
+}
+
+async function enviarResultadosASupabase(payload) {
+  const client = getSupabaseClient();
+  if (!client) return { ok: false, skipped: true, reason: "Supabase no configurado" };
+
+  const row = {
+    app: payload.app || "guia_vocacional_unacar",
+    version_app: payload.version_app || 1,
+    datos_alumno: payload.exportRaw?.datosAlumno || null,
+    export_raw: payload.exportRaw || null,
+    resultados: payload.resultados || null,
+    page_url: (typeof window !== "undefined" ? window.location.href : ""),
+    user_agent: (typeof navigator !== "undefined" ? navigator.userAgent : "")
+  };
+
+  try {
+    const { error } = await client
+      .from(SUPABASE_CONFIG.table)
+      .insert(row); // v2: no devuelve filas a menos que se agregue .select()
+
+    if (error) {
+      console.error("Supabase insert error:", error);
+      return { ok: false, error };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error("Supabase insert exception:", err);
+    return { ok: false, error: err };
+  }
+}
+
+
+
+function enviarResultadosAlServidor() {
+  // Este archivo funciona sin servidor. Si configuras un backend, se enviarán los resultados.
+  // Se envía SOLO cuando el alumno completa el cuestionario (no al cargar un JSON).
+  if (!cachedResultados || !cachedResultados.factores) return;
+
+  const payload = buildBackendPayload();
+
+  // 1) Supabase (recomendado)
+  if (SUPABASE_CONFIG && SUPABASE_CONFIG.enabled) {
+    // Fire & forget: no bloquea la UI si falla
+    enviarResultadosASupabase(payload);
+  }
+
+  // 2) Google Apps Script (opcional). Útil si quieres seguir guardando en una Sheet.
+  if (BACKEND_CONFIG && BACKEND_CONFIG.enabled && BACKEND_CONFIG.endpoint) {
+    try {
+      const headers = { "Content-Type": "application/json" };
+      if (BACKEND_CONFIG.apiKey) headers["X-API-Key"] = BACKEND_CONFIG.apiKey;
+
+      fetch(BACKEND_CONFIG.endpoint, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(payload)
+      }).then(res => {
+        if (!res.ok) console.error("Error al enviar a Google Script. Código:", res.status);
+      }).catch(err => {
+        console.error("Error de red al enviar a Google Script:", err);
+      });
+    } catch (err) {
+      console.error("Error inesperado al enviar a Google Script:", err);
+    }
+  }
+}
+
 
       let payload;
       try {
