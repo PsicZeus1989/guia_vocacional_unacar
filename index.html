@@ -907,8 +907,6 @@ if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"])
       calcularYMostrarResultados();
       goToStep(4);
     
-      // Reactivamos guardado para ejecuciones nuevas
-      SKIP_REMOTE_SAVE = false;
 }
 
     function actualizarProgresoIntereses() {
@@ -1208,7 +1206,7 @@ const prog = findProgramByName(nombre);
 
     function applyImportedReport(data) {
       
-      SKIP_REMOTE_SAVE = true;
+      // Nota: si cargas un JSON, también podemos guardar el registro en Supabase (si está habilitado).
 if (!data || typeof data !== "object") {
         alert("El archivo no tiene el formato esperado.");
         return;
@@ -1234,7 +1232,7 @@ if (!data || typeof data !== "object") {
       });
 
       // Calculamos resultados y vamos directo al paso 4
-      calcularYMostrarResultados(false);
+      calcularYMostrarResultados(true);
       goToStep(4);
     }
 
@@ -1354,7 +1352,7 @@ async function enviarResultadosASupabase(payload) {
 
 function enviarResultadosAlServidor() {
   // Este archivo funciona sin servidor. Si configuras un backend, se enviarán los resultados.
-  // Se envía SOLO cuando el alumno completa el cuestionario (no al cargar un JSON).
+  // Se envía cuando se calculan resultados (incluye cuando se carga un archivo JSON).
   if (!cachedResultados || !cachedResultados.factores) return;
 
   const payload = buildBackendPayload();
@@ -1362,10 +1360,7 @@ function enviarResultadosAlServidor() {
   // 1) Supabase (recomendado)
   if (SUPABASE_CONFIG && SUPABASE_CONFIG.enabled) {
     // Fire & forget: no bloquea la UI si falla
-    enviarResultadosASupabase(payload);
-
-      // Guardado adicional en Supabase (si está habilitado)
-      enviarASupabase();
+    enviarASupabase();
   }
 
   // 2) Google Apps Script (opcional). Útil si quieres seguir guardando en una Sheet.
@@ -1428,10 +1423,10 @@ function enviarResultadosAlServidor() {
       } catch (e) { return ""; }
     }
 
-    function buildSupabaseRow() {
+        function buildSupabaseRow(includeExtras = false, stringifyJson = false) {
       const raw = buildExportObject();
 
-      const res = {
+      const resObj = {
         factores: cachedResultados.factores || {},
         topFactores: (cachedResultados.topFactores || []).map(f => ({
           id: f.id, label: f.label, value: f.value, interest: f.interest, aptitude: f.aptitude
@@ -1448,8 +1443,9 @@ function enviarResultadosAlServidor() {
       };
 
       const d = raw.datosAlumno || {};
-      return {
-        // columnas "tipo Sheet"
+
+      // Columnas base (parecidas a la hoja de cálculo)
+      const base = {
         fecha: new Date().toISOString(),
         nombre: d.nombre || "",
         edad: d.edad ? Number(d.edad) : null,
@@ -1462,40 +1458,73 @@ function enviarResultadosAlServidor() {
         opcion2: d.opcion2 || "",
         factores_texto: buildFactoresTexto(cachedResultados.factores),
         top_factores_texto: buildTopFactoresTexto(cachedResultados.topFactores),
-        top_carreras_texto: buildTopCarrerasTexto(cachedResultados.topCarreras),
-        respuestas_intereses: raw.respuestasIntereses || {},
-        respuestas_aptitudes: raw.respuestasAptitudes || {},
-
-        // extras útiles
-        resultados: res,
-        export_raw: raw,
-        page_url: window.location.href,
-        user_agent: navigator.userAgent
+        top_carreras_texto: buildTopCarrerasTexto(cachedResultados.topCarreras)
       };
+
+      // Respuestas completas: idealmente en JSONB (si tu columna es TEXT, activaremos un fallback a string)
+      base.respuestas_intereses = stringifyJson ? JSON.stringify(raw.respuestasIntereses || {}) : (raw.respuestasIntereses || {});
+      base.respuestas_aptitudes = stringifyJson ? JSON.stringify(raw.respuestasAptitudes || {}) : (raw.respuestasAptitudes || {});
+
+      if (includeExtras) {
+        // Extras útiles (requieren columnas adicionales en la tabla)
+        base.resultados = stringifyJson ? JSON.stringify(resObj) : resObj;
+        base.export_raw = stringifyJson ? JSON.stringify(raw) : raw;
+        base.page_url = (typeof window !== "undefined" ? window.location.href : "");
+        base.user_agent = (typeof navigator !== "undefined" ? navigator.userAgent : "");
+      }
+
+      return base;
     }
 
-    function enviarASupabase() {
+    async function enviarASupabase() {
       if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return;
-      if (SKIP_REMOTE_SAVE) return;
       if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) return;
 
-      const row = buildSupabaseRow();
       const endpoint = `${SUPABASE_CONFIG.url}/rest/v1/${SUPABASE_CONFIG.table}`;
+      const headers = {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_CONFIG.anonKey,
+        "Authorization": "Bearer " + SUPABASE_CONFIG.anonKey,
+        "Prefer": "return=minimal"
+      };
 
-      fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_CONFIG.anonKey,
-          "Authorization": "Bearer " + SUPABASE_CONFIG.anonKey,
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify(row)
-      }).then(res => {
-        if (!res.ok) console.error("Supabase: error al insertar. Código:", res.status);
-      }).catch(err => {
-        console.error("Supabase: error de red:", err);
-      });
+      // Intentamos varias combinaciones para adaptarnos a tu esquema:
+      // 1) Con extras + JSON (requiere columnas JSONB extra: resultados/export_raw/page_url/user_agent)
+      // 2) Solo columnas base + JSON
+      // 3) Solo columnas base + respuestas en STRING (si tus columnas son TEXT)
+      const attempts = [
+        { row: buildSupabaseRow(true, false), label: "full_json" },
+        { row: buildSupabaseRow(false, false), label: "base_json" },
+        { row: buildSupabaseRow(false, true), label: "base_string" }
+      ];
+
+      for (const att of attempts) {
+        try {
+          const res = await fetch(endpoint, { method: "POST", headers, body: JSON.stringify(att.row) });
+
+          if (res.ok) {
+            console.log(`Supabase: guardado OK (${att.label}).`);
+            return;
+          }
+
+          const body = await res.text().catch(() => "");
+          console.error(`Supabase: error al insertar (${att.label}). Código:`, res.status, body);
+
+          // 401/403 casi siempre es RLS/policy.
+          if (res.status === 401 || res.status === 403) {
+            console.error("Supabase: parece un bloqueo por RLS (Row Level Security). Revisa que exista una policy de INSERT para el rol anon en la tabla.");
+            return; // no vale la pena reintentar si es policy
+          }
+
+          // Si es 400, puede ser: columna inexistente o tipo incompatible. Intentamos siguiente fallback.
+        } catch (err) {
+          console.error(`Supabase: error de red (${att.label}):`, err);
+          // Si fue red, no reintentamos las demás variantes porque suele ser el mismo problema.
+          return;
+        }
+      }
+
+      console.error("Supabase: no se pudo guardar el registro con ninguna variante. Revisa el esquema de la tabla y/o las policies de RLS.");
     }
 
 
