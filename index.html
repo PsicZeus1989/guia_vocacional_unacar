@@ -906,7 +906,10 @@ if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"])
 
       calcularYMostrarResultados();
       goToStep(4);
-    }
+    
+      // Reactivamos guardado para ejecuciones nuevas
+      SKIP_REMOTE_SAVE = false;
+}
 
     function actualizarProgresoIntereses() {
       const total = thurstoneItems.length;
@@ -1204,7 +1207,9 @@ const prog = findProgramByName(nombre);
     }
 
     function applyImportedReport(data) {
-      if (!data || typeof data !== "object") {
+      
+      SKIP_REMOTE_SAVE = true;
+if (!data || typeof data !== "object") {
         alert("El archivo no tiene el formato esperado.");
         return;
       }
@@ -1358,6 +1363,9 @@ function enviarResultadosAlServidor() {
   if (SUPABASE_CONFIG && SUPABASE_CONFIG.enabled) {
     // Fire & forget: no bloquea la UI si falla
     enviarResultadosASupabase(payload);
+
+      // Guardado adicional en Supabase (si está habilitado)
+      enviarASupabase();
   }
 
   // 2) Google Apps Script (opcional). Útil si quieres seguir guardando en una Sheet.
@@ -1385,7 +1393,113 @@ function enviarResultadosAlServidor() {
 
 
 
-function generatePDF() {
+
+
+    function buildFactoresTexto(factoresObj) {
+      try {
+        if (!factoresObj) return "";
+        const arr = Object.values(factoresObj).map(f => {
+          const v = (typeof f.value === "number") ? f.value.toFixed(2) : (f.value ?? "");
+          return `${f.id}-${f.label}:${v}`;
+        });
+        arr.sort((a,b) => {
+          const ia = parseInt((a.split("-")[0]||"").trim(),10);
+          const ib = parseInt((b.split("-")[0]||"").trim(),10);
+          return (ia||0)-(ib||0);
+        });
+        return arr.join(" | ");
+      } catch (e) { return ""; }
+    }
+
+    function buildTopFactoresTexto(topF) {
+      try {
+        return (topF || []).map(f => `${f.id}-${f.label}:${Number(f.value).toFixed(2)}`).join(" | ");
+      } catch (e) { return ""; }
+    }
+
+    function buildTopCarrerasTexto(topC) {
+      try {
+        return (topC || []).map(c => {
+          const pct = (c.percent != null) ? c.percent : (c.score != null ? c.score : "");
+          const frac = (c.matches != null && c.topFactorCount != null) ? ` (${c.matches}/${c.topFactorCount})` : "";
+          const pts  = (c.points != null && c.maxPoints != null) ? ` pts ${c.points}/${c.maxPoints}` : "";
+          return `${c.name}:${pct}%${frac}${pts}`;
+        }).join(" | ");
+      } catch (e) { return ""; }
+    }
+
+    function buildSupabaseRow() {
+      const raw = buildExportObject();
+
+      const res = {
+        factores: cachedResultados.factores || {},
+        topFactores: (cachedResultados.topFactores || []).map(f => ({
+          id: f.id, label: f.label, value: f.value, interest: f.interest, aptitude: f.aptitude
+        })),
+        topCarreras: (cachedResultados.topCarreras || []).map(c => ({
+          name: c.program?.name || c.name,
+          percent: c.percent ?? c.score,
+          matches: c.matches,
+          topFactorCount: c.topFactorCount,
+          points: c.points,
+          maxPoints: c.maxPoints,
+          factors: c.program?.factors || c.factors
+        }))
+      };
+
+      const d = raw.datosAlumno || {};
+      return {
+        // columnas "tipo Sheet"
+        fecha: new Date().toISOString(),
+        nombre: d.nombre || "",
+        edad: d.edad ? Number(d.edad) : null,
+        fecha_nacimiento: d.fecha_nacimiento || null,
+        ciudad: d.ciudad || "",
+        estado: d.estado || "",
+        preparatoria: d.preparatoria || "",
+        correo: d.correo || "",
+        opcion1: d.opcion1 || "",
+        opcion2: d.opcion2 || "",
+        factores_texto: buildFactoresTexto(cachedResultados.factores),
+        top_factores_texto: buildTopFactoresTexto(cachedResultados.topFactores),
+        top_carreras_texto: buildTopCarrerasTexto(cachedResultados.topCarreras),
+        respuestas_intereses: raw.respuestasIntereses || {},
+        respuestas_aptitudes: raw.respuestasAptitudes || {},
+
+        // extras útiles
+        resultados: res,
+        export_raw: raw,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent
+      };
+    }
+
+    function enviarASupabase() {
+      if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return;
+      if (SKIP_REMOTE_SAVE) return;
+      if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) return;
+
+      const row = buildSupabaseRow();
+      const endpoint = `${SUPABASE_CONFIG.url}/rest/v1/${SUPABASE_CONFIG.table}`;
+
+      fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_CONFIG.anonKey,
+          "Authorization": "Bearer " + SUPABASE_CONFIG.anonKey,
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify(row)
+      }).then(res => {
+        if (!res.ok) console.error("Supabase: error al insertar. Código:", res.status);
+      }).catch(err => {
+        console.error("Supabase: error de red:", err);
+      });
+    }
+
+
+    function generatePDF() {
       if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
         alert("Primero completa los cuestionarios y visualiza tus resultados.");
         return;
