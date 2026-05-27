@@ -6,573 +6,1616 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --primary: #006699;
-      --primary-soft: #e0f3fb;
-      --bg: #f5f5f7;
-      --card-bg: #ffffff;
-      --text-main: #222222;
-      --text-muted: #555555;
-      --border-radius: 12px;
+      --bg: #f3f7fb;
+      --bg-strong: #dfeaf5;
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-strong: #ffffff;
+      --surface-soft: #eef5fb;
+      --primary: #0d5f8c;
+      --primary-strong: #083d5b;
+      --primary-soft: #d7edf8;
+      --secondary: #f08b33;
+      --success: #2e8b57;
+      --danger: #c6413b;
+      --warning: #d9a227;
+      --text-main: #163047;
+      --text-soft: #4d6477;
+      --text-faint: #73879a;
+      --border: rgba(12, 78, 116, 0.14);
+      --shadow: 0 24px 60px rgba(11, 55, 84, 0.12);
+      --shadow-soft: 0 14px 32px rgba(11, 55, 84, 0.08);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font-display: "Georgia", "Times New Roman", serif;
+      --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
     }
+
     * {
       box-sizing: border-box;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      padding: 0;
-      background: var(--bg);
+      min-height: 100vh;
+      font-family: var(--font-body);
       color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, rgba(240, 139, 51, 0.20), transparent 28%),
+        radial-gradient(circle at top right, rgba(13, 95, 140, 0.20), transparent 32%),
+        linear-gradient(180deg, #edf5fb 0%, #f7fafc 46%, #eef3f8 100%);
     }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page-shell {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-shell::before,
+    .page-shell::after {
+      content: "";
+      position: fixed;
+      inset: auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      filter: blur(22px);
+      z-index: -1;
+      opacity: 0.6;
+    }
+
+    .page-shell::before {
+      top: -80px;
+      left: -120px;
+      background: rgba(240, 139, 51, 0.18);
+    }
+
+    .page-shell::after {
+      right: -120px;
+      bottom: 4%;
+      background: rgba(13, 95, 140, 0.16);
+    }
+
     .app-container {
-      max-width: 960px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 24px 16px 64px;
+      padding: 28px 18px 48px;
     }
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--border-radius);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-      padding: 24px 20px;
-      margin-bottom: 24px;
+
+    .hero-header {
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(5, 48, 74, 0.96), rgba(13, 95, 140, 0.9)),
+        linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent);
+      color: #f5fbff;
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
     }
-    h1, h2, h3 {
-      margin-top: 0;
-      color: #003b5c;
+
+    .hero-header::after {
+      content: "";
+      position: absolute;
+      right: -60px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(240, 139, 51, 0.34), transparent 65%);
+      pointer-events: none;
     }
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.4rem;
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
     }
-    h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.4rem;
-    }
-    .subtitle {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-    .step-indicator {
+
+    .unacar-logos {
       display: flex;
-      gap: 8px;
-      margin-bottom: 16px;
       flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 22px;
     }
-    .step-pill {
-      padding: 6px 10px;
+
+    .unacar-logo {
+      height: 74px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      border-radius: 18px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
       border-radius: 999px;
-      background: #dde2e7;
-      font-size: 0.8rem;
-      color: #444;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      margin-bottom: 14px;
     }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      color: var(--primary-strong);
+      font-family: var(--font-display);
+      line-height: 1.08;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      margin-bottom: 12px;
+      max-width: 11ch;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+    }
+
+    h3 {
+      font-size: 1.4rem;
+    }
+
+    h4 {
+      font-size: 1.05rem;
+    }
+
+    .hero-lead {
+      margin: 0;
+      max-width: 60ch;
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: rgba(245, 251, 255, 0.92);
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      min-width: 150px;
+    }
+
+    .hero-badge strong {
+      font-size: 1.2rem;
+      color: #ffffff;
+    }
+
+    .hero-badge span {
+      font-size: 0.92rem;
+      color: rgba(245, 251, 255, 0.9);
+    }
+
+    .hero-aside {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 24px;
+      padding: 22px;
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-aside h3,
+    .hero-aside p {
+      color: #ffffff;
+    }
+
+    .hero-aside p {
+      margin: 14px 0 0;
+      line-height: 1.65;
+      color: rgba(245, 251, 255, 0.88);
+    }
+
+    .hero-aside-list {
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: rgba(245, 251, 255, 0.88);
+      line-height: 1.7;
+    }
+
+    .app-card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .app-card-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+      padding-bottom: 18px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(13, 95, 140, 0.08);
+    }
+
+    .section-kicker {
+      margin: 0 0 8px;
+      color: var(--secondary);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      max-width: 72ch;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    .subtitle.small {
+      font-size: 0.93rem;
+      margin-top: 6px;
+    }
+
+    .step-indicator {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+    }
+
+    .step-pill {
+      appearance: none;
+      border: 1px solid rgba(13, 95, 140, 0.12);
+      background: #eff5fb;
+      color: var(--text-soft);
+      border-radius: 18px;
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 0.9rem;
+      line-height: 1.35;
+      cursor: default;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+
     .step-pill.active {
-      background: var(--primary);
-      color: #fff;
-      font-weight: 600;
+      background: linear-gradient(135deg, rgba(13, 95, 140, 0.94), rgba(8, 61, 91, 0.96));
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 12px 24px rgba(13, 95, 140, 0.18);
     }
+
+    .step-pill span {
+      display: block;
+      font-size: 0.76rem;
+      opacity: 0.8;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
     .step {
       display: none;
+      animation: stepFade 0.35s ease;
     }
+
     .step.active {
       display: block;
     }
+
+    @keyframes stepFade {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .welcome-grid,
+    .visual-grid,
+    .results-hero {
+      display: grid;
+      gap: 18px;
+    }
+
+    .welcome-grid {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .visual-grid {
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      margin-bottom: 22px;
+    }
+
+    .results-hero {
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      margin-bottom: 22px;
+    }
+
+    .panel,
+    .result-card,
+    .summary-card,
+    .mini-card,
+    .welcome-stat,
+    .question-item {
+      background: var(--surface-strong);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel,
+    .result-card,
+    .summary-card,
+    .mini-card,
+    .welcome-stat {
+      padding: 18px;
+    }
+
+    .summary-card {
+      background:
+        radial-gradient(circle at top right, rgba(240, 139, 51, 0.16), transparent 30%),
+        linear-gradient(180deg, #ffffff, #f8fbff);
+    }
+
+    .summary-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .summary-heading .pill-note,
+    .status-pill,
+    .count-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .pill-note {
+      background: rgba(13, 95, 140, 0.1);
+      color: var(--primary);
+    }
+
+    .status-pill {
+      background: rgba(46, 139, 87, 0.12);
+      color: var(--success);
+    }
+
+    .status-pill.medium {
+      background: rgba(217, 162, 39, 0.16);
+      color: #9c6c00;
+    }
+
+    .status-pill.low {
+      background: rgba(198, 65, 59, 0.12);
+      color: var(--danger);
+    }
+
+    .summary-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .metric {
+      padding: 14px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid rgba(13, 95, 140, 0.08);
+    }
+
+    .metric-label {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-faint);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-value {
+      font-size: 1.28rem;
+      font-weight: 700;
+      color: var(--primary-strong);
+    }
+
+    .metric-value small {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+    }
+
+    .info-list,
+    .clean-list {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+      color: var(--text-soft);
+    }
+
+    .info-list li + li,
+    .clean-list li + li {
+      margin-top: 8px;
+    }
+
+    .welcome-side {
+      display: grid;
+      gap: 14px;
+    }
+
+    .welcome-stat {
+      background: linear-gradient(180deg, #ffffff, #f5faff);
+    }
+
+    .welcome-stat strong {
+      display: block;
+      font-size: 1.55rem;
+      color: var(--primary-strong);
+      margin-bottom: 4px;
+    }
+
+    .welcome-stat span {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .welcome-stat p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .alert {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(217, 162, 39, 0.28);
+      background: linear-gradient(180deg, rgba(255, 248, 224, 0.95), rgba(255, 251, 237, 0.95));
+      color: #7a5b00;
+      line-height: 1.65;
+    }
+
     .btn-row {
       display: flex;
       justify-content: flex-end;
       gap: 12px;
-      margin-top: 24px;
+      margin-top: 22px;
       flex-wrap: wrap;
     }
+
     button {
-      border-radius: 999px;
+      appearance: none;
       border: none;
-      padding: 10px 18px;
-      font-size: 0.95rem;
+      border-radius: 999px;
+      padding: 12px 20px;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
     .btn-primary {
-      background: var(--primary);
-      color: white;
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #ffffff;
+      box-shadow: 0 14px 22px rgba(13, 95, 140, 0.22);
     }
+
     .btn-primary:hover {
-      background: #00527a;
+      box-shadow: 0 18px 26px rgba(13, 95, 140, 0.26);
     }
+
     .btn-secondary {
-      background: #e0e4ea;
-      color: #222;
+      background: #e6eef6;
+      color: var(--primary-strong);
+      border: 1px solid rgba(13, 95, 140, 0.1);
     }
+
     .btn-secondary:hover {
-      background: #cdd3dc;
+      background: #dce9f4;
     }
+
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px 20px;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 18px 20px;
     }
+
+    .field-card {
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid rgba(13, 95, 140, 0.08);
+    }
+
     label {
       display: block;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-      font-weight: 500;
+      font-weight: 700;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+      color: var(--primary-strong);
     }
+
     input[type="text"],
     input[type="email"],
     input[type="date"],
     input[type="number"],
     select {
       width: 100%;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #c9ced6;
-      font-size: 0.9rem;
+      border-radius: 14px;
+      border: 1px solid rgba(13, 95, 140, 0.18);
+      padding: 12px 14px;
+      background: #ffffff;
+      color: var(--text-main);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
     }
+
     input:focus,
     select:focus {
-      outline: 2px solid var(--primary-soft);
+      outline: none;
       border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(13, 95, 140, 0.12);
     }
+
     .hint {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-    .alert {
-      background: #fff7e0;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.85rem;
-      border-left: 4px solid #f5b400;
-      margin: 8px 0 12px;
-    }
-    .question-list {
-      max-height: 70vh;
-      overflow-y: auto;
-      padding-right: 8px;
       margin-top: 8px;
-      border-radius: 8px;
-      border: 1px solid #dde2ea;
-      background: #fafbfc;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      color: var(--text-faint);
     }
-    .question-item {
-      padding: 10px 12px;
-      border-bottom: 1px solid #e4e7ee;
-    }
-    .question-item.unanswered {
-      background: #fff4f4;
-      border-left: 4px solid #e53935;
-    }
-    .question-item.unanswered .question-title::after {
-      content: " ← falta responder";
-      color: #e53935;
-      font-size: 0.8rem;
-    }
-    .question-item:last-child {
-      border-bottom: none;
-    }
-    .question-title {
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-    .options-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 20px;
-      font-size: 0.88rem;
-    }
-    .options-row label {
-      font-weight: 400;
-      margin-bottom: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .progress-bar {
-      width: 100%;
-      background: #e6ebf2;
-      border-radius: 999px;
-      overflow: hidden;
-      height: 8px;
-      margin-top: 6px;
-      margin-bottom: 4px;
-    }
-    .progress-bar-inner {
-      height: 100%;
-      width: 0%;
-      background: var(--primary);
-      transition: width 0.25s ease;
-    }
-    .progress-text {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      text-align: right;
-    }
-    .results-grid {
+
+    .assessment-shell {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .assessment-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .assessment-copy,
+    .assessment-stats,
+    .progress-panel {
+      padding: 18px;
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      border: 1px solid rgba(13, 95, 140, 0.08);
+      border-radius: 22px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .assessment-stats {
+      display: grid;
       gap: 12px;
     }
-    .result-card {
-      border-radius: 10px;
-      border: 1px solid #dde2ea;
-      padding: 10px 12px;
-      background: #fafbff;
+
+    .mini-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
     }
-    .result-card h4 {
-      margin: 0 0 4px;
-      font-size: 0.98rem;
-      color: #003b5c;
+
+    .mini-card {
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff, #f7fbff);
     }
-    .result-card p {
-      margin: 2px 0;
-      font-size: 0.85rem;
-      color: #444;
+
+    .mini-card strong {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--primary-strong);
+      margin-bottom: 4px;
     }
-    
-    .unacar-header {
-      background: #ffffff;
-      color: #003b5c;
-      padding: 12px 18px;
-      border-radius: 16px;
-      margin-bottom: 16px;
+
+    .mini-card span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .mini-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-soft);
+    }
+
+    .progress-panel {
+      position: sticky;
+      top: 12px;
+      z-index: 2;
+    }
+
+    .progress-heading {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      border: 1px solid #d0d4e0;
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
-    }
-    .unacar-logos {
-      display: flex;
-      align-items: center;
       gap: 14px;
       flex-wrap: wrap;
+      margin-bottom: 10px;
     }
-    .unacar-logo {
-      height: 72px;
-      width: auto;
-      max-width: 140px;
-      object-fit: contain;
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #dfeaf3;
     }
-    .unacar-header-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+
+    .progress-bar-inner {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      transition: width 0.28s ease;
     }
-    .unacar-header-title {
+
+    .progress-text {
+      margin-top: 10px;
+      text-align: right;
+      color: var(--text-soft);
+      font-size: 0.88rem;
       font-weight: 700;
+    }
+
+    .question-list {
+      max-height: 68vh;
+      overflow-y: auto;
+      display: grid;
+      gap: 14px;
+      padding-right: 8px;
+    }
+
+    .question-list::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .question-list::-webkit-scrollbar-thumb {
+      background: rgba(13, 95, 140, 0.22);
+      border-radius: 999px;
+    }
+
+    .question-item {
+      padding: 18px;
+      transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .question-item:hover {
+      border-color: rgba(13, 95, 140, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .question-item.unanswered {
+      border-color: rgba(198, 65, 59, 0.34);
+      box-shadow: 0 0 0 3px rgba(198, 65, 59, 0.08), var(--shadow-soft);
+      background: linear-gradient(180deg, #fffafa, #fff4f4);
+    }
+
+    .question-item.answered {
+      border-color: rgba(13, 95, 140, 0.16);
+    }
+
+    .question-item.advance-target {
+      box-shadow: 0 0 0 4px rgba(240, 139, 51, 0.18), var(--shadow-soft);
+      border-color: rgba(240, 139, 51, 0.34);
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .question-number {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .question-section {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(13, 95, 140, 0.08);
+      color: var(--primary);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .question-title {
+      margin: 0 0 14px;
       font-size: 1rem;
+      line-height: 1.55;
+      color: var(--text-main);
     }
-    .unacar-header-subtitle {
-      font-size: 0.85rem;
-      opacity: 0.95;
+
+    .question-item.unanswered .question-title::after {
+      content: " Falta responder";
+      color: var(--danger);
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-left: 8px;
     }
-    .unacar-header-line2 {
+
+    .choice-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .choice-grid.two-columns {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .choice-grid.scale-grid {
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    }
+
+    .choice-card {
+      position: relative;
+      display: block;
+      cursor: pointer;
+    }
+
+    .choice-card input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .choice-card-body {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      min-height: 100%;
+      padding: 15px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(13, 95, 140, 0.12);
+      background: linear-gradient(180deg, #ffffff, #f8fbff);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .choice-card:hover .choice-card-body {
+      transform: translateY(-1px);
+      border-color: rgba(13, 95, 140, 0.18);
+      box-shadow: 0 14px 24px rgba(13, 95, 140, 0.08);
+    }
+
+    .choice-card input:checked + .choice-card-body {
+      background: linear-gradient(180deg, rgba(13, 95, 140, 0.1), rgba(13, 95, 140, 0.04));
+      border-color: rgba(13, 95, 140, 0.42);
+      box-shadow: 0 18px 28px rgba(13, 95, 140, 0.12);
+    }
+
+    .choice-key {
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(13, 95, 140, 0.08);
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .choice-text {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .scale-title {
+      display: block;
+      font-weight: 700;
+      color: var(--primary-strong);
+      margin-bottom: 4px;
+    }
+
+    .scale-subtitle {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      line-height: 1.45;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .factors-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .result-card p,
+    .summary-card p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.65;
+    }
+
+    .card-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .factor-meter {
+      margin: 14px 0 10px;
+    }
+
+    .factor-meter-track,
+    .compat-meter-track {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: #dfeaf3;
+      overflow: hidden;
+    }
+
+    .factor-meter-fill,
+    .compat-meter-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+    }
+
+    .factor-meta,
+    .compatibility-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      font-size: 0.84rem;
+      color: var(--text-faint);
+    }
+
+    .factor-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .factor-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(13, 95, 140, 0.12);
+      background: #f2f7fb;
+      color: var(--primary-strong);
+      font-size: 0.82rem;
+      line-height: 1.25;
+    }
+
+    .factor-chip::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--chip-color, var(--primary));
+      box-shadow: 0 0 0 3px rgba(13, 95, 140, 0.08);
+    }
+
+    .factor-chip strong {
+      font-size: 0.82rem;
+    }
+
+    .factor-chip.match {
+      background: rgba(46, 139, 87, 0.1);
+      border-color: rgba(46, 139, 87, 0.18);
+      color: #256844;
+    }
+
+    .factor-chip.missing {
+      background: rgba(240, 139, 51, 0.12);
+      border-color: rgba(240, 139, 51, 0.2);
+      color: #9d5c11;
+    }
+
+    .factor-chip.highlight {
+      background: rgba(13, 95, 140, 0.1);
+      border-color: rgba(13, 95, 140, 0.16);
+    }
+
+    .factor-chip.neutral {
+      background: #f2f7fb;
+    }
+
+    .factor-chip.empty {
+      background: rgba(13, 95, 140, 0.04);
+      color: var(--text-faint);
+    }
+
+    .factor-chip.empty::before {
+      display: none;
+    }
+
+    .radar-card,
+    .legend-card {
+      min-height: 100%;
+    }
+
+    .radar-container {
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+    }
+
+    .radar-svg {
+      width: 100%;
+      max-width: 470px;
+      height: auto;
+      overflow: visible;
+    }
+
+    .radar-shape {
+      fill: rgba(240, 139, 51, 0.28);
+      stroke: var(--primary);
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-dasharray: 1600;
+      stroke-dashoffset: 1600;
+      animation: radarReveal 1.15s ease forwards;
+    }
+
+    @keyframes radarReveal {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .radar-point {
+      fill: #ffffff;
+      stroke: var(--primary);
+      stroke-width: 2;
+    }
+
+    .radar-ring {
+      fill: none;
+      stroke: rgba(13, 95, 140, 0.12);
+      stroke-width: 1;
+    }
+
+    .radar-axis {
+      stroke: rgba(13, 95, 140, 0.18);
+      stroke-width: 1;
+    }
+
+    .radar-label {
+      fill: var(--primary-strong);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .radar-level {
+      fill: var(--text-faint);
+      font-size: 12px;
+    }
+
+    .factor-legend {
+      display: grid;
+      gap: 12px;
+    }
+
+    .legend-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: #f7fbff;
+      border: 1px solid rgba(13, 95, 140, 0.08);
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--legend-color, var(--primary));
+      box-shadow: 0 0 0 4px rgba(13, 95, 140, 0.08);
+    }
+
+    .legend-text strong {
+      display: block;
+      color: var(--primary-strong);
+      font-size: 0.92rem;
+      margin-bottom: 2px;
+    }
+
+    .legend-text span {
+      display: block;
+      color: var(--text-faint);
       font-size: 0.8rem;
-      opacity: 0.9;
     }
+
+    .legend-value {
+      text-align: right;
+      font-weight: 700;
+      color: var(--primary-strong);
+      font-size: 0.92rem;
+    }
+
+    .compatibility-card .compat-meter-track {
+      margin-top: 14px;
+      height: 12px;
+    }
+
+    .compatibility-card .compat-meter-fill {
+      background: linear-gradient(90deg, var(--secondary), var(--success));
+    }
+
+    .compat-block {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(13, 95, 140, 0.08);
+    }
+
+    .compat-block h4 {
+      font-size: 0.98rem;
+      margin-bottom: 10px;
+    }
+
+    .compat-note {
+      margin-top: 12px;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .result-empty {
+      color: var(--text-faint);
+      font-style: italic;
+    }
+
     .unacar-footer {
       margin-top: 24px;
-      font-size: 0.8rem;
-      color: #555;
+      padding: 0 8px;
       text-align: center;
+      color: var(--text-faint);
+      font-size: 0.84rem;
+      line-height: 1.75;
     }
 
-    .justify-block {
-      text-align: justify;
-      text-justify: inter-word;
+    @media (max-width: 980px) {
+      .hero-grid,
+      .welcome-grid,
+      .visual-grid,
+      .results-hero,
+      .assessment-intro {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-panel {
+        position: static;
+      }
     }
 
-@media (max-width: 600px) {
-      .card {
-        padding: 18px 14px;
+    @media (max-width: 720px) {
+      .app-container {
+        padding-inline: 14px;
       }
-      .unacar-header {
-        flex-direction: column;
-        align-items: flex-start;
+
+      .hero-header,
+      .app-card {
+        padding: 20px;
       }
-      .unacar-logos {
-        justify-content: flex-start;
+
+      .step-indicator {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
+
+      .choice-grid.scale-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-badge {
+        min-width: unset;
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+
+      .radar-shape {
+        animation: none;
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="app-container">
-    <header class="unacar-header">
-      <div class="unacar-logos">
-        <img src="img/logo_unacar.png" alt="Universidad Autónoma del Carmen" class="unacar-logo">
-        <img src="img/logo_dgse.png" alt="Dirección General de Servicios al Estudiante" class="unacar-logo">
-        <img src="img/logo_usp.png" alt="Unidad de Servicios Psicopedagógicos" class="unacar-logo">
-      </div>
-      <div class="unacar-header-text">
-        <div class="unacar-header-title">Universidad Autónoma del Carmen</div>
-        <div class="unacar-header-subtitle">Dirección General de Servicios al Estudiante</div>
-        <div class="unacar-header-line2">Unidad de Servicios Psicopedagógicos · Guía de orientación vocacional para aspirantes</div>
-      </div>
-    </header>
-    <div class="card">
-      <div class="step-indicator">
-        <div class="step-pill step-pill-0 active">Bienvenida</div>
-        <div class="step-pill step-pill-1">Datos generales</div>
-        <div class="step-pill step-pill-2">Cuestionario de intereses</div>
-        <div class="step-pill step-pill-3">Cuestionario de aptitudes</div>
-        <div class="step-pill step-pill-4">Resultados</div>
-      </div>
+  <div class="page-shell">
+    <div class="app-container">
+      <header class="hero-header">
+        <div class="hero-grid">
+          <div>
+            <div class="unacar-logos">
+              <img src="img/logo_unacar.png" alt="Universidad Autónoma del Carmen" class="unacar-logo">
+              <img src="img/logo_dgse.png" alt="Dirección General de Servicios al Estudiante" class="unacar-logo">
+              <img src="img/logo_usp.png" alt="Unidad de Servicios Psicopedagógicos" class="unacar-logo">
+            </div>
 
-      <!-- Paso 0: Bienvenida -->
-      <div class="step step-0 active">
-        <h1>Guía de Orientación Vocacional UNACAR</h1>
-        <p class="subtitle">
-          Una herramienta para explorar qué carreras de la Universidad Autónoma del Carmen se ajustan mejor a tus intereses y aptitudes.
-        </p>
-        <div class="justify-block">
-        <p>
-          Esta guía está pensada para estudiantes de nivel medio superior que están por elegir una carrera universitaria.
-          A través de dos cuestionarios, se analizan tus intereses y tus aptitudes en diferentes áreas y se genera una
-          sugerencia de programas educativos de la UNACAR que podrían ser compatibles contigo.
-        </p>
-        <div class="alert">
-          <strong>Importante:</strong> Esta guía es un apoyo para la toma de decisiones, pero <strong>no sustituye</strong>
-          un proceso formal de orientación vocacional ni una atención personalizada con un profesional.
+            <div class="hero-eyebrow">UNACAR · DGSE · Unidad de Servicios Psicopedagógicos</div>
+            <h1>Guía de Orientación Vocacional</h1>
+          </div>
         </div>
-        <p>
-          Al finalizar, verás un resumen con los factores en los que presentas mayor afinidad y una lista de carreras sugeridas
-          con base en tus resultados.
-        </p>
-        <p>
-          Si ya realizaste esta guía anteriormente y guardaste un archivo de respuestas, puedes cargarlo para ver de nuevo tus resultados.
-        </p>
+      </header>
+
+      <div class="app-card">
+        <div class="app-card-header">
+          <div>
+            <p class="section-kicker" id="step-counter">Paso 1 de 5</p>
+            <h2 id="step-summary-title">Bienvenida</h2>
+          </div>
+
+          <div class="step-indicator">
+            <button class="step-pill step-pill-0 active" type="button" tabindex="-1">
+              <span>Paso 1</span>
+              Bienvenida
+            </button>
+            <button class="step-pill step-pill-1" type="button" tabindex="-1">
+              <span>Paso 2</span>
+              Datos generales
+            </button>
+            <button class="step-pill step-pill-2" type="button" tabindex="-1">
+              <span>Paso 3</span>
+              Intereses
+            </button>
+            <button class="step-pill step-pill-3" type="button" tabindex="-1">
+              <span>Paso 4</span>
+              Aptitudes
+            </button>
+            <button class="step-pill step-pill-4" type="button" tabindex="-1">
+              <span>Paso 5</span>
+              Resultados
+            </button>
+          </div>
+        </div>
+
+        <section class="step step-0 active">
+          <div class="panel">
+            <p>
+              La guia de orientacion vocacional es herramienta para explorar qué carreras de la Universidad Autónoma del Carmen se ajustan mejor a tus intereses y aptitudes.
+            </p>
+            <p>
+              Esta guía está pensada para estudiantes de nivel medio superior que están por elegir una carrera universitaria. A través de dos cuestionarios, se analizan tus intereses y tus aptitudes en diferentes áreas y se genera una sugerencia de programas educativos de la UNACAR que podrían ser compatibles contigo.
+            </p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-primary" type="button" onclick="goToStep(1)">
+              Comenzar nueva guía
+            </button>
+            <button class="btn-secondary" type="button" onclick="document.getElementById('input-cargar-reporte').click()">
+              Cargar archivo de respuestas
+            </button>
+          </div>
+          <input type="file" id="input-cargar-reporte" accept="application/json" style="display:none" />
+        </section>
+
+        <section class="step step-1">
+          <div class="panel">
+            <div class="summary-heading">
+              <div>
+                <h3>Datos del alumno</h3>
+              </div>
+            </div>
+
+            <form id="form-datos">
+              <div class="form-grid">
+                <div class="field-card">
+                  <label for="nombre">Nombre completo*</label>
+                  <input type="text" id="nombre" name="nombre" required />
                 </div>
-        <div class="btn-row">
-          <button class="btn-primary" type="button" onclick="goToStep(1)">
-            Comenzar nueva guía
-          </button>
-          <button class="btn-secondary" type="button" onclick="document.getElementById('input-cargar-reporte').click()">
-            Cargar archivo de respuestas
-          </button>
-        </div>
-        <input type="file" id="input-cargar-reporte" accept="application/json" style="display:none" />
+                <div class="field-card">
+                  <label for="edad">Edad*</label>
+                  <input type="number" id="edad" name="edad" min="14" required />
+                </div>
+                <div class="field-card">
+                  <label for="fecha_nacimiento">Fecha de nacimiento*</label>
+                  <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required />
+                </div>
+                <div class="field-card">
+                  <label for="ciudad">Ciudad*</label>
+                  <input type="text" id="ciudad" name="ciudad" required />
+                </div>
+                <div class="field-card">
+                  <label for="estado">Estado*</label>
+                  <input type="text" id="estado" name="estado" required />
+                </div>
+                <div class="field-card">
+                  <label for="preparatoria">Preparatoria / Bachillerato*</label>
+                  <input type="text" id="preparatoria" name="preparatoria" required />
+                </div>
+                <div class="field-card">
+                  <label for="correo">Correo electrónico*</label>
+                  <input type="email" id="correo" name="correo" required />
+                  <div class="hint">Se usa solo para identificar el reporte si la UNACAR decide habilitar seguimiento institucional.</div>
+                </div>
+                <div class="field-card">
+                  <label for="opcion1">Primera opción de carrera en la UNACAR*</label>
+                  <select id="opcion1" name="opcion1" required>
+                    <option value="">Selecciona una opción</option>
+                  </select>
+                </div>
+                <div class="field-card">
+                  <label for="opcion2">Segunda opción de carrera en la UNACAR*</label>
+                  <select id="opcion2" name="opcion2" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="NO_SE">No sé</option>
+                  </select>
+                  <div class="hint">Si todavía no tiene una segunda opción clara, puede elegir la alternativa que hoy más le llame la atención.</div>
+                </div>
+              </div>
+            </form>
+          </div>
 
-      </div>
+          <div class="btn-row">
+            <button class="btn-secondary" type="button" onclick="goToStep(0)">Regresar</button>
+            <button class="btn-primary" type="button" onclick="handleDatosNext()">Continuar</button>
+          </div>
+        </section>
 
-      <!-- Paso 1: Datos generales -->
-      <div class="step step-1">
-        <h2>Datos generales</h2>
-        <p class="subtitle">
-          Por favor, completa tu información. Esto nos ayuda a identificar tus resultados y conocer mejor el
-          contexto desde el que estás eligiendo tu carrera.
-        </p>
+        <section class="step step-2">
+          <div class="assessment-shell">
+            <div class="assessment-intro">
+              <div class="assessment-copy">
+                <h3>Cuestionario de intereses</h3>
+              </div>
 
-        <form id="form-datos">
-          <div class="form-grid">
-            <div>
-              <label for="nombre">Nombre completo*</label>
-              <input type="text" id="nombre" name="nombre" required />
             </div>
-            <div>
-              <label for="edad">Edad*</label>
-              <input type="number" id="edad" name="edad" min="14" required />
+
+            <div class="progress-panel">
+              <div class="progress-bar">
+                <div id="progress-intereses" class="progress-bar-inner"></div>
+              </div>
+              <div class="progress-text">
+                <span id="progress-intereses-text">0 / 0 contestadas</span>
+              </div>
             </div>
-            <div>
-              <label for="fecha_nacimiento">Fecha de nacimiento*</label>
-              <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required />
+
+            <div id="contenedor-intereses" class="question-list"></div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-secondary" type="button" onclick="goToStep(1)">Regresar</button>
+            <button class="btn-primary" type="button" onclick="handleInteresesNext()">Continuar</button>
+          </div>
+        </section>
+
+        <section class="step step-3">
+          <div class="assessment-shell">
+            <div class="assessment-intro">
+              <div class="assessment-copy">
+                <h3>Cuestionario de aptitudes</h3>
+              </div>
+
             </div>
-            <div>
-              <label for="ciudad">Ciudad*</label>
-              <input type="text" id="ciudad" name="ciudad" required />
+
+            <div class="progress-panel">
+              <div class="progress-bar">
+                <div id="progress-aptitudes" class="progress-bar-inner"></div>
+              </div>
+              <div class="progress-text">
+                <span id="progress-aptitudes-text">0 / 0 contestadas</span>
+              </div>
             </div>
-            <div>
-              <label for="estado">Estado*</label>
-              <input type="text" id="estado" name="estado" required />
+
+            <div id="contenedor-aptitudes" class="question-list"></div>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-secondary" type="button" onclick="goToStep(2)">Regresar</button>
+            <button class="btn-primary" type="button" onclick="handleAptitudesNext()">Ver resultados</button>
+          </div>
+        </section>
+
+        <section class="step step-4">
+          <div class="results-hero">
+            <div id="resumen-destacado" class="summary-card"></div>
+            <div id="resumen-alumno" class="result-card"></div>
+          </div>
+
+          <div class="visual-grid">
+            <div class="result-card radar-card">
+              <div class="card-heading">
+                <div>
+                  <h3>Gráfica de telaraña</h3>
+                  <p class="subtitle small">
+                    Vista global de todos los factores del perfil, normalizados para compararlos de forma más clara.
+                  </p>
+                </div>
+                <div class="pill-note">Perfil completo</div>
+              </div>
+              <div id="grafica-telarana" class="radar-container"></div>
             </div>
-            <div>
-              <label for="preparatoria">Preparatoria / Bachillerato*</label>
-              <input type="text" id="preparatoria" name="preparatoria" required />
-            </div>
-            <div>
-              <label for="correo">Correo electrónico*</label>
-              <input type="email" id="correo" name="correo" required />
-              <div class="hint">Se utilizará solo para identificar tu reporte si la UNACAR decide implementarlo así.</div>
-            </div>
-            <div>
-              <label for="opcion1">Primera opción de carrera en la UNACAR*</label>
-              <select id="opcion1" name="opcion1" required>
-                <option value="">Selecciona una opción</option>
-              </select>
-            </div>
-            <div>
-              <label for="opcion2">Segunda opción de carrera en la UNACAR*</label>
-              <select id="opcion2" name="opcion2" required>
-                <option value="">Selecciona una opción</option>
-                <option value="NO_SE">No sé</option>
-              </select>
-              <div class="hint">Si aún no tienes segunda opción clara, elige la que más te llame la atención por ahora.</div>
+
+            <div class="result-card legend-card">
+              <div class="card-heading">
+                <div>
+                  <h3>Lectura por factor</h3>
+                  <p class="subtitle small">
+                    Cada fila muestra el porcentaje relativo del factor y su valor alcanzado dentro de la guía.
+                  </p>
+                </div>
+              </div>
+              <div id="leyenda-factores" class="factor-legend"></div>
             </div>
           </div>
-        </form>
 
-        <div class="btn-row">
-          <button class="btn-secondary" type="button" onclick="goToStep(0)">Regresar</button>
-          <button class="btn-primary" type="button" onclick="handleDatosNext()">Continuar</button>
-        </div>
+          <h3>Tus factores más altos</h3>
+          <p class="subtitle small">Los seis factores más fuertes del alumno, con una lectura resumida de cada uno.</p>
+          <div id="contenedor-factores" class="results-grid factors-grid"></div>
+
+          <h3>Carreras de la UNACAR sugeridas</h3>
+          <p class="subtitle small">Programas mejor alineados con los factores principales detectados por la guía.</p>
+          <div id="contenedor-carreras" class="results-grid"></div>
+
+          <h3>Compatibilidad con tus opciones elegidas</h3>
+          <p class="subtitle small">
+            Además del porcentaje de compatibilidad, aquí se muestran los factores presentes y los factores que faltaron para mejorar la afinidad con cada carrera elegida.
+          </p>
+          <div id="compat-elecciones" class="results-grid"></div>
+
+          <div class="alert">
+            <strong>Recuerda:</strong> este resultado es orientativo. Puede ayudar a abrir conversación con el alumno, pero no sustituye una entrevista o proceso formal de orientación vocacional.
+          </div>
+
+          <div class="btn-row">
+            <button class="btn-secondary" type="button" onclick="goToStep(0)">Volver al inicio</button>
+            <button class="btn-secondary" type="button" onclick="downloadRawReport()">Descargar respuestas</button>
+            <button class="btn-primary" type="button" onclick="generatePDF()">Descargar / guardar reporte en PDF</button>
+          </div>
+        </section>
       </div>
 
-      <!-- Paso 2: Cuestionario de intereses (Thurstone) -->
-      <div class="step step-2">
-        <h2>Cuestionario de intereses</h2>
-        <p class="subtitle">
-          Inventario de intereses: elige en qué ocupación preferirías trabajar.
-        </p>
-        <div class="justify-block">
-        <p>
-          A continuación verás una serie de pares de ocupaciones u oficios. En cada reactivo, piensa en la pregunta:
-          <strong>“¿En cuál de estas opciones preferiría trabajar?”</strong> y marca solo una alternativa por renglón.
-        </p>
-        <ul class="hint">
-          <li>No hay respuestas “buenas” o “malas”.</li>
-          <li>En algunos casos, te será difícil decidir, ya que puede ocurrir que ambas opciones te agraden o te desagraden. Aun así, es fundamental que elijas la que más te agrade.</li>
-          <li>Responde con sinceridad, pensando en lo que realmente te gustaría, no solo en lo que crees que “deberías” elegir.</li>
-          <li>Es importante contestar <strong>todos</strong> los reactivos.</li>
-        </ul>
-        </div>
-
-        <div>
-          <div class="progress-bar">
-            <div id="progress-intereses" class="progress-bar-inner"></div>
-          </div>
-          <div class="progress-text">
-            <span id="progress-intereses-text">0 / 0 contestadas</span>
-          </div>
-        </div>
-
-        <div id="contenedor-intereses" class="question-list">
-          <!-- Aquí se inyectan las preguntas de Thurstone -->
-        </div>
-
-        <div class="btn-row">
-          <button class="btn-secondary" type="button" onclick="goToStep(1)">Regresar</button>
-          <button class="btn-primary" type="button" onclick="handleInteresesNext()">Continuar</button>
-        </div>
-      </div>
-
-      <!-- Paso 3: Cuestionario de aptitudes -->
-      <div class="step step-3">
-        <h2>Cuestionario de aptitudes</h2>
-        <p class="subtitle">
-          ¿Qué tanto te consideras competente en distintas actividades?
-        </p>
-        <div class="justify-block">
-        <p>
-          En este cuestionario se presentan diferentes actividades. Para cada una, marca la opción que mejor describa
-          qué tan competente te consideras actualmente para realizarla.
-        </p>
-        <ul class="hint">
-          <li><strong>1</strong> = Me considero <strong>incompetente</strong> para esa actividad.</li>
-          <li><strong>2</strong> = Me considero <strong>medianamente apto(a)</strong>.</li>
-          <li><strong>3</strong> = Me considero <strong>bastante apto(a)</strong>.</li>
-          <li><strong>4</strong> = Me considero <strong>muy apto(a)</strong>.</li>
-        </ul>
-        <p class="hint">
-          No pienses tanto en calificaciones escolares, sino en qué tan capaz te sientes tú al realizar cada actividad.
-        </p>
-
-        </div>
-
-        <div>
-          <div class="progress-bar">
-            <div id="progress-aptitudes" class="progress-bar-inner"></div>
-          </div>
-          <div class="progress-text">
-            <span id="progress-aptitudes-text">0 / 0 contestadas</span>
-          </div>
-        </div>
-
-        <div id="contenedor-aptitudes" class="question-list">
-          <!-- Aquí se inyectan las preguntas de aptitudes -->
-        </div>
-
-        <div class="btn-row">
-          <button class="btn-secondary" type="button" onclick="goToStep(2)">Regresar</button>
-          <button class="btn-primary" type="button" onclick="handleAptitudesNext()">Ver resultados</button>
-        </div>
-      </div>
-
-      <!-- Paso 4: Resultados -->
-      <div class="step step-4">
-        <h2>Resultados preliminares</h2>
-        <p class="subtitle">
-          Este resumen se basa en tus respuestas de intereses y aptitudes. Úsalo como guía, no como una decisión definitiva.
-        </p>
-
-        <div id="resumen-alumno" class="result-card" style="margin-bottom: 16px;">
-          <!-- Se llena con los datos generales -->
-        </div>
-
-        <h3>Tus factores más altos</h3>
-        <div id="contenedor-factores" class="results-grid">
-          <!-- Tarjetas de factores -->
-        </div>
-
-        <h3>Carreras de la UNACAR sugeridas</h3>
-        <div id="contenedor-carreras" class="results-grid">
-          <!-- Tarjetas de carreras -->
-        </div>
-
-        <h3>Compatibilidad con tus opciones elegidas</h3>
-        <div id="compat-elecciones" class="results-grid">
-          <!-- Compatibilidad con opción 1 y opción 2 -->
-        </div>
-
-        <div class="alert">
-          Recuerda que estos resultados son una guía. En caso de tener más dudas, busca orientación vocacional con un profesional.
-        </div>
-
-        <div class="btn-row">
-          <button class="btn-secondary" type="button" onclick="goToStep(0)">Volver al inicio</button>
-          <button class="btn-secondary" type="button" onclick="downloadRawReport()">Descargar respuestas (archivo para volver a cargar)</button>
-          <button class="btn-primary" type="button" onclick="generatePDF()">Descargar / guardar reporte en PDF</button>
-        </div>
-      </div>
+      <footer class="unacar-footer">
+        <p>Universidad Autónoma del Carmen · Dirección General de Servicios al Estudiante · Unidad de Servicios Psicopedagógicos</p>
+        <p>Guía de orientación vocacional (versión piloto). Este instrumento es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.</p>
+        <p>Esta herramienta es de uso universal, sin fines de lucro y de uso exclusivo de la Universidad Autónoma del Carmen (UNACAR).</p>
+      </footer>
     </div>
   </div>
 
-  <!-- Datos de cuestionarios -->
   <script src="datos_cuestionarios.js"></script>
-  <!-- Supabase (opcional para guardar resultados) -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- Lógica principal -->
   <script>
+    const thurstoneDataset = (typeof thurstoneItems !== "undefined" && Array.isArray(thurstoneItems)) ? thurstoneItems : [];
+    const aptitudeDataset = (typeof aptitudeItems !== "undefined" && Array.isArray(aptitudeItems)) ? aptitudeItems : [];
+
     const factorDefinitions = [
-      { id: 1, key: "cientifico", label: "Científico", interestArea: "C. Biologicas", aptitudeSection: "F", divisor: 2,
-        description: "Te interesan la investigación, la observación rigurosa y la comprensión de fenómenos naturales y científicos. Disfrutas analizar datos, hacer hipótesis y buscar explicaciones lógicas sobre cómo funciona el mundo." },
-      { id: 2, key: "numerico", label: "Numérico", interestArea: "Calculo", aptitudeSection: "B", divisor: 2,
-        description: "Te sientes cómodo trabajando con números, operaciones, porcentajes y problemas cuantitativos. Sueles disfrutar actividades donde hay que calcular, comparar cantidades o interpretar resultados numéricos." },
-      { id: 3, key: "razonamiento_mecanico", label: "Razonamiento mecánico", interestArea: "C. Fisicas", aptitudeSection: "C", divisor: 2,
-        description: "Te resulta interesante entender cómo funcionan máquinas, herramientas, estructuras o sistemas físicos. Te es natural imaginar mecanismos, movimientos, fuerzas y soluciones técnicas o estructurales." },
-      { id: 4, key: "artistico", label: "Artístico", interestArea: "Artisticas", aptitudeSection: "D", divisor: 2,
-        description: "Te atrae crear, diseñar o expresarte a través de formas, colores, imágenes o composiciones. Tiendes a buscar maneras originales de comunicar ideas y emociones, valorando la estética y la creatividad." },
-      { id: 5, key: "musical", label: "Musical", interestArea: "Musicales", aptitudeSection: "E", divisor: 2,
-        description: "Tienes sensibilidad para el ritmo, la melodía y el sonido. Te interesa escuchar, interpretar o incluso crear música, y sueles percibir matices sonoros que quizá otras personas pasan por alto." },
-      { id: 6, key: "social", label: "Social", interestArea: "Humanitarias", aptitudeSection: "G", divisor: 2,
-        description: "Te interesa trabajar con personas, comprender sus necesidades y acompañarlas. Disfrutas ayudar, orientar, enseñar o brindar apoyo, y valoras el contacto humano y el trabajo en equipo." },
-      { id: 7, key: "destreza_manual", label: "Destreza manual", interestArea: null, aptitudeSection: "H", divisor: 1,
-        description: "Tienes facilidad para usar tus manos con precisión: armar, reparar, manipular herramientas o materiales. Te sientes cómodo en actividades que requieren coordinación ojo–mano y cuidado en los detalles." },
-      { id: 8, key: "practica", label: "Práctico", interestArea: null, aptitudeSection: "I", divisor: 1,
-        description: "Prefieres actividades concretas y aplicadas, donde puedas ver resultados tangibles. Te gusta resolver problemas de forma directa, organizar tareas y pasar a la acción más que quedarte solo en lo teórico." },
-      { id: 9, key: "ejecutivo_persuasivo", label: "Ejecutivo-persuasivo", interestArea: "Ejecutivas", aptitudeSection: "J", divisor: 2,
-        description: "Te ves coordinando, liderando o tomando decisiones. Te gusta organizar personas y recursos, proponer proyectos y convencer a otros de tus ideas, con habilidad para hablar en público y negociar." },
-      { id: 10, key: "verbal_literaria", label: "Verbal-literario", interestArea: "Literarias", aptitudeSection: "A", divisor: 2,
-        description: "Disfrutas leer, escribir, explicar y usar el lenguaje para comunicar ideas. Te interesa redactar, argumentar y comprender textos, así como expresar pensamientos de forma clara y estructurada." },
-      { id: 11, key: "trabajo_oficina", label: "Trabajo de oficina", interestArea: null, aptitudeSection: "K", divisor: 1,
-        description: "Te sientes cómodo en tareas administrativas: registrar información, organizar documentos, manejar agendas o sistemas de archivo. Valorás el orden, la precisión y los procedimientos claros." },
-      { id: 12, key: "negocios", label: "Negocios", interestArea: "Negocios", aptitudeSection: null, divisor: 1,
-        description: "Te interesan las actividades relacionadas con empresas, ventas, emprendimiento y gestión económica. Te llama la atención identificar oportunidades, planear proyectos y tomar decisiones orientadas a resultados." }
+      {
+        id: 1,
+        key: "cientifico",
+        label: "Científico",
+        shortLabel: "Científico",
+        interestArea: "C. Biologicas",
+        aptitudeSection: "F",
+        projectionSection: null,
+        divisor: 2,
+        color: "#0f4c81",
+        description: "Te interesan la investigación, la observación rigurosa y la comprensión de fenómenos naturales o científicos."
+      },
+      {
+        id: 2,
+        key: "numerico",
+        label: "Numérico",
+        shortLabel: "Numérico",
+        interestArea: "Calculo",
+        aptitudeSection: "B",
+        projectionSection: null,
+        divisor: 2,
+        color: "#1b6ca8",
+        description: "Te sientes cómodo trabajando con números, operaciones, comparaciones cuantitativas y lectura de resultados."
+      },
+      {
+        id: 3,
+        key: "razonamiento_mecanico",
+        label: "Razonamiento mecánico",
+        shortLabel: "Mecánico",
+        interestArea: "C. Fisicas",
+        aptitudeSection: "C",
+        projectionSection: null,
+        divisor: 2,
+        color: "#248d95",
+        description: "Te llama la atención comprender el funcionamiento de máquinas, sistemas físicos, estructuras y soluciones técnicas."
+      },
+      {
+        id: 4,
+        key: "artistico",
+        label: "Artístico",
+        shortLabel: "Artístico",
+        interestArea: "Artisticas",
+        aptitudeSection: "D",
+        projectionSection: null,
+        divisor: 2,
+        color: "#d16c4f",
+        description: "Tiendes a expresarte con creatividad y valoras la estética, el diseño y las formas originales de comunicar ideas."
+      },
+      {
+        id: 5,
+        key: "musical",
+        label: "Musical",
+        shortLabel: "Musical",
+        interestArea: "Musicales",
+        aptitudeSection: "E",
+        projectionSection: null,
+        divisor: 2,
+        color: "#b1537a",
+        description: "Tienes sensibilidad por el ritmo, la melodía y los matices sonoros, ya sea para escuchar, interpretar o crear."
+      },
+      {
+        id: 6,
+        key: "social",
+        label: "Social",
+        shortLabel: "Social",
+        interestArea: "Humanitarias",
+        aptitudeSection: "G",
+        projectionSection: null,
+        divisor: 2,
+        color: "#4e8d52",
+        description: "Te interesa trabajar con personas, comprender necesidades, acompañar procesos y colaborar de manera cercana."
+      },
+      {
+        id: 7,
+        key: "destreza_manual",
+        label: "Destreza manual",
+        shortLabel: "Manual",
+        interestArea: null,
+        aptitudeSection: "H",
+        projectionSection: null,
+        divisor: 1,
+        color: "#8a6f48",
+        description: "Muestras facilidad para manipular herramientas, materiales o componentes con precisión y coordinación."
+      },
+      {
+        id: 8,
+        key: "practica",
+        label: "Práctico",
+        shortLabel: "Práctico",
+        interestArea: null,
+        aptitudeSection: "I",
+        projectionSection: null,
+        divisor: 1,
+        color: "#628f5a",
+        description: "Prefieres actividades concretas, aplicadas y orientadas a resolver situaciones reales de manera directa."
+      },
+      {
+        id: 9,
+        key: "ejecutivo_persuasivo",
+        label: "Ejecutivo-persuasivo",
+        shortLabel: "Ejecutivo",
+        interestArea: "Ejecutivas",
+        aptitudeSection: "J",
+        projectionSection: null,
+        divisor: 2,
+        color: "#8a5fa8",
+        description: "Te ves coordinando personas, organizando recursos, tomando decisiones y comunicando ideas con seguridad."
+      },
+      {
+        id: 10,
+        key: "verbal_literaria",
+        label: "Verbal-literario",
+        shortLabel: "Verbal",
+        interestArea: "Literarias",
+        aptitudeSection: "A",
+        projectionSection: null,
+        divisor: 2,
+        color: "#b05f4b",
+        description: "Disfrutas leer, redactar, argumentar y explicar ideas por escrito o verbalmente con claridad."
+      },
+      {
+        id: 11,
+        key: "trabajo_oficina",
+        label: "Trabajo de oficina",
+        shortLabel: "Oficina",
+        interestArea: null,
+        aptitudeSection: "K",
+        projectionSection: null,
+        divisor: 1,
+        color: "#567d9e",
+        description: "Te sientes cómodo con tareas administrativas, orden, seguimiento de procesos y registro de información."
+      },
+      {
+        id: 12,
+        key: "negocios",
+        label: "Negocios",
+        shortLabel: "Negocios",
+        interestArea: "Negocios",
+        aptitudeSection: null,
+        projectionSection: null,
+        divisor: 1,
+        color: "#d0882d",
+        description: "Te atraen actividades relacionadas con empresas, emprendimiento, ventas, gestión económica y toma de decisiones."
+      }
     ];
+
+    const factorMap = new Map(factorDefinitions.map(factor => [factor.id, factor]));
 
     const programFactors = [
       { name: "Lic. En Derecho", factors: [1, 6, 10, 11] },
@@ -581,7 +1624,7 @@
       { name: "Lic. En Contaduría", factors: [2, 6, 9, 10, 11] },
       { name: "Lic. En Administración Turística", factors: [2, 6, 8, 9, 10, 11] },
       { name: "Lic. En Mercadotecnia", factors: [2, 4, 6, 9, 10, 11] },
-      { name: "Lic. En Negocios Internacionales", factors: [1, 2, 6, 9, 10, 11] },
+      { name: "Lic. En Negocios Internacionales", factors: [1, 2, 6, 9, 10, 11, 12] },
       { name: "Lic. En Educación", factors: [1, 6, 9, 11] },
       { name: "Lic. En Lengua Inglesa", factors: [1, 6, 10, 11] },
       { name: "Lic. En Educación y Gestión Cultural", factors: [1, 4, 6, 9, 10, 11] },
@@ -633,166 +1676,49 @@
       { code: "K", name: "Oficina" }
     ];
 
-    function scoreThurstone(responses) {
-      const scores = {};
-      thurstoneAreas.forEach(area => { scores[area] = 0; });
-
-      thurstoneItems.forEach(item => {
-        const chosenKey = responses[String(item.id)];
-        if (!chosenKey) return;
-        const option = item.options.find(o => o.key === chosenKey);
-        if (!option) return;
-        scores[option.area] += option.score;
-      });
-      return scores;
-    }
-
-    function scoreAptitudes(responses) {
-      const scores = {};
-      aptitudeSections.forEach(sec => { scores[sec.code] = 0; });
-
-      aptitudeItems.forEach(item => {
-        const raw = responses[item.id];
-        if (raw == null) return;
-        const value = Number(raw);
-        if (Number.isNaN(value)) return;
-        scores[item.section] += value;
-      });
-      return scores;
-    }
-
-    function computeFactors(thurstoneScores, aptitudeScores) {
-      const factorScores = {};
-      factorDefinitions.forEach(f => {
-        const interest = f.interestArea ? (thurstoneScores[f.interestArea] || 0) : 0;
-        const aptitude = f.aptitudeSection ? (aptitudeScores[f.aptitudeSection] || 0) : 0;
-        const raw = interest + aptitude;
-        const value = raw / f.divisor;
-
-        factorScores[f.id] = {
-          id: f.id,
-          label: f.label,
-          value,
-          interest,
-          aptitude,
-          description: f.description
-        };
-      });
-      return factorScores;
-    }
-
-    function scoreCareerForStudent(career, factorScores) {
-      const values = career.factors.map(id => (factorScores[id]?.value || 0));
-      if (values.length === 0) return 0;
-      const sum = values.reduce((a, b) => a + b, 0);
-      return sum / values.length;
-    }
-
-    function getTopFactors(factorScores, topN = 6) {
-      return Object.values(factorScores)
-        .sort((a, b) => b.value - a.value)
-        .slice(0, topN);
-    }
-
-    function getTopCareers(factorScores, topN = 3) {
-      const scored = programFactors.map(p => ({
-        program: p,
-        score: scoreCareerForStudent(p, factorScores)
-      })).sort((a, b) => b.score - a.score);
-      return scored.slice(0, topN);
-    }
-
-    // Calcula compatibilidades de todas las carreras y normaliza a 0–100 %
-    // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
-    // Calcula compatibilidades de todas las carreras usando los factores principales (top N)
-    function computeCareerCompatibilities(factorScores, topFactorCount = 6) {
-      // Ponderación por posición (manual): 1° y 2° pesan más, luego 3°, luego 4°-5°, y el 6° pesa menos.
-      // Pesos acordados: 4, 4, 3, 2, 2, 1
-      const weights = [4, 4, 3, 2, 2, 1];
-
-      const allFactorsArr = Object.values(factorScores || {}).sort((a, b) => b.value - a.value);
-      const selected = allFactorsArr.slice(0, topFactorCount);
-      const topIds = selected.map(f => f.id);
-      const globalTotal = topIds.length > 0 ? topIds.length : 1;
-
-      // Máximo posible ajustado al número de factores de la carrera:
-      // - Si la carrera tiene >= 6 factores, el máximo es la suma de los 6 pesos.
-      // - Si la carrera tiene < 6 factores, el máximo es la suma de los mayores K pesos, donde K = #factores de la carrera.
-      function maxPointsForCareer(requiredCount) {
-        const k = Math.min(globalTotal, requiredCount > 0 ? requiredCount : globalTotal);
-        const slice = weights.slice(0, k);
-        const maxPts = slice.reduce((a, b) => a + b, 0);
-        return { k, maxPts: maxPts || 1 };
+    const STEP_META = [
+      {
+        title: "Bienvenida",
+        description: "Conoce cómo funciona la guía y qué tipo de lectura recibirá el alumno al finalizar."
+      },
+      {
+        title: "Datos generales",
+        description: "Captura la información básica y las opciones de carrera que quiere contrastar con el resultado."
+      },
+      {
+        title: "Cuestionario de intereses",
+        description: "Evalúa preferencias vocacionales mediante pares de ocupaciones."
+      },
+      {
+        title: "Cuestionario de aptitudes",
+        description: "Autoevalúa qué tan competente se siente el alumno en distintas actividades."
+      },
+      {
+        title: "Resultados",
+        description: "Visualiza factores, telaraña, carreras sugeridas y factores faltantes para sus opciones elegidas."
       }
+    ];
 
-      const withPercent = programFactors.map(p => {
-        const required = Array.isArray(p.factors) ? p.factors : [];
-        const { k, maxPts } = maxPointsForCareer(required.length);
+    const DEFAULT_WEIGHTS = [4, 4, 3, 2, 2, 1];
+    const TOTAL_REACTIVOS = thurstoneDataset.length + aptitudeDataset.length;
 
-        let matches = 0;
-        let points = 0;
-        const matchedFactorIds = [];
+    const interestMaximums = computeInterestAreaMaximums();
+    const aptitudeMaximums = computeSectionMaximums(aptitudeDataset);
 
-        topIds.forEach((id, idx) => {
-          if (required.includes(id)) {
-            matches++;
-            points += (weights[idx] || 0);
-            matchedFactorIds.push(id);
-          }
-        });
-
-        const percent = (points / maxPts) * 100;
-
-        return {
-          program: p,
-          percent,
-          // Para compatibilidad con Google Sheet / versiones anteriores:
-          score: percent,
-          matches,
-          topFactorCount: k,
-          points,
-          maxPoints: maxPts,
-          matchedFactorIds,
-          weights
-        };
-      }).sort((a, b) => b.percent - a.percent);
-
-      return {
-        all: withPercent,
-        topFactorIds: topIds,
-        topFactorCount: globalTotal,
-        weights
-      };
-    }
-
-    function findProgramByName(name) {
-      if (!name) return null;
-      return programFactors.find(p => p.name === name) || null;
-    }
-
-    
-    // Configuración opcional para enviar resultados a un servidor.
-    // Si en el futuro se desea guardar la información en una base de datos,
-    // basta con establecer enabled = true y configurar la URL del endpoint.
     const BACKEND_CONFIG = {
-      enabled: false,              // Cambiar a true cuando exista un servidor listo
-      endpoint: "https://script.google.com/macros/s/AKfycbzo8hh-1qh-7_nEH05Oyt6EkYOl6SsGSXETaVoycmLWXOuNm4iVm8g9H4u22nRd-P3O/exec",                // Ejemplo: "https://tu-servidor.unacar.mx/api/resultados"
-      apiKey: ""                   // Opcional: para enviar una llave o token de autenticación en el encabezado
+      enabled: false,
+      endpoint: "https://script.google.com/macros/s/AKfycbzo8hh-1qh-7_nEH05Oyt6EkYOl6SsGSXETaVoycmLWXOuNm4iVm8g9H4u22nRd-P3O/exec",
+      apiKey: ""
     };
 
-// Guardado de resultados en Supabase (recomendado para uso público)
-// 1) Crea un proyecto en Supabase
-// 2) Crea la tabla y políticas (te dejo el SQL en el instructivo)
-// 3) Pega aquí tu Project URL y tu Publishable/Anon key
-const SUPABASE_CONFIG = {
-  enabled: true,              // Pon false para desactivar guardado
-  url: "https://vdzzasuvoseisfpyphqs.supabase.co",                    // Ej: "https://xxxx.supabase.co"
-  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkenphc3V2b3NlaXNmcHlwaHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMjUwNDgsImV4cCI6MjA4NTkwMTA0OH0.0oDlks7s7V47y_k_o90UnoIVa0YWmYJAub5uCB0-nMY",                // Ej: "sb_publishable_..." o "anon ..."
-  table: "vocacional_respuestas"
-};
+    const SUPABASE_CONFIG = {
+      enabled: true,
+      url: "https://vdzzasuvoseisfpyphqs.supabase.co",
+      anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkenphc3V2b3NlaXNmcHlwaHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMjUwNDgsImV4cCI6MjA4NTkwMTA0OH0.0oDlks7s7V47y_k_o90UnoIVa0YWmYJAub5uCB0-nMY",
+      table: "vocacional_respuestas"
+    };
 
-
-let currentStep = 0;
+    let currentStep = 0;
     const datosAlumno = {};
     const respuestasIntereses = {};
     const respuestasAptitudes = {};
@@ -803,136 +1729,867 @@ let currentStep = 0;
       factores: null,
       topFactores: null,
       topCarreras: null,
-      maxCareerScore: null,
+      allCompatibilities: null,
       topFactorIds: null,
-      topFactorCount: null
+      topFactorCount: null,
+      weights: DEFAULT_WEIGHTS,
+      factorMaxima: null
     };
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function resetObject(target) {
+      Object.keys(target).forEach(key => delete target[key]);
+    }
+
+    function computeInterestAreaMaximums() {
+      const scores = {};
+      thurstoneAreas.forEach(area => {
+        scores[area] = 0;
+      });
+
+      thurstoneDataset.forEach(item => {
+        thurstoneAreas.forEach(area => {
+          const optionsForArea = item.options.filter(option => option.area === area);
+          if (!optionsForArea.length) return;
+          const bestScore = Math.max(...optionsForArea.map(option => Number(option.score) || 0));
+          scores[area] += bestScore;
+        });
+      });
+
+      return scores;
+    }
+
+    function computeSectionMaximums(items, maxPerQuestion = 4) {
+      const scores = {};
+      items.forEach(item => {
+        const code = item.section;
+        scores[code] = (scores[code] || 0) + maxPerQuestion;
+      });
+      return scores;
+    }
+
+    function getFactorDefinition(id) {
+      return factorMap.get(id) || null;
+    }
+
+    function getFactorLabel(id) {
+      const factor = getFactorDefinition(id);
+      return factor ? factor.label : `Factor ${id}`;
+    }
+
+    function getFactorShortLabel(id) {
+      const factor = getFactorDefinition(id);
+      return factor ? factor.shortLabel : `F${id}`;
+    }
+
+    function getFactorColor(id) {
+      const factor = getFactorDefinition(id);
+      return factor ? factor.color : "#0d5f8c";
+    }
+
+    function getStatusMeta(percent) {
+      if (percent >= 70) return { label: "Alta afinidad", className: "" };
+      if (percent >= 50) return { label: "Afinidad media", className: "medium" };
+      return { label: "Compatibilidad baja", className: "low" };
+    }
+
+    function formatScore(value) {
+      const num = Number(value || 0);
+      return num.toFixed(2);
+    }
+
+    function scoreThurstone(responses) {
+      const scores = {};
+      thurstoneAreas.forEach(area => {
+        scores[area] = 0;
+      });
+
+      thurstoneDataset.forEach(item => {
+        const chosenKey = responses[String(item.id)];
+        if (!chosenKey) return;
+        const option = item.options.find(current => current.key === chosenKey);
+        if (!option) return;
+        scores[option.area] += Number(option.score) || 0;
+      });
+
+      return scores;
+    }
+
+    function scoreAptitudes(responses) {
+      const scores = {};
+      aptitudeSections.forEach(section => {
+        scores[section.code] = 0;
+      });
+
+      aptitudeDataset.forEach(item => {
+        const value = Number(responses[item.id]);
+        if (Number.isNaN(value)) return;
+        scores[item.section] += value;
+      });
+
+      return scores;
+    }
+
+    function computeFactors(thurstoneScores, aptitudeScores) {
+      const factorScores = {};
+
+      factorDefinitions.forEach(factor => {
+        const interest = factor.interestArea ? (thurstoneScores[factor.interestArea] || 0) : 0;
+        const aptitude = factor.aptitudeSection ? (aptitudeScores[factor.aptitudeSection] || 0) : 0;
+        const raw = interest + aptitude;
+        const value = raw / factor.divisor;
+
+        const interestMax = factor.interestArea ? (interestMaximums[factor.interestArea] || 0) : 0;
+        const aptitudeMax = factor.aptitudeSection ? (aptitudeMaximums[factor.aptitudeSection] || 0) : 0;
+        const rawMax = interestMax + aptitudeMax;
+        const maxValue = rawMax > 0 ? rawMax / factor.divisor : 1;
+        const normalized = maxValue > 0 ? Math.min(100, (value / maxValue) * 100) : 0;
+
+        factorScores[factor.id] = {
+          id: factor.id,
+          key: factor.key,
+          label: factor.label,
+          shortLabel: factor.shortLabel,
+          description: factor.description,
+          color: factor.color,
+          value,
+          maxValue,
+          normalized,
+          interest,
+          aptitude
+        };
+      });
+
+      return factorScores;
+    }
+
+    function getTopFactors(factorScores, topN = 6) {
+      return Object.values(factorScores)
+        .sort((a, b) => b.value - a.value)
+        .slice(0, topN);
+    }
+
+    function computeCareerCompatibilities(factorScores, topFactorCount = 6) {
+      const sortedFactors = Object.values(factorScores || {}).sort((a, b) => b.value - a.value);
+      const selected = sortedFactors.slice(0, topFactorCount);
+      const topIds = selected.map(item => item.id);
+      const globalTotal = topIds.length > 0 ? topIds.length : 1;
+
+      function maxPointsForCareer(requiredCount) {
+        const k = Math.min(globalTotal, requiredCount > 0 ? requiredCount : globalTotal);
+        const maxPoints = DEFAULT_WEIGHTS.slice(0, k).reduce((acc, current) => acc + current, 0);
+        return { k, maxPoints: maxPoints || 1 };
+      }
+
+      const all = programFactors.map(program => {
+        const required = Array.isArray(program.factors) ? program.factors : [];
+        const { k, maxPoints } = maxPointsForCareer(required.length);
+
+        let matches = 0;
+        let points = 0;
+        const matchedFactorIds = [];
+
+        topIds.forEach((id, index) => {
+          if (required.includes(id)) {
+            matches += 1;
+            points += DEFAULT_WEIGHTS[index] || 0;
+            matchedFactorIds.push(id);
+          }
+        });
+
+        const missingFactorIds = required.filter(id => !topIds.includes(id));
+        const percent = (points / maxPoints) * 100;
+
+        return {
+          program,
+          percent,
+          score: percent,
+          matches,
+          topFactorCount: k,
+          points,
+          maxPoints,
+          matchedFactorIds,
+          missingFactorIds,
+          weights: DEFAULT_WEIGHTS
+        };
+      }).sort((a, b) => b.percent - a.percent);
+
+      return {
+        all,
+        topFactorIds: topIds,
+        topFactorCount: globalTotal,
+        weights: DEFAULT_WEIGHTS
+      };
+    }
+
+    function findProgramByName(name) {
+      if (!name) return null;
+      return programFactors.find(program => program.name === name) || null;
+    }
+
+    function buildFactorChips(ids, variant = "neutral", factorScores = cachedResultados.factores, options = {}) {
+      const safeIds = Array.isArray(ids) ? ids : [];
+      if (!safeIds.length) {
+        return `<span class="factor-chip empty">Sin factores para mostrar</span>`;
+      }
+
+      const {
+        includeScore = false,
+        includeNormalized = false
+      } = options;
+
+      return safeIds.map(id => {
+        const factor = getFactorDefinition(id);
+        const score = factorScores && factorScores[id] ? factorScores[id] : null;
+        const extras = [];
+
+        if (includeScore && score) extras.push(`puntaje ${formatScore(score.value)}`);
+        if (includeNormalized && score) extras.push(`${Math.round(score.normalized)}% del máximo`);
+
+        const info = extras.length ? ` · ${extras.join(" · ")}` : "";
+        return `
+          <span class="factor-chip ${variant}" style="--chip-color:${escapeHtml(factor ? factor.color : "#0d5f8c")}">
+            <strong>${escapeHtml(factor ? factor.label : `Factor ${id}`)}</strong>${escapeHtml(info)}
+          </span>
+        `;
+      }).join("");
+    }
+
+    function buildFactorSourceText(factor) {
+      const sources = [];
+      if (factor.interest) sources.push(`Intereses: ${factor.interest}`);
+      if (factor.aptitude) sources.push(`Aptitudes: ${factor.aptitude}`);
+      return sources.length ? sources.join(" · ") : "Factor construido con una sola fuente.";
+    }
+
+    function getRadarChartMarkup(factorScores) {
+      const factors = Object.values(factorScores || {}).sort((a, b) => a.id - b.id);
+      if (!factors.length) {
+        return `<p class="result-empty">Aún no hay factores para mostrar.</p>`;
+      }
+
+      const cx = 260;
+      const cy = 260;
+      const radius = 178;
+      const levels = 5;
+
+      function polarToCartesian(angle, localRadius) {
+        const x = cx + Math.cos(angle) * localRadius;
+        const y = cy + Math.sin(angle) * localRadius;
+        return { x, y };
+      }
+
+      function buildPolygonPoints(ratio) {
+        return factors.map((factor, index) => {
+          const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
+          const point = polarToCartesian(angle, radius * ratio);
+          return `${point.x.toFixed(2)},${point.y.toFixed(2)}`;
+        }).join(" ");
+      }
+
+      const ringMarkup = Array.from({ length: levels }, (_, levelIndex) => {
+        const ratio = (levelIndex + 1) / levels;
+        return `<polygon class="radar-ring" points="${buildPolygonPoints(ratio)}"></polygon>`;
+      }).join("");
+
+      const axisMarkup = factors.map((factor, index) => {
+        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
+        const point = polarToCartesian(angle, radius);
+        return `<line class="radar-axis" x1="${cx}" y1="${cy}" x2="${point.x.toFixed(2)}" y2="${point.y.toFixed(2)}"></line>`;
+      }).join("");
+
+      const dataPoints = factors.map((factor, index) => {
+        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
+        const point = polarToCartesian(angle, radius * (factor.normalized / 100));
+        return `${point.x.toFixed(2)},${point.y.toFixed(2)}`;
+      }).join(" ");
+
+      const labelMarkup = factors.map((factor, index) => {
+        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
+        const labelPoint = polarToCartesian(angle, radius + 30);
+        const cos = Math.cos(angle);
+        let anchor = "middle";
+        if (cos > 0.25) anchor = "start";
+        if (cos < -0.25) anchor = "end";
+        return `
+          <text class="radar-label" x="${labelPoint.x.toFixed(2)}" y="${labelPoint.y.toFixed(2)}" text-anchor="${anchor}">
+            ${escapeHtml(factor.shortLabel)}
+          </text>
+        `;
+      }).join("");
+
+      const pointsMarkup = factors.map((factor, index) => {
+        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
+        const point = polarToCartesian(angle, radius * (factor.normalized / 100));
+        return `
+          <circle class="radar-point" cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="4.5">
+            <title>${escapeHtml(factor.label)}: ${Math.round(factor.normalized)}% (${formatScore(factor.value)} de ${formatScore(factor.maxValue)})</title>
+          </circle>
+        `;
+      }).join("");
+
+      const levelMarkup = Array.from({ length: levels }, (_, levelIndex) => {
+        const ratio = (levelIndex + 1) / levels;
+        const y = cy - (radius * ratio);
+        return `<text class="radar-level" x="${cx + 8}" y="${y.toFixed(2)}">${ratio * 100}%</text>`;
+      }).join("");
+
+      return `
+        <svg class="radar-svg" viewBox="0 0 520 520" role="img" aria-label="Grafica de telaraña de factores">
+          ${ringMarkup}
+          ${axisMarkup}
+          <polygon class="radar-shape" points="${dataPoints}"></polygon>
+          ${pointsMarkup}
+          ${levelMarkup}
+          ${labelMarkup}
+        </svg>
+      `;
+    }
+
+    function buildRadarLegendMarkup(factorScores) {
+      const factors = Object.values(factorScores || {}).sort((a, b) => b.normalized - a.normalized);
+      if (!factors.length) {
+        return `<p class="result-empty">Aún no hay factores para mostrar.</p>`;
+      }
+
+      return factors.map(factor => `
+        <div class="legend-row">
+          <span class="legend-dot" style="--legend-color:${escapeHtml(factor.color)}"></span>
+          <div class="legend-text">
+            <strong>${escapeHtml(factor.label)}</strong>
+            <span>${formatScore(factor.value)} de ${formatScore(factor.maxValue)} posibles</span>
+          </div>
+          <div class="legend-value">${Math.round(factor.normalized)}%</div>
+        </div>
+      `).join("");
+    }
+
+    function buildCompatibilityDetails(program) {
+      if (!program || !cachedResultados.factores) return null;
+
+      const topIds = cachedResultados.topFactorIds || [];
+      const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
+      const required = Array.isArray(program.factors) ? program.factors : [];
+      const weights = Array.isArray(cachedResultados.weights) ? cachedResultados.weights : DEFAULT_WEIGHTS;
+
+      const k = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal);
+      const maxPoints = weights.slice(0, k).reduce((acc, current) => acc + current, 0) || 1;
+
+      let matches = 0;
+      let points = 0;
+      const matchedFactorIds = [];
+
+      topIds.forEach((id, position) => {
+        if (required.includes(id)) {
+          matches += 1;
+          points += weights[position] || 0;
+          matchedFactorIds.push(id);
+        }
+      });
+
+      const missingFactorIds = required.filter(id => !topIds.includes(id));
+      const percent = (points / maxPoints) * 100;
+      const status = getStatusMeta(percent);
+
+      return {
+        program,
+        percent,
+        matches,
+        topFactorCount: k,
+        points,
+        maxPoints,
+        matchedFactorIds,
+        missingFactorIds,
+        status
+      };
+    }
 
     function goToStep(step) {
       currentStep = step;
-      document.querySelectorAll(".step").forEach((el, idx) => {
-        el.classList.toggle("active", idx === step);
+
+      document.querySelectorAll(".step").forEach((element, index) => {
+        element.classList.toggle("active", index === step);
       });
-      document.querySelectorAll(".step-pill").forEach((el, idx) => {
-        el.classList.toggle("active", idx === step);
+
+      document.querySelectorAll(".step-pill").forEach((element, index) => {
+        element.classList.toggle("active", index === step);
       });
+
+      updateStepSummary(step);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function updateStepSummary(step) {
+      const meta = STEP_META[step] || STEP_META[0];
+      document.getElementById("step-counter").textContent = `Paso ${step + 1} de ${STEP_META.length}`;
+      document.getElementById("step-summary-title").textContent = meta.title;
     }
 
     function handleDatosNext() {
       const form = document.getElementById("form-datos");
       if (!form.reportValidity()) return;
 
-      const fd = new FormData(form);
-      fd.forEach((value, key) => {
+      const formData = new FormData(form);
+      formData.forEach((value, key) => {
         datosAlumno[key] = value.toString().trim();
       });
 
-      
-
-      // Permitir "No sé" como segunda opción (sin tratarlo como carrera real)
-      if (datosAlumno["opcion2"] === "NO_SE") {
-        datosAlumno["opcion2"] = "No sé";
+      if (datosAlumno.opcion2 === "NO_SE") {
+        datosAlumno.opcion2 = "No sé";
       }
-if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"]) {
-        alert("Tu primera y segunda opción de carrera no deben ser la misma. Elige una diferente.");
+
+      if (datosAlumno.opcion1 && datosAlumno.opcion1 === datosAlumno.opcion2) {
+        alert("La primera y la segunda opción de carrera no deben ser la misma. Elige una alternativa distinta.");
         return;
       }
 
       goToStep(2);
     }
 
-    function handleInteresesNext() {
-      const total = thurstoneItems.length;
-      let contestadas = 0;
-      const faltantes = [];
+    function collectQuestionnaireResponses(items, namePrefix, dataAttribute, targetStore, progressUpdater) {
+      const missingIds = [];
+      let firstMissing = null;
 
-      thurstoneItems.forEach(item => {
-        const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
-        const itemDiv = document.querySelector(`.question-item[data-thurstone-id="${item.id}"]`);
-        if (sel) {
-          contestadas++;
-          if (itemDiv) itemDiv.classList.remove("unanswered");
+      items.forEach(item => {
+        const selected = document.querySelector(`input[name="${namePrefix}${item.id}"]:checked`);
+        const itemElement = document.querySelector(`.question-item[${dataAttribute}="${item.id}"]`);
+
+        if (selected) {
+          if (itemElement) itemElement.classList.remove("unanswered");
         } else {
-          faltantes.push(item.id);
-          if (itemDiv) itemDiv.classList.add("unanswered");
+          missingIds.push(item.id);
+          if (!firstMissing) firstMissing = itemElement;
+          if (itemElement) itemElement.classList.add("unanswered");
         }
       });
 
-      if (faltantes.length > 0) {
-        alert(`Te faltan ${faltantes.length} reactivos por contestar. Los hemos marcado en color para que puedas identificarlos.`);
-        actualizarProgresoIntereses();
-        return;
+      if (missingIds.length > 0) {
+        progressUpdater();
+        alert(`Te faltan ${missingIds.length} reactivos por contestar. Los marcamos para que puedas identificarlos rápidamente.`);
+        if (firstMissing) {
+          firstMissing.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        return false;
       }
 
-      thurstoneItems.forEach(item => {
-        const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
-        if (sel) {
-          respuestasIntereses[item.id] = sel.value;
-        }
+      resetObject(targetStore);
+      items.forEach(item => {
+        const selected = document.querySelector(`input[name="${namePrefix}${item.id}"]:checked`);
+        if (selected) targetStore[item.id] = selected.value;
       });
 
+      return true;
+    }
+
+    function handleInteresesNext() {
+      const ok = collectQuestionnaireResponses(
+        thurstoneDataset,
+        "thurstone-",
+        "data-thurstone-id",
+        respuestasIntereses,
+        actualizarProgresoIntereses
+      );
+      if (!ok) return;
       goToStep(3);
     }
 
     function handleAptitudesNext() {
-      const total = aptitudeItems.length;
-      let contestadas = 0;
-      const faltantes = [];
+      const ok = collectQuestionnaireResponses(
+        aptitudeDataset,
+        "apt-",
+        "data-apt-id",
+        respuestasAptitudes,
+        actualizarProgresoAptitudes
+      );
+      if (!ok) return;
+      calcularYMostrarResultados();
+      goToStep(4);
+    }
 
-      aptitudeItems.forEach(item => {
-        const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
-        const itemDiv = document.querySelector(`.question-item[data-apt-id="${item.id}"]`);
-        if (sel) {
-          contestadas++;
-          if (itemDiv) itemDiv.classList.remove("unanswered");
-        } else {
-          faltantes.push(item.id);
-          if (itemDiv) itemDiv.classList.add("unanswered");
-        }
+    function updateProgress(items, namePrefix, barId, textId) {
+      const total = items.length;
+      let answered = 0;
+
+      items.forEach(item => {
+        const selected = document.querySelector(`input[name="${namePrefix}${item.id}"]:checked`);
+        if (selected) answered += 1;
       });
 
-      if (faltantes.length > 0) {
-        alert(`Te faltan ${faltantes.length} reactivos por contestar. Los hemos marcado en color para que puedas identificarlos.`);
-        actualizarProgresoAptitudes();
+      const percent = total ? (answered / total) * 100 : 0;
+      document.getElementById(barId).style.width = `${percent}%`;
+      document.getElementById(textId).textContent = `${answered} / ${total} contestadas`;
+    }
+
+    function moveToNextQuestion(container, currentItem) {
+      if (!container || !currentItem) return;
+
+      const items = Array.from(container.querySelectorAll(".question-item"));
+      const currentIndex = items.indexOf(currentItem);
+      if (currentIndex === -1) return;
+
+      const nextPending = items.slice(currentIndex + 1).find(item => !item.classList.contains("answered"));
+      const nextItem = nextPending || items[currentIndex + 1];
+
+      if (nextItem) {
+        nextItem.classList.add("advance-target");
+        nextItem.scrollIntoView({ behavior: "smooth", block: "center" });
+        window.setTimeout(() => {
+          nextItem.classList.remove("advance-target");
+        }, 1200);
         return;
       }
 
-      aptitudeItems.forEach(item => {
-        const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
-        if (sel) {
-          respuestasAptitudes[item.id] = sel.value;
-        }
-      });
-
-      calcularYMostrarResultados();
-      goToStep(4);
-    
-}
+      const actionButton = currentItem.closest(".step")?.querySelector(".btn-primary");
+      if (actionButton) {
+        actionButton.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }
 
     function actualizarProgresoIntereses() {
-      const total = thurstoneItems.length;
-      let contestadas = 0;
-      thurstoneItems.forEach(item => {
-        const sel = document.querySelector(`input[name="thurstone-${item.id}"]:checked`);
-        if (sel) contestadas++;
-      });
-      const pct = total ? (contestadas / total) * 100 : 0;
-      document.getElementById("progress-intereses").style.width = pct + "%";
-      document.getElementById("progress-intereses-text").textContent =
-        `${contestadas} / ${total} contestadas`;
+      updateProgress(thurstoneDataset, "thurstone-", "progress-intereses", "progress-intereses-text");
     }
 
     function actualizarProgresoAptitudes() {
-      const total = aptitudeItems.length;
-      let contestadas = 0;
-      aptitudeItems.forEach(item => {
-        const sel = document.querySelector(`input[name="apt-${item.id}"]:checked`);
-        if (sel) contestadas++;
-      });
-      const pct = total ? (contestadas / total) * 100 : 0;
-      document.getElementById("progress-aptitudes").style.width = pct + "%";
-      document.getElementById("progress-aptitudes-text").textContent =
-        `${contestadas} / ${total} contestadas`;
+      updateProgress(aptitudeDataset, "apt-", "progress-aptitudes", "progress-aptitudes-text");
+    }
+
+    function renderIntereses() {
+      const container = document.getElementById("contenedor-intereses");
+      if (!container) return;
+
+      container.innerHTML = thurstoneDataset.map(item => {
+        const optionA = item.options.find(option => option.key === "a");
+        const optionB = item.options.find(option => option.key === "b");
+        const checkedA = respuestasIntereses[item.id] === "a" ? "checked" : "";
+        const checkedB = respuestasIntereses[item.id] === "b" ? "checked" : "";
+        const questionState = (checkedA || checkedB) ? "question-item answered" : "question-item";
+
+        return `
+          <article class="${questionState}" data-thurstone-id="${escapeHtml(item.id)}">
+            <div class="question-meta">
+              <span class="question-number">Reactivo ${escapeHtml(item.id)}</span>
+              <span class="question-section">Intereses vocacionales</span>
+            </div>
+            <p class="question-title">¿En cuál de las siguientes ocupaciones preferirías trabajar?</p>
+            <div class="choice-grid two-columns">
+              <label class="choice-card">
+                <input type="radio" name="thurstone-${escapeHtml(item.id)}" value="a" ${checkedA} />
+                <span class="choice-card-body">
+                  <span class="choice-key">A</span>
+                  <span class="choice-text">${escapeHtml(optionA ? optionA.text : "Opción A")}</span>
+                </span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="thurstone-${escapeHtml(item.id)}" value="b" ${checkedB} />
+                <span class="choice-card-body">
+                  <span class="choice-key">B</span>
+                  <span class="choice-text">${escapeHtml(optionB ? optionB.text : "Opción B")}</span>
+                </span>
+              </label>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      container.onchange = event => {
+        if (event.target && event.target.name && event.target.name.startsWith("thurstone-")) {
+          actualizarProgresoIntereses();
+          const itemElement = event.target.closest(".question-item");
+          const shouldAdvance = itemElement && !itemElement.classList.contains("answered");
+          if (itemElement) {
+            itemElement.classList.remove("unanswered");
+            itemElement.classList.add("answered");
+          }
+          if (shouldAdvance) moveToNextQuestion(container, itemElement);
+        }
+      };
+
+      actualizarProgresoIntereses();
+    }
+
+    function renderAptitudes() {
+      const container = document.getElementById("contenedor-aptitudes");
+      if (!container) return;
+
+      container.innerHTML = aptitudeDataset.map((item, index) => {
+        const currentValue = respuestasAptitudes[item.id];
+        const questionState = currentValue ? "question-item answered" : "question-item";
+        return `
+          <article class="${questionState}" data-apt-id="${escapeHtml(item.id)}">
+            <div class="question-meta">
+              <span class="question-number">Reactivo ${index + 1}</span>
+              <span class="question-section">${escapeHtml(item.sectionName)}</span>
+            </div>
+            <p class="question-title">${escapeHtml(item.text)}</p>
+            <div class="choice-grid scale-grid">
+              ${[1, 2, 3, 4].map(value => `
+                <label class="choice-card">
+                  <input type="radio" name="apt-${escapeHtml(item.id)}" value="${value}" ${String(currentValue) === String(value) ? "checked" : ""} />
+                  <span class="choice-card-body">
+                    <span class="choice-key">${value}</span>
+                    <span class="choice-text">
+                      <span class="scale-title">${value === 1 ? "Incompetente" : value === 2 ? "Medianamente apto(a)" : value === 3 ? "Bastante apto(a)" : "Muy apto(a)"}</span>
+                      <span class="scale-subtitle">${value === 1 ? "No me siento capaz de hacerlo." : value === 2 ? "Podría hacerlo con apoyo." : value === 3 ? "Me siento competente en esa actividad." : "Es una fortaleza clara para mí."}</span>
+                    </span>
+                  </span>
+                </label>
+              `).join("")}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      container.onchange = event => {
+        if (event.target && event.target.name && event.target.name.startsWith("apt-")) {
+          actualizarProgresoAptitudes();
+          const itemElement = event.target.closest(".question-item");
+          const shouldAdvance = itemElement && !itemElement.classList.contains("answered");
+          if (itemElement) {
+            itemElement.classList.remove("unanswered");
+            itemElement.classList.add("answered");
+          }
+          if (shouldAdvance) moveToNextQuestion(container, itemElement);
+        }
+      };
+
+      actualizarProgresoAptitudes();
+    }
+
+    function renderStudentSummary() {
+      const target = document.getElementById("resumen-alumno");
+      if (!target) return;
+
+      target.innerHTML = `
+        <div class="card-heading">
+          <div>
+            <h3>Datos del alumno</h3>
+            <p class="subtitle small">Información capturada al inicio de la guía.</p>
+          </div>
+        </div>
+        <p><strong>Nombre:</strong> ${escapeHtml(datosAlumno.nombre || "-")}</p>
+        <p><strong>Edad:</strong> ${escapeHtml(datosAlumno.edad || "-")} · <strong>Fecha de nacimiento:</strong> ${escapeHtml(datosAlumno.fecha_nacimiento || "-")}</p>
+        <p><strong>Ciudad y estado:</strong> ${escapeHtml(datosAlumno.ciudad || "-")}, ${escapeHtml(datosAlumno.estado || "-")}</p>
+        <p><strong>Preparatoria / Bachillerato:</strong> ${escapeHtml(datosAlumno.preparatoria || "-")}</p>
+        <p><strong>Correo:</strong> ${escapeHtml(datosAlumno.correo || "-")}</p>
+        <p><strong>Primera opción UNACAR:</strong> ${escapeHtml(datosAlumno.opcion1 || "-")}</p>
+        <p><strong>Segunda opción UNACAR:</strong> ${escapeHtml(datosAlumno.opcion2 || "-")}</p>
+      `;
+    }
+
+    function renderOverview() {
+      const target = document.getElementById("resumen-destacado");
+      if (!target || !cachedResultados.topCarreras || !cachedResultados.topFactores) return;
+
+      const bestCareer = cachedResultados.topCarreras[0];
+      const bestStatus = bestCareer ? getStatusMeta(bestCareer.percent) : getStatusMeta(0);
+      const topThreeFactors = cachedResultados.topFactores.slice(0, 3);
+
+      target.innerHTML = `
+        <div class="summary-heading">
+          <div>
+            <h3>Resumen principal</h3>
+            <p class="subtitle small">Una lectura rápida del perfil detectado por la guía.</p>
+          </div>
+          <span class="status-pill ${bestStatus.className}">${bestStatus.label}</span>
+        </div>
+
+        <p>
+          La carrera con mejor alineación general es
+          <strong>${escapeHtml(bestCareer ? bestCareer.program.name : "Sin resultado")}</strong>,
+          con una compatibilidad estimada de
+          <strong>${bestCareer ? bestCareer.percent.toFixed(0) : "0"}%</strong>.
+        </p>
+
+        <div class="summary-metrics">
+          <div class="metric">
+            <span class="metric-label">Top de factores</span>
+            <div class="metric-value">${cachedResultados.topFactores.length} <small>considerados</small></div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Factor más alto</span>
+            <div class="metric-value">${escapeHtml(topThreeFactors[0] ? topThreeFactors[0].label : "-")}</div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Compatibilidad líder</span>
+            <div class="metric-value">${bestCareer ? bestCareer.percent.toFixed(0) : "0"}<small>%</small></div>
+          </div>
+        </div>
+
+        <div class="factor-chip-row">
+          ${buildFactorChips(topThreeFactors.map(factor => factor.id), "highlight", cachedResultados.factores, { includeScore: true })}
+        </div>
+      `;
+    }
+
+    function renderTopFactors() {
+      const target = document.getElementById("contenedor-factores");
+      if (!target || !cachedResultados.topFactores) return;
+
+      target.innerHTML = cachedResultados.topFactores.map(factor => `
+        <article class="result-card">
+          <div class="card-heading">
+            <div>
+              <h4>${escapeHtml(factor.label)}</h4>
+              <p class="subtitle small">Puntaje ${formatScore(factor.value)} de ${formatScore(factor.maxValue)}</p>
+            </div>
+            <span class="pill-note">${Math.round(factor.normalized)}%</span>
+          </div>
+          <div class="factor-meter">
+            <div class="factor-meter-track">
+              <div class="factor-meter-fill" style="width:${factor.normalized.toFixed(2)}%; background: linear-gradient(90deg, ${escapeHtml(factor.color)}, var(--primary));"></div>
+            </div>
+          </div>
+          <p>${escapeHtml(factor.description)}</p>
+          <div class="factor-meta">
+            <span>${escapeHtml(buildFactorSourceText(factor))}</span>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderRadarSection() {
+      const chartTarget = document.getElementById("grafica-telarana");
+      const legendTarget = document.getElementById("leyenda-factores");
+      if (!chartTarget || !legendTarget || !cachedResultados.factores) return;
+
+      chartTarget.innerHTML = getRadarChartMarkup(cachedResultados.factores);
+      legendTarget.innerHTML = buildRadarLegendMarkup(cachedResultados.factores);
+    }
+
+    function renderTopCareers() {
+      const target = document.getElementById("contenedor-carreras");
+      if (!target || !cachedResultados.topCarreras) return;
+
+      target.innerHTML = cachedResultados.topCarreras.map((career, index) => {
+        const status = getStatusMeta(career.percent);
+        return `
+          <article class="result-card">
+            <div class="card-heading">
+              <div>
+                <h4>${index + 1}. ${escapeHtml(career.program.name)}</h4>
+                <p class="subtitle small">Compatibilidad estimada ${career.percent.toFixed(0)}%</p>
+              </div>
+              <span class="status-pill ${status.className}">${status.label}</span>
+            </div>
+            <div class="compat-meter-track">
+              <div class="compat-meter-fill" style="width:${career.percent.toFixed(2)}%"></div>
+            </div>
+            <div class="compatibility-meta">
+              <span>Coincidencias: ${career.matches} de ${career.topFactorCount}</span>
+              <span>Puntos: ${career.points.toFixed(0)} / ${career.maxPoints}</span>
+            </div>
+            <div class="compat-block">
+              <h4>Factores ya alineados</h4>
+              <div class="factor-chip-row">
+                ${buildFactorChips(career.matchedFactorIds, "match", cachedResultados.factores, { includeNormalized: true })}
+              </div>
+            </div>
+            <div class="compat-block">
+              <h4>Factores asociados a la carrera</h4>
+              <div class="factor-chip-row">
+                ${buildFactorChips(career.program.factors, "neutral", cachedResultados.factores)}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderChosenProgramsCompatibility() {
+      const target = document.getElementById("compat-elecciones");
+      if (!target) return;
+
+      const blocks = ["opcion1", "opcion2"].map((key, index) => {
+        const optionLabel = index === 0 ? "Primera opción" : "Segunda opción";
+        const selectedName = datosAlumno[key];
+
+        if (!selectedName) return "";
+
+        if (selectedName === "No sé") {
+          return `
+            <article class="result-card compatibility-card">
+              <div class="card-heading">
+                <div>
+                  <h4>${optionLabel}: No sé</h4>
+                  <p class="subtitle small">No se definió una segunda opción concreta.</p>
+                </div>
+              </div>
+              <p>La guía puede ayudar a abrir una segunda alternativa a partir de las carreras sugeridas.</p>
+            </article>
+          `;
+        }
+
+        const program = findProgramByName(selectedName);
+        if (!program) {
+          return `
+            <article class="result-card compatibility-card">
+              <div class="card-heading">
+                <div>
+                  <h4>${optionLabel}: ${escapeHtml(selectedName)}</h4>
+                </div>
+              </div>
+              <p>No se encontró esta carrera en el catálogo de programas de la guía.</p>
+            </article>
+          `;
+        }
+
+        const detail = buildCompatibilityDetails(program);
+        const status = detail ? detail.status : getStatusMeta(0);
+        const missingMessage = detail && detail.missingFactorIds.length
+          ? "Estos son los factores que faltaron entre tus factores principales para que esta opción se alineara mejor."
+          : "Tus factores principales ya cubren los factores clave asociados con esta carrera.";
+
+        return `
+          <article class="result-card compatibility-card">
+            <div class="card-heading">
+              <div>
+                <h4>${optionLabel}: ${escapeHtml(program.name)}</h4>
+                <p class="subtitle small">Compatibilidad estimada con tus factores principales.</p>
+              </div>
+              <span class="status-pill ${status.className}">${status.label}</span>
+            </div>
+            <div class="compat-meter-track">
+              <div class="compat-meter-fill" style="width:${detail.percent.toFixed(2)}%"></div>
+            </div>
+            <div class="compatibility-meta">
+              <span>${detail.percent.toFixed(0)}% de compatibilidad</span>
+              <span>Coincidencias: ${detail.matches} de ${detail.topFactorCount}</span>
+            </div>
+
+            <div class="compat-block">
+              <h4>Factores presentes en esta compatibilidad</h4>
+              <div class="factor-chip-row">
+                ${buildFactorChips(detail.matchedFactorIds, "match", cachedResultados.factores, { includeNormalized: true })}
+              </div>
+            </div>
+
+            <div class="compat-block">
+              <h4>Factores que faltaron para mejorar la compatibilidad</h4>
+              <div class="factor-chip-row">
+                ${buildFactorChips(detail.missingFactorIds, "missing", cachedResultados.factores)}
+              </div>
+              <p class="compat-note">${escapeHtml(missingMessage)}</p>
+            </div>
+
+            <div class="compat-block">
+              <h4>Factores esperados por la carrera</h4>
+              <div class="factor-chip-row">
+                ${buildFactorChips(program.factors, "neutral", cachedResultados.factores)}
+              </div>
+            </div>
+          </article>
+        `;
+      }).filter(Boolean);
+
+      target.innerHTML = blocks.join("") || `<p class="result-empty">No hay opciones elegidas para comparar.</p>`;
     }
 
     function calcularYMostrarResultados(triggerSave = true) {
@@ -941,9 +2598,10 @@ if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"])
       const factores = computeFactors(intereses, aptitudes);
       const topFactores = getTopFactors(factores, 6);
       const compatData = computeCareerCompatibilities(factores, 6);
-      let topCarreras = compatData.all.filter(c => c.percent >= 50).slice(0, 3);
+
+      let topCarreras = compatData.all.filter(item => item.percent >= 50).slice(0, 3);
       if (topCarreras.length < 3) {
-        const extras = compatData.all.filter(c => !topCarreras.includes(c)).slice(0, 3 - topCarreras.length);
+        const extras = compatData.all.filter(item => !topCarreras.includes(item)).slice(0, 3 - topCarreras.length);
         topCarreras = topCarreras.concat(extras);
       }
 
@@ -952,232 +2610,75 @@ if (datosAlumno["opcion1"] && datosAlumno["opcion1"] === datosAlumno["opcion2"])
       cachedResultados.factores = factores;
       cachedResultados.topFactores = topFactores;
       cachedResultados.topCarreras = topCarreras;
+      cachedResultados.allCompatibilities = compatData.all;
       cachedResultados.topFactorIds = compatData.topFactorIds;
       cachedResultados.topFactorCount = compatData.topFactorCount;
+      cachedResultados.weights = compatData.weights;
+      cachedResultados.factorMaxima = Object.fromEntries(
+        Object.values(factores).map(factor => [factor.id, factor.maxValue])
+      );
 
-      const ra = document.getElementById("resumen-alumno");
-      ra.innerHTML = `
-        <h4>Datos del alumno</h4>
-        <p><strong>Nombre:</strong> ${datosAlumno.nombre || "-"} </p>
-        <p><strong>Edad:</strong> ${datosAlumno.edad || "-"} &nbsp; &bull; &nbsp;
-           <strong>Fecha de nacimiento:</strong> ${datosAlumno.fecha_nacimiento || "-"}</p>
-        <p><strong>Ciudad y estado:</strong> ${datosAlumno.ciudad || "-"}, ${datosAlumno.estado || "-"}</p>
-        <p><strong>Preparatoria:</strong> ${datosAlumno.preparatoria || "-"} </p>
-        <p><strong>Correo:</strong> ${datosAlumno.correo || "-"} </p>
-        <p><strong>Primera opción UNACAR:</strong> ${datosAlumno.opcion1 || "-"}<br/>
-           <strong>Segunda opción UNACAR:</strong> ${datosAlumno.opcion2 || "-"}
-        </p>
-      `;
+      renderStudentSummary();
+      renderOverview();
+      renderRadarSection();
+      renderTopFactors();
+      renderTopCareers();
+      renderChosenProgramsCompatibility();
 
-      const cf = document.getElementById("contenedor-factores");
-      cf.innerHTML = "";
-      topFactores.forEach(f => {
-        const div = document.createElement("div");
-        div.className = "result-card";
-        div.innerHTML = `
-          <h4>${f.id}. ${f.label}</h4>
-          <p><strong>Puntaje promedio del factor:</strong> ${f.value.toFixed(2)}</p>
-          <p>${f.description || ""}</p>
-        `;
-        cf.appendChild(div);
-      });
-
-      const cc = document.getElementById("contenedor-carreras");
-      cc.innerHTML = "";
-      topCarreras.forEach((c, idx) => {
-        const div = document.createElement("div");
-        div.className = "result-card";
-        div.innerHTML = `
-          <h4>${idx + 1}. ${c.program.name}</h4>
-          <p><strong>Compatibilidad estimada:</strong> ${c.percent.toFixed(0)}%</p>
-          <p><strong>Resultado:</strong> ${c.percent >= 50 ? "Factible" : "Baja compatibilidad"} (umbral: 50%)</p>
-          <p style="font-size:0.8rem; color:#555;">
-            Coincidencias (TOP 6): ${c.matches} de ${c.topFactorCount}.<br/>
-            Ponderación por jerarquía: ${c.points.toFixed(0)} de ${c.maxPoints} puntos posibles.<br/>
-            Factores considerados para esta carrera: ${c.program.factors.join(", ")}
-          </p>
-        `;
-        cc.appendChild(div);
-      });
-
-      const compatDiv = document.getElementById("compat-elecciones");
-      compatDiv.innerHTML = "";
-      ["opcion1", "opcion2"].forEach((key, idx) => {
-        const nombre = datosAlumno[key];
-        if (!nombre) return;
-        
-        if (nombre === "No sé") {
-          const div = document.createElement("div");
-          div.className = "result-card";
-          div.innerHTML = `
-            <h4>${idx === 0 ? "Primera" : "Segunda"} opción: No sé</h4>
-            <p>Elegiste no definir una segunda opción por ahora.</p>
-          `;
-          compatDiv.appendChild(div);
-          return;
-        }
-const prog = findProgramByName(nombre);
-        const div = document.createElement("div");
-        div.className = "result-card";
-
-        if (!prog) {
-          div.innerHTML = `
-            <h4>${idx === 0 ? "Primera" : "Segunda"} opción: ${nombre}</h4>
-            <p>No se encontró esta carrera en el catálogo de programas de la guía.</p>
-          `;
-        } else {
-          const topIds = cachedResultados.topFactorIds || [];
-          const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
-          const required = Array.isArray(prog.factors) ? prog.factors : [];
-          const weights = (cachedResultados.weights && Array.isArray(cachedResultados.weights)) ? cachedResultados.weights : [4,4,3,2,2,1];
-
-          const k = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal);
-          const maxPts = weights.slice(0, k).reduce((a, b) => a + b, 0) || 1;
-
-          let matches = 0;
-          let points = 0;
-
-          topIds.forEach((id, pos) => {
-            if (required.includes(id)) {
-              matches++;
-              points += (weights[pos] || 0);
-            }
-          });
-
-          const percent = (points / maxPts) * 100;
-          div.innerHTML = `
-            <h4>${idx === 0 ? "Primera" : "Segunda"} opción: ${prog.name}</h4>
-            <p><strong>Compatibilidad estimada con tus factores principales:</strong> ${percent.toFixed(0)}%</p>
-            <p><strong>Resultado:</strong> ${percent >= 50 ? "Factible" : "Baja compatibilidad"} (umbral: 50%)</p>
-            <p style="font-size:0.8rem; color:#555;">
-              Coincidencias (TOP 6): ${matches} de ${k}.<br/>
-              Ponderación por jerarquía: ${points.toFixed(0)} de ${maxPts} puntos posibles.<br/>
-              Factores asociados a esta carrera: ${prog.factors.join(", ")}
-            </p>
-          `;
-        }
-        compatDiv.appendChild(div);
-      });
-
-      // Enviar los resultados al servidor si se ha configurado un endpoint.
       if (triggerSave) enviarResultadosAlServidor();
     }
 
     function poblarSelectCarreras() {
       const select1 = document.getElementById("opcion1");
       const select2 = document.getElementById("opcion2");
-      const nombres = Array.from(new Set(programFactors.map(p => p.name))).sort();
+      if (!select1 || !select2) return;
 
-      nombres.forEach(nombre => {
-        const opt1 = document.createElement("option");
-        opt1.value = nombre;
-        opt1.textContent = nombre;
-        select1.appendChild(opt1);
+      const names = Array.from(new Set(programFactors.map(program => program.name))).sort();
 
-        const opt2 = document.createElement("option");
-        opt2.value = nombre;
-        opt2.textContent = nombre;
-        select2.appendChild(opt2);
+      names.forEach(name => {
+        const option1 = document.createElement("option");
+        option1.value = name;
+        option1.textContent = name;
+        select1.appendChild(option1);
+
+        const option2 = document.createElement("option");
+        option2.value = name;
+        option2.textContent = name;
+        select2.appendChild(option2);
       });
     }
 
-    function renderIntereses() {
-      const cont = document.getElementById("contenedor-intereses");
-      cont.innerHTML = "";
+    function fillFormFromData() {
+      const fieldIds = [
+        "nombre",
+        "edad",
+        "fecha_nacimiento",
+        "ciudad",
+        "estado",
+        "preparatoria",
+        "correo",
+        "opcion1",
+        "opcion2"
+      ];
 
-      thurstoneItems.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "question-item";
-        div.setAttribute("data-thurstone-id", item.id);
+      fieldIds.forEach(fieldId => {
+        const element = document.getElementById(fieldId);
+        if (!element) return;
 
-        const textoBase = `Reactivo ${item.id}. ¿En cuál de las siguientes ocupaciones preferirías trabajar?`;
-        const optA = item.options.find(o => o.key === "a");
-        const optB = item.options.find(o => o.key === "b");
+        if (fieldId === "opcion2" && datosAlumno[fieldId] === "No sé") {
+          element.value = "NO_SE";
+          return;
+        }
 
-        div.innerHTML = `
-          <div class="question-title">${textoBase}</div>
-          <div class="options-row">
-            <label>
-              <input type="radio" name="thurstone-${item.id}" value="a" />
-              a) ${optA ? optA.text : "Opción A"}
-            </label>
-            <label>
-              <input type="radio" name="thurstone-${item.id}" value="b" />
-              b) ${optB ? optB.text : "Opción B"}
-            </label>
-          </div>
-        `;
-        cont.appendChild(div);
-      });
-
-      actualizarProgresoIntereses();
-
-      cont.addEventListener("change", (ev) => {
-        if (ev.target && ev.target.name && ev.target.name.startsWith("thurstone-")) {
-          actualizarProgresoIntereses();
-          const itemDiv = ev.target.closest(".question-item");
-          if (itemDiv) {
-            itemDiv.classList.remove("unanswered");
-          }
+        if (datosAlumno[fieldId] != null) {
+          element.value = datosAlumno[fieldId];
         }
       });
     }
 
-    function renderAptitudes() {
-      const cont = document.getElementById("contenedor-aptitudes");
-      cont.innerHTML = "";
-
-      aptitudeItems.forEach((item, idx) => {
-        const div = document.createElement("div");
-        div.className = "question-item";
-        div.setAttribute("data-apt-id", item.id);
-
-        const textoBase = `${idx + 1}. ${item.text}`;
-
-        div.innerHTML = `
-          <div class="question-title">${textoBase}</div>
-          <div class="options-row">
-            <label>
-              <input type="radio" name="apt-${item.id}" value="1" />
-              1) Me considero incompetente
-            </label>
-            <label>
-              <input type="radio" name="apt-${item.id}" value="2" />
-              2) Medianamente apto(a)
-            </label>
-            <label>
-              <input type="radio" name="apt-${item.id}" value="3" />
-              3) Bastante apto(a)
-            </label>
-            <label>
-              <input type="radio" name="apt-${item.id}" value="4" />
-              4) Muy apto(a)
-            </label>
-          </div>
-        `;
-        cont.appendChild(div);
-      });
-
-      actualizarProgresoAptitudes();
-
-      cont.addEventListener("change", (ev) => {
-        if (ev.target && ev.target.name && ev.target.name.startsWith("apt-")) {
-          actualizarProgresoAptitudes();
-          const itemDiv = ev.target.closest(".question-item");
-          if (itemDiv) {
-            itemDiv.classList.remove("unanswered");
-          }
-        }
-      });
-    }
-
-    // Versión sin librería externa: abre una vista imprimible y
-    // el usuario puede elegir "Guardar como PDF" en el diálogo de impresión.
-    
-    
     function buildExportObject() {
       return {
-        version: 1,
+        version: 2,
         timestamp: new Date().toISOString(),
         datosAlumno: { ...datosAlumno },
         respuestasIntereses: { ...respuestasIntereses },
@@ -1186,18 +2687,15 @@ const prog = findProgramByName(nombre);
     }
 
     function downloadRawReport() {
-      const exp = buildExportObject();
-
-      const jsonStr = JSON.stringify(exp, null, 2);
-      const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8;" });
+      const exportData = buildExportObject();
+      const json = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([json], { type: "application/json;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
-
-      const nombreLimpio = (datosAlumno.nombre || "reporte")
-        .replace(/[^a-z0-9_-]/gi, "_");
+      const fileName = (datosAlumno.nombre || "reporte").replace(/[^a-z0-9_-]/gi, "_");
       const link = document.createElement("a");
-      link.href = url;
-      link.download = `orientacion_unacar_respuestas_${nombreLimpio}.json`;
 
+      link.href = url;
+      link.download = `orientacion_unacar_respuestas_${fileName}.json`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -1205,269 +2703,241 @@ const prog = findProgramByName(nombre);
     }
 
     function applyImportedReport(data) {
-      
-      // Nota: si cargas un JSON, también podemos guardar el registro en Supabase (si está habilitado).
-if (!data || typeof data !== "object") {
+      if (!data || typeof data !== "object") {
         alert("El archivo no tiene el formato esperado.");
         return;
       }
+
       if (!data.datosAlumno || !data.respuestasIntereses || !data.respuestasAptitudes) {
-        alert("El archivo no contiene la información completa de respuestas.");
+        alert("El archivo no contiene la información mínima necesaria para restaurar un reporte.");
         return;
       }
 
-      // Volcamos los datos del alumno
-      Object.keys(datosAlumno).forEach(k => delete datosAlumno[k]);
+      resetObject(datosAlumno);
       Object.assign(datosAlumno, data.datosAlumno || {});
 
-      // Volcamos respuestas
-      Object.keys(respuestasIntereses).forEach(k => delete respuestasIntereses[k]);
-      Object.keys(data.respuestasIntereses || {}).forEach(k => {
-        respuestasIntereses[k] = data.respuestasIntereses[k];
-      });
+      resetObject(respuestasIntereses);
+      Object.assign(respuestasIntereses, data.respuestasIntereses || {});
 
-      Object.keys(respuestasAptitudes).forEach(k => delete respuestasAptitudes[k]);
-      Object.keys(data.respuestasAptitudes || {}).forEach(k => {
-        respuestasAptitudes[k] = data.respuestasAptitudes[k];
-      });
+      resetObject(respuestasAptitudes);
+      Object.assign(respuestasAptitudes, data.respuestasAptitudes || {});
 
-      // Calculamos resultados y vamos directo al paso 4
+      fillFormFromData();
+      renderIntereses();
+      renderAptitudes();
       calcularYMostrarResultados(true);
       goToStep(4);
     }
 
-    function handleReportFileInput(evt) {
-      const file = evt.target.files && evt.target.files[0];
+    function handleReportFileInput(event) {
+      const file = event.target.files && event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = loadEvent => {
         try {
-          const text = e.target.result;
+          const text = loadEvent.target.result;
           const data = JSON.parse(text);
           applyImportedReport(data);
-        } catch (err) {
-          console.error("Error al leer el archivo de reporte:", err);
-          alert("No se pudo leer el archivo. Verifica que sea un archivo generado por esta guía.");
+        } catch (error) {
+          console.error("Error al leer el archivo importado:", error);
+          alert("No se pudo leer el archivo. Verifica que haya sido generado por esta guía.");
         } finally {
-          // Limpiar el valor del input para permitir volver a seleccionar el mismo archivo si es necesario
-          evt.target.value = "";
+          event.target.value = "";
         }
       };
+
       reader.readAsText(file, "utf-8");
     }
 
     function buildBackendPayload() {
-      // Construye un paquete con la información necesaria para un servidor:
-      // datos del alumno, respuestas completas y resultados calculados.
-      const base = buildExportObject();
-      const tieneResultados = cachedResultados &&
-        cachedResultados.factores &&
-        cachedResultados.topFactores &&
-        cachedResultados.topCarreras;
+      const raw = buildExportObject();
+      const hasResults = cachedResultados.factores && cachedResultados.topFactores && cachedResultados.topCarreras;
 
-      const resumen = tieneResultados ? {
+      const results = hasResults ? {
         factores: cachedResultados.factores,
-        topFactores: (cachedResultados.topFactores || []).map(f => ({
-          id: f.id,
-          label: f.label,
-          value: f.value,
-          interest: f.interest,
-          aptitude: f.aptitude
+        topFactores: (cachedResultados.topFactores || []).map(factor => ({
+          id: factor.id,
+          label: factor.label,
+          value: factor.value,
+          normalized: factor.normalized,
+          interest: factor.interest,
+          aptitude: factor.aptitude
         })),
-        topCarreras: (cachedResultados.topCarreras || []).map(c => ({
-          name: c.program.name,
-          score: c.percent,
-          percent: c.percent,
-          matches: c.matches,
-          topFactorCount: c.topFactorCount,
-          points: c.points,
-          maxPoints: c.maxPoints,
-          factors: c.program.factors
+        topCarreras: (cachedResultados.topCarreras || []).map(career => ({
+          name: career.program.name,
+          score: career.percent,
+          percent: career.percent,
+          matches: career.matches,
+          topFactorCount: career.topFactorCount,
+          points: career.points,
+          maxPoints: career.maxPoints,
+          factors: career.program.factors
         })),
         topFactorIds: cachedResultados.topFactorIds || null,
-        weights: cachedResultados.weights || [4,4,3,2,2,1]
+        weights: cachedResultados.weights || DEFAULT_WEIGHTS
       } : null;
 
       return {
         app: "guia_vocacional_unacar",
-        version_app: 1,
-        exportRaw: base,
-        resultados: resumen
+        version_app: 2,
+        exportRaw: raw,
+        resultados: results
       };
     }
 
-    
-let _supabaseClient = null;
+    let _supabaseClient = null;
 
-function getSupabaseClient() {
-  if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled) return null;
-  if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return null;
-  try {
-    if (_supabaseClient) return _supabaseClient;
-    if (typeof supabase === "undefined" || !supabase.createClient) {
-      console.warn("Supabase JS no está disponible (¿bloqueado por red?).");
-      return null;
+    function getSupabaseClient() {
+      if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled) return null;
+      if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return null;
+
+      try {
+        if (_supabaseClient) return _supabaseClient;
+        if (typeof supabase === "undefined" || !supabase.createClient) {
+          console.warn("Supabase JS no está disponible.");
+          return null;
+        }
+
+        const { createClient } = supabase;
+        _supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+        return _supabaseClient;
+      } catch (error) {
+        console.error("No se pudo inicializar Supabase:", error);
+        return null;
+      }
     }
-    const { createClient } = supabase;
-    _supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-    return _supabaseClient;
-  } catch (e) {
-    console.error("No se pudo inicializar Supabase:", e);
-    return null;
-  }
-}
 
-async function enviarResultadosASupabase(payload) {
-  const client = getSupabaseClient();
-  if (!client) return { ok: false, skipped: true, reason: "Supabase no configurado" };
+    async function enviarResultadosASupabase(payload) {
+      const client = getSupabaseClient();
+      if (!client) return { ok: false, skipped: true, reason: "Supabase no configurado" };
 
-  const row = {
-    app: payload.app || "guia_vocacional_unacar",
-    version_app: payload.version_app || 1,
-    datos_alumno: payload.exportRaw?.datosAlumno || null,
-    export_raw: payload.exportRaw || null,
-    resultados: payload.resultados || null,
-    page_url: (typeof window !== "undefined" ? window.location.href : ""),
-    user_agent: (typeof navigator !== "undefined" ? navigator.userAgent : "")
-  };
+      const row = {
+        app: payload.app || "guia_vocacional_unacar",
+        version_app: payload.version_app || 2,
+        datos_alumno: payload.exportRaw?.datosAlumno || null,
+        export_raw: payload.exportRaw || null,
+        resultados: payload.resultados || null,
+        page_url: (typeof window !== "undefined" ? window.location.href : ""),
+        user_agent: (typeof navigator !== "undefined" ? navigator.userAgent : "")
+      };
 
-  try {
-    const { error } = await client
-      .from(SUPABASE_CONFIG.table)
-      .insert(row); // v2: no devuelve filas a menos que se agregue .select()
-
-    if (error) {
-      console.error("Supabase insert error:", error);
-      return { ok: false, error };
+      try {
+        const { error } = await client.from(SUPABASE_CONFIG.table).insert(row);
+        if (error) {
+          console.error("Supabase insert error:", error);
+          return { ok: false, error };
+        }
+        return { ok: true };
+      } catch (error) {
+        console.error("Supabase insert exception:", error);
+        return { ok: false, error };
+      }
     }
-    return { ok: true };
-  } catch (err) {
-    console.error("Supabase insert exception:", err);
-    return { ok: false, error: err };
-  }
-}
 
+    function enviarResultadosAlServidor() {
+      if (!cachedResultados || !cachedResultados.factores) return;
 
+      const payload = buildBackendPayload();
 
-function enviarResultadosAlServidor() {
-  // Este archivo funciona sin servidor. Si configuras un backend, se enviarán los resultados.
-  // Se envía cuando se calculan resultados (incluye cuando se carga un archivo JSON).
-  if (!cachedResultados || !cachedResultados.factores) return;
+      if (SUPABASE_CONFIG && SUPABASE_CONFIG.enabled) {
+        enviarASupabase();
+      }
 
-  const payload = buildBackendPayload();
+      if (BACKEND_CONFIG && BACKEND_CONFIG.enabled && BACKEND_CONFIG.endpoint) {
+        try {
+          const headers = { "Content-Type": "application/json" };
+          if (BACKEND_CONFIG.apiKey) headers["X-API-Key"] = BACKEND_CONFIG.apiKey;
 
-  // 1) Supabase (recomendado)
-  if (SUPABASE_CONFIG && SUPABASE_CONFIG.enabled) {
-    // Fire & forget: no bloquea la UI si falla
-    enviarASupabase();
-  }
-
-  // 2) Google Apps Script (opcional). Útil si quieres seguir guardando en una Sheet.
-  if (BACKEND_CONFIG && BACKEND_CONFIG.enabled && BACKEND_CONFIG.endpoint) {
-    try {
-      const headers = { "Content-Type": "application/json" };
-      if (BACKEND_CONFIG.apiKey) headers["X-API-Key"] = BACKEND_CONFIG.apiKey;
-
-      fetch(BACKEND_CONFIG.endpoint, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(payload)
-      }).then(res => {
-        if (!res.ok) console.error("Error al enviar a Google Script. Código:", res.status);
-      }).catch(err => {
-        console.error("Error de red al enviar a Google Script:", err);
-      });
-    } catch (err) {
-      console.error("Error inesperado al enviar a Google Script:", err);
+          fetch(BACKEND_CONFIG.endpoint, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(payload)
+          }).then(response => {
+            if (!response.ok) console.error("Error al enviar a Google Script. Código:", response.status);
+          }).catch(error => {
+            console.error("Error de red al enviar a Google Script:", error);
+          });
+        } catch (error) {
+          console.error("Error inesperado al enviar a Google Script:", error);
+        }
+      }
     }
-  }
-}
-
-
-
-
-
-
 
     function buildFactoresTexto(factoresObj) {
       try {
         if (!factoresObj) return "";
-        const arr = Object.values(factoresObj).map(f => {
-          const v = (typeof f.value === "number") ? f.value.toFixed(2) : (f.value ?? "");
-          return `${f.id}-${f.label}:${v}`;
-        });
-        arr.sort((a,b) => {
-          const ia = parseInt((a.split("-")[0]||"").trim(),10);
-          const ib = parseInt((b.split("-")[0]||"").trim(),10);
-          return (ia||0)-(ib||0);
-        });
-        return arr.join(" | ");
-      } catch (e) { return ""; }
+        const entries = Object.values(factoresObj).map(factor => `${factor.id}-${factor.label}:${Number(factor.value).toFixed(2)}`);
+        return entries.join(" | ");
+      } catch (error) {
+        return "";
+      }
     }
 
-    function buildTopFactoresTexto(topF) {
+    function buildTopFactoresTexto(topFactors) {
       try {
-        return (topF || []).map(f => `${f.id}-${f.label}:${Number(f.value).toFixed(2)}`).join(" | ");
-      } catch (e) { return ""; }
+        return (topFactors || []).map(factor => `${factor.id}-${factor.label}:${Number(factor.value).toFixed(2)}`).join(" | ");
+      } catch (error) {
+        return "";
+      }
     }
 
-    function buildTopCarrerasTexto(topC) {
+    function buildTopCarrerasTexto(topCareers) {
       try {
-        return (topC || []).map(c => {
-          const pct = (c.percent != null) ? c.percent : (c.score != null ? c.score : "");
-          const frac = (c.matches != null && c.topFactorCount != null) ? ` (${c.matches}/${c.topFactorCount})` : "";
-          const pts  = (c.points != null && c.maxPoints != null) ? ` pts ${c.points}/${c.maxPoints}` : "";
-          return `${c.name}:${pct}%${frac}${pts}`;
+        return (topCareers || []).map(career => {
+          const percent = career.percent != null ? career.percent : (career.score != null ? career.score : "");
+          return `${career.name || career.program?.name}:${percent}% (${career.matches}/${career.topFactorCount})`;
         }).join(" | ");
-      } catch (e) { return ""; }
+      } catch (error) {
+        return "";
+      }
     }
 
-        function buildSupabaseRow(includeExtras = false, stringifyJson = false) {
+    function buildSupabaseRow(includeExtras = false, stringifyJson = false) {
       const raw = buildExportObject();
-
-      const resObj = {
+      const resultsObject = {
         factores: cachedResultados.factores || {},
-        topFactores: (cachedResultados.topFactores || []).map(f => ({
-          id: f.id, label: f.label, value: f.value, interest: f.interest, aptitude: f.aptitude
+        topFactores: (cachedResultados.topFactores || []).map(factor => ({
+          id: factor.id,
+          label: factor.label,
+          value: factor.value,
+          normalized: factor.normalized,
+          interest: factor.interest,
+          aptitude: factor.aptitude
         })),
-        topCarreras: (cachedResultados.topCarreras || []).map(c => ({
-          name: c.program?.name || c.name,
-          percent: c.percent ?? c.score,
-          matches: c.matches,
-          topFactorCount: c.topFactorCount,
-          points: c.points,
-          maxPoints: c.maxPoints,
-          factors: c.program?.factors || c.factors
+        topCarreras: (cachedResultados.topCarreras || []).map(career => ({
+          name: career.program?.name || career.name,
+          percent: career.percent ?? career.score,
+          matches: career.matches,
+          topFactorCount: career.topFactorCount,
+          points: career.points,
+          maxPoints: career.maxPoints,
+          factors: career.program?.factors || career.factors
         }))
       };
 
-      const d = raw.datosAlumno || {};
-
-      // Columnas base (parecidas a la hoja de cálculo)
+      const student = raw.datosAlumno || {};
       const base = {
         fecha: new Date().toISOString(),
-        nombre: d.nombre || "",
-        edad: d.edad ? Number(d.edad) : null,
-        fecha_nacimiento: d.fecha_nacimiento || null,
-        ciudad: d.ciudad || "",
-        estado: d.estado || "",
-        preparatoria: d.preparatoria || "",
-        correo: d.correo || "",
-        opcion1: d.opcion1 || "",
-        opcion2: d.opcion2 || "",
+        nombre: student.nombre || "",
+        edad: student.edad ? Number(student.edad) : null,
+        fecha_nacimiento: student.fecha_nacimiento || null,
+        ciudad: student.ciudad || "",
+        estado: student.estado || "",
+        preparatoria: student.preparatoria || "",
+        correo: student.correo || "",
+        opcion1: student.opcion1 || "",
+        opcion2: student.opcion2 || "",
         factores_texto: buildFactoresTexto(cachedResultados.factores),
         top_factores_texto: buildTopFactoresTexto(cachedResultados.topFactores),
         top_carreras_texto: buildTopCarrerasTexto(cachedResultados.topCarreras)
       };
 
-      // Respuestas completas: idealmente en JSONB (si tu columna es TEXT, activaremos un fallback a string)
       base.respuestas_intereses = stringifyJson ? JSON.stringify(raw.respuestasIntereses || {}) : (raw.respuestasIntereses || {});
       base.respuestas_aptitudes = stringifyJson ? JSON.stringify(raw.respuestasAptitudes || {}) : (raw.respuestasAptitudes || {});
 
       if (includeExtras) {
-        // Extras útiles (requieren columnas adicionales en la tabla)
-        base.resultados = stringifyJson ? JSON.stringify(resObj) : resObj;
+        base.resultados = stringifyJson ? JSON.stringify(resultsObject) : resultsObject;
         base.export_raw = stringifyJson ? JSON.stringify(raw) : raw;
         base.page_url = (typeof window !== "undefined" ? window.location.href : "");
         base.user_agent = (typeof navigator !== "undefined" ? navigator.userAgent : "");
@@ -1488,45 +2958,40 @@ function enviarResultadosAlServidor() {
         "Prefer": "return=minimal"
       };
 
-      // Intentamos varias combinaciones para adaptarnos a tu esquema:
-      // 1) Con extras + JSON (requiere columnas JSONB extra: resultados/export_raw/page_url/user_agent)
-      // 2) Solo columnas base + JSON
-      // 3) Solo columnas base + respuestas en STRING (si tus columnas son TEXT)
       const attempts = [
         { row: buildSupabaseRow(true, false), label: "full_json" },
         { row: buildSupabaseRow(false, false), label: "base_json" },
         { row: buildSupabaseRow(false, true), label: "base_string" }
       ];
 
-      for (const att of attempts) {
+      for (const attempt of attempts) {
         try {
-          const res = await fetch(endpoint, { method: "POST", headers, body: JSON.stringify(att.row) });
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(attempt.row)
+          });
 
-          if (res.ok) {
-            console.log(`Supabase: guardado OK (${att.label}).`);
+          if (response.ok) {
+            console.log(`Supabase: guardado OK (${attempt.label}).`);
             return;
           }
 
-          const body = await res.text().catch(() => "");
-          console.error(`Supabase: error al insertar (${att.label}). Código:`, res.status, body);
+          const body = await response.text().catch(() => "");
+          console.error(`Supabase: error al insertar (${attempt.label}). Código:`, response.status, body);
 
-          // 401/403 casi siempre es RLS/policy.
-          if (res.status === 401 || res.status === 403) {
-            console.error("Supabase: parece un bloqueo por RLS (Row Level Security). Revisa que exista una policy de INSERT para el rol anon en la tabla.");
-            return; // no vale la pena reintentar si es policy
+          if (response.status === 401 || response.status === 403) {
+            console.error("Supabase: parece un bloqueo por RLS. Revisa la policy de INSERT para el rol anon.");
+            return;
           }
-
-          // Si es 400, puede ser: columna inexistente o tipo incompatible. Intentamos siguiente fallback.
-        } catch (err) {
-          console.error(`Supabase: error de red (${att.label}):`, err);
-          // Si fue red, no reintentamos las demás variantes porque suele ser el mismo problema.
+        } catch (error) {
+          console.error(`Supabase: error de red (${attempt.label}):`, error);
           return;
         }
       }
 
-      console.error("Supabase: no se pudo guardar el registro con ninguna variante. Revisa el esquema de la tabla y/o las policies de RLS.");
+      console.error("Supabase: no se pudo guardar el registro con ninguna variante.");
     }
-
 
     function generatePDF() {
       if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
@@ -1534,146 +2999,265 @@ function enviarResultadosAlServidor() {
         return;
       }
 
-      const factores = cachedResultados.factores;
-      const topFactores = cachedResultados.topFactores;
-      const topCarreras = cachedResultados.topCarreras;
-
       const win = window.open("", "_blank");
       if (!win) {
-        alert("El navegador bloqueó la ventana emergente. Permite las ventanas emergentes para esta página para poder generar el PDF.");
+        alert("El navegador bloqueó la ventana emergente. Permite las ventanas emergentes para esta página para generar el reporte.");
         return;
       }
 
-      let html = "";
-      html += "<!DOCTYPE html><html lang='es'><head><meta charset='UTF-8'>";
-      html += "<title>Reporte de orientación vocacional UNACAR</title>";
-      html += "<style>";
-      html += "body { font-family: Arial, sans-serif; font-size: 12px; margin: 24px; }";
-      html += "h1 { font-size: 18px; margin-bottom: 4px; text-align: center; }";
-      html += "h2 { font-size: 15px; margin-top: 16px; margin-bottom: 6px; }";
-      html += "p { margin: 2px 0; }";
-      html += "ul { margin: 4px 0 8px 18px; padding: 0; }";
-      html += "li { margin-bottom: 2px; }";
-      html += ".header-inst { text-align: center; margin-bottom: 8px; }";
-      html += ".header-uni { font-weight: 700; font-size: 18px; }";
-      html += ".header-dgse { font-weight: 600; font-size: 15px; }";
-      html += ".header-usp { font-weight: 600; font-size: 15px; }";
-      html += ".subtitulo-reporte { font-size: 12px; text-align: center; margin-top: 4px; }";
-      html += ".header-inst-line { font-weight: 600; }";
-      html += ".note-legal { font-size: 11px; margin-top: 18px; padding: 8px 10px; border: 1px solid #b91c1c; background:#fff5f5; color:#7f1d1d; }";
-      html += "</style></head><body>";
+      const topFactorsHtml = (cachedResultados.topFactores || []).map(factor => `
+        <div class="block-card">
+          <h4>${escapeHtml(factor.label)}</h4>
+          <p><strong>Puntaje:</strong> ${formatScore(factor.value)} de ${formatScore(factor.maxValue)} (${Math.round(factor.normalized)}%)</p>
+          <p>${escapeHtml(factor.description)}</p>
+          <p class="small-note">${escapeHtml(buildFactorSourceText(factor))}</p>
+        </div>
+      `).join("");
 
-      html += "<div class='header-inst'>";
-      html += "<div class='header-uni'>Universidad Autónoma del Carmen</div>";
-      html += "<div class='header-dgse'>Dirección General de Servicios al Estudiante</div>";
-      html += "<div class='header-usp'>Unidad de Servicios Psicopedagógicos</div>";
-      html += "</div>";
-      html += "<h1>Guía de orientación vocacional</h1>";
-      html += "<p class='subtitulo-reporte'><strong>Reporte individual</strong></p>";
-      
-      html += "<h2>Datos del alumno</h2>";
-      html += `<p><strong>Nombre:</strong> ${datosAlumno.nombre || "-"} </p>`;
-      html += `<p><strong>Edad:</strong> ${datosAlumno.edad || "-"} &nbsp;&nbsp; <strong>Fecha de nacimiento:</strong> ${datosAlumno.fecha_nacimiento || "-"} </p>`;
-      html += `<p><strong>Ciudad y estado:</strong> ${datosAlumno.ciudad || "-"}, ${datosAlumno.estado || "-"} </p>`;
-      html += `<p><strong>Preparatoria / Bachillerato:</strong> ${datosAlumno.preparatoria || "-"} </p>`;
-      html += `<p><strong>Correo electrónico:</strong> ${datosAlumno.correo || "-"} </p>`;
-      html += `<p><strong>Primera opción UNACAR:</strong> ${datosAlumno.opcion1 || "-"} </p>`;
-      html += `<p><strong>Segunda opción UNACAR:</strong> ${datosAlumno.opcion2 || "-"} </p>`;
+      const topCareersHtml = (cachedResultados.topCarreras || []).map((career, index) => {
+        const status = getStatusMeta(career.percent);
+        return `
+          <div class="block-card">
+            <h4>${index + 1}. ${escapeHtml(career.program.name)}</h4>
+            <p><strong>Compatibilidad:</strong> ${career.percent.toFixed(0)}% · ${escapeHtml(status.label)}</p>
+            <p><strong>Coincidencias:</strong> ${career.matches} de ${career.topFactorCount} · <strong>Puntos:</strong> ${career.points.toFixed(0)} / ${career.maxPoints}</p>
+            <p><strong>Factores alineados:</strong> ${escapeHtml(career.matchedFactorIds.map(getFactorLabel).join(", ") || "Sin coincidencias claras")}</p>
+          </div>
+        `;
+      }).join("");
 
-      html += "<h2>Factores más altos</h2>";
-      html += "<ul>";
-      topFactores.forEach(f => {
-        html += `<li><strong>${f.id}. ${f.label}</strong> – Puntaje promedio: ${f.value.toFixed(2)}<br/>${f.description || ""}</li>`;
-      });
-      html += "</ul>";
+      const selectedOptionsHtml = ["opcion1", "opcion2"].map((key, index) => {
+        const label = index === 0 ? "Primera opción" : "Segunda opción";
+        const name = datosAlumno[key];
 
-      html += "<h2>Carreras sugeridas por la guía</h2>";
-      html += "<ul>";
-      topCarreras.forEach((c, idx) => {
-        html += `<li>${idx + 1}. ${c.program.name} – compatibilidad estimada: ${c.percent.toFixed(0)}% (resultado: ${c.percent >= 50 ? "Factible" : "Baja compatibilidad"}; puntos: ${c.points.toFixed(0)}/${c.maxPoints}; coincidencias: ${c.matches}/${c.topFactorCount})</li>`;
-      });
-      html += "</ul>";
-
-      html += "<h2>Compatibilidad con tus opciones elegidas</h2>";
-      html += "<ul>";
-      ["opcion1", "opcion2"].forEach((key, idx) => {
-        const nombre = datosAlumno[key];
-        const etiqueta = idx === 0 ? "Primera opción" : "Segunda opción";
-        if (!nombre) return;
-        
-        if (nombre === "No sé") {
-          html += `<li>${etiqueta}: No sé (sin segunda opción definida)</li>`;
-          return;
+        if (!name) return "";
+        if (name === "No sé") {
+          return `<div class="block-card"><h4>${label}: No sé</h4><p>No se definió una segunda opción concreta.</p></div>`;
         }
-const prog = findProgramByName(nombre);
-        if (!prog) {
-          html += `<li>${etiqueta}: ${nombre} (no se encontró esta carrera en el catálogo de la guía)</li>`;
-        } else {
-          const topIds = cachedResultados.topFactorIds || [];
-          const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
-          const required = Array.isArray(prog.factors) ? prog.factors : [];
-          const weights = (cachedResultados.weights && Array.isArray(cachedResultados.weights)) ? cachedResultados.weights : [4,4,3,2,2,1];
 
-          const k = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal);
-          const maxPts = weights.slice(0, k).reduce((a, b) => a + b, 0) || 1;
+        const program = findProgramByName(name);
+        if (!program) {
+          return `<div class="block-card"><h4>${label}: ${escapeHtml(name)}</h4><p>No se encontró esta carrera en el catálogo de la guía.</p></div>`;
+        }
 
-          let matches = 0;
-          let points = 0;
+        const detail = buildCompatibilityDetails(program);
+        return `
+          <div class="block-card">
+            <h4>${label}: ${escapeHtml(program.name)}</h4>
+            <p><strong>Compatibilidad:</strong> ${detail.percent.toFixed(0)}% · ${escapeHtml(detail.status.label)}</p>
+            <p><strong>Factores presentes:</strong> ${escapeHtml(detail.matchedFactorIds.map(getFactorLabel).join(", ") || "Sin coincidencias fuertes")}</p>
+            <p><strong>Factores que faltaron:</strong> ${escapeHtml(detail.missingFactorIds.map(getFactorLabel).join(", ") || "Ninguno dentro de los factores principales")}</p>
+          </div>
+        `;
+      }).join("");
 
-          topIds.forEach((id, pos) => {
-            if (required.includes(id)) {
-              matches++;
-              points += (weights[pos] || 0);
+      const html = `
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+          <meta charset="UTF-8">
+          <title>Reporte de orientación vocacional UNACAR</title>
+          <style>
+            body {
+              margin: 28px;
+              font-family: Arial, sans-serif;
+              color: #163047;
             }
-          });
+            h1, h2, h3, h4 {
+              margin: 0;
+              color: #083d5b;
+            }
+            h1 {
+              text-align: center;
+              margin-bottom: 8px;
+              font-size: 24px;
+            }
+            h2 {
+              margin-top: 24px;
+              margin-bottom: 10px;
+              font-size: 18px;
+            }
+            p {
+              margin: 4px 0;
+              line-height: 1.55;
+            }
+            .header {
+              text-align: center;
+              margin-bottom: 20px;
+            }
+            .header p {
+              margin: 2px 0;
+            }
+            .grid {
+              display: grid;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 14px;
+            }
+            .block-card {
+              border: 1px solid rgba(13, 95, 140, 0.18);
+              border-radius: 14px;
+              padding: 12px 14px;
+              background: #f8fbff;
+              break-inside: avoid;
+            }
+            .small-note {
+              color: #5d7385;
+              font-size: 12px;
+            }
+            .radar-wrap {
+              display: grid;
+              justify-items: center;
+              margin-top: 12px;
+            }
+            .radar-svg {
+              width: 100%;
+              max-width: 420px;
+              height: auto;
+              overflow: visible;
+            }
+            .radar-ring {
+              fill: none;
+              stroke: rgba(13, 95, 140, 0.14);
+              stroke-width: 1;
+            }
+            .radar-axis {
+              stroke: rgba(13, 95, 140, 0.2);
+              stroke-width: 1;
+            }
+            .radar-shape {
+              fill: rgba(240, 139, 51, 0.28);
+              stroke: #0d5f8c;
+              stroke-width: 2.5;
+              stroke-linejoin: round;
+              stroke-dasharray: none;
+              stroke-dashoffset: 0;
+            }
+            .radar-point {
+              fill: #ffffff;
+              stroke: #0d5f8c;
+              stroke-width: 1.5;
+            }
+            .radar-label {
+              fill: #083d5b;
+              font-size: 12px;
+              font-weight: 700;
+            }
+            .radar-level {
+              fill: #5d7385;
+              font-size: 11px;
+            }
+            .legend-list {
+              margin-top: 14px;
+              display: grid;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 8px 12px;
+              font-size: 12px;
+            }
+            .legend-item {
+              padding: 8px 10px;
+              border-radius: 10px;
+              border: 1px solid rgba(13, 95, 140, 0.12);
+              background: #f8fbff;
+            }
+            .note-legal {
+              margin-top: 22px;
+              padding: 10px 12px;
+              border-radius: 12px;
+              border: 1px solid rgba(198, 65, 59, 0.22);
+              background: #fff5f5;
+              color: #7f1d1d;
+              font-size: 12px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <p><strong>Universidad Autónoma del Carmen</strong></p>
+            <p>Dirección General de Servicios al Estudiante</p>
+            <p>Unidad de Servicios Psicopedagógicos</p>
+            <h1>Reporte individual de orientación vocacional</h1>
+          </div>
 
-          const percent = (points / maxPts) * 100;
-          html += `<li>${etiqueta}: ${prog.name} – compatibilidad estimada: ${percent.toFixed(0)}% (resultado: ${percent >= 50 ? "Factible" : "Baja compatibilidad"}; puntos: ${points.toFixed(0)}/${maxPts}; coincidencias: ${matches}/${k}; factores de la carrera: ${prog.factors.join(", ")})</li>`;
-        }
-      });
-      html += "</ul>";
+          <h2>Datos del alumno</h2>
+          <div class="grid">
+            <div class="block-card">
+              <p><strong>Nombre:</strong> ${escapeHtml(datosAlumno.nombre || "-")}</p>
+              <p><strong>Edad:</strong> ${escapeHtml(datosAlumno.edad || "-")}</p>
+              <p><strong>Fecha de nacimiento:</strong> ${escapeHtml(datosAlumno.fecha_nacimiento || "-")}</p>
+              <p><strong>Ciudad y estado:</strong> ${escapeHtml(datosAlumno.ciudad || "-")}, ${escapeHtml(datosAlumno.estado || "-")}</p>
+            </div>
+            <div class="block-card">
+              <p><strong>Preparatoria:</strong> ${escapeHtml(datosAlumno.preparatoria || "-")}</p>
+              <p><strong>Correo:</strong> ${escapeHtml(datosAlumno.correo || "-")}</p>
+              <p><strong>Primera opción:</strong> ${escapeHtml(datosAlumno.opcion1 || "-")}</p>
+              <p><strong>Segunda opción:</strong> ${escapeHtml(datosAlumno.opcion2 || "-")}</p>
+            </div>
+          </div>
 
-      html += "<p class='note-legal'><strong>Nota importante:</strong> Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional. En caso de tener más dudas, busca orientación vocacional con un profesional de tu confianza.</p>";
-      html += "</body></html>";
+          <h2>Perfil de factores</h2>
+          <div class="radar-wrap">
+            ${getRadarChartMarkup(cachedResultados.factores)}
+          </div>
+          <div class="legend-list">
+            ${Object.values(cachedResultados.factores).sort((a, b) => b.normalized - a.normalized).map(factor => `
+              <div class="legend-item">
+                <strong>${escapeHtml(factor.label)}</strong><br>
+                ${Math.round(factor.normalized)}% · ${formatScore(factor.value)} de ${formatScore(factor.maxValue)}
+              </div>
+            `).join("")}
+          </div>
+
+          <h2>Factores más altos</h2>
+          <div class="grid">
+            ${topFactorsHtml}
+          </div>
+
+          <h2>Carreras sugeridas</h2>
+          <div class="grid">
+            ${topCareersHtml}
+          </div>
+
+          <h2>Compatibilidad con las opciones elegidas</h2>
+          <div class="grid">
+            ${selectedOptionsHtml}
+          </div>
+
+          <div class="note-legal">
+            <strong>Nota importante:</strong> Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.
+          </div>
+        </body>
+        </html>
+      `;
 
       win.document.open();
       win.document.write(html);
       win.document.close();
-      win.focus();
 
-      // Lanza el diálogo de impresión para que el usuario pueda elegir "Guardar como PDF".
-      win.print();
+      setTimeout(() => {
+        win.focus();
+        win.print();
+      }, 350);
     }
 
-
     document.addEventListener("DOMContentLoaded", () => {
-      if (typeof thurstoneItems === "undefined" || !Array.isArray(thurstoneItems) || thurstoneItems.length === 0) {
+      if (!thurstoneDataset.length) {
         console.warn("thurstoneItems no está definido o está vacío.");
       }
-      if (typeof aptitudeItems === "undefined" || !Array.isArray(aptitudeItems) || aptitudeItems.length === 0) {
+      if (!aptitudeDataset.length) {
         console.warn("aptitudeItems no está definido o está vacío.");
       }
 
       poblarSelectCarreras();
-      if (typeof thurstoneItems !== "undefined" && thurstoneItems.length > 0) {
-        renderIntereses();
-      }
-      if (typeof aptitudeItems !== "undefined" && aptitudeItems.length > 0) {
-        renderAptitudes();
-      }
+      fillFormFromData();
+      renderIntereses();
+      renderAptitudes();
+      updateStepSummary(0);
 
-      const inputReporte = document.getElementById("input-cargar-reporte");
-      if (inputReporte) {
-        inputReporte.addEventListener("change", handleReportFileInput);
+      const reportInput = document.getElementById("input-cargar-reporte");
+      if (reportInput) {
+        reportInput.addEventListener("change", handleReportFileInput);
       }
     });
   </script>
-
-  <footer class="unacar-footer">
-    <p>Universidad Autónoma del Carmen · Dirección General de Servicios al Estudiante · Unidad de Servicios Psicopedagógicos</p>
-    <p>Guía de orientación vocacional (versión piloto). Este instrumento es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.</p>
-    <p>Esta herramienta es de uso universal, sin fines de lucro y de uso exclusivo de la Universidad Autónoma del Carmen (UNACAR). Su uso implica la aceptación de estos términos.</p>
-  </footer>
-
 </body>
 </html>
