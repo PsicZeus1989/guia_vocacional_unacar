@@ -2,3262 +2,703 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Guía de Orientación Vocacional - UNACAR</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guía de Orientación Vocacional – UNACAR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #f3f7fb;
-      --bg-strong: #dfeaf5;
-      --surface: rgba(255, 255, 255, 0.88);
-      --surface-strong: #ffffff;
-      --surface-soft: #eef5fb;
-      --primary: #0d5f8c;
-      --primary-strong: #083d5b;
-      --primary-soft: #d7edf8;
-      --secondary: #f08b33;
-      --success: #2e8b57;
-      --danger: #c6413b;
-      --warning: #d9a227;
-      --text-main: #163047;
-      --text-soft: #4d6477;
-      --text-faint: #73879a;
-      --border: rgba(12, 78, 116, 0.14);
-      --shadow: 0 24px 60px rgba(11, 55, 84, 0.12);
-      --shadow-soft: 0 14px 32px rgba(11, 55, 84, 0.08);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
-      --font-display: "Georgia", "Times New Roman", serif;
-      --font-body: "Trebuchet MS", "Segoe UI", sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font-body);
-      color: var(--text-main);
-      background:
-        radial-gradient(circle at top left, rgba(240, 139, 51, 0.20), transparent 28%),
-        radial-gradient(circle at top right, rgba(13, 95, 140, 0.20), transparent 32%),
-        linear-gradient(180deg, #edf5fb 0%, #f7fafc 46%, #eef3f8 100%);
-    }
-
-    button,
-    input,
-    select,
-    textarea {
-      font: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .page-shell {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .page-shell::before,
-    .page-shell::after {
-      content: "";
-      position: fixed;
-      inset: auto;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      filter: blur(22px);
-      z-index: -1;
-      opacity: 0.6;
-    }
-
-    .page-shell::before {
-      top: -80px;
-      left: -120px;
-      background: rgba(240, 139, 51, 0.18);
-    }
-
-    .page-shell::after {
-      right: -120px;
-      bottom: 4%;
-      background: rgba(13, 95, 140, 0.16);
-    }
-
-    .app-container {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 28px 18px 48px;
-    }
-
-    .hero-header {
-      position: relative;
-      overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(5, 48, 74, 0.96), rgba(13, 95, 140, 0.9)),
-        linear-gradient(120deg, rgba(255, 255, 255, 0.08), transparent);
-      color: #f5fbff;
-      border-radius: var(--radius-xl);
-      padding: 28px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-    }
-
-    .hero-header::after {
-      content: "";
-      position: absolute;
-      right: -60px;
-      top: -40px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(240, 139, 51, 0.34), transparent 65%);
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .unacar-logos {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .unacar-logo {
-      height: 74px;
-      width: auto;
-      max-width: 140px;
-      object-fit: contain;
-      border-radius: 18px;
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(6px);
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      margin-bottom: 14px;
-    }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-      margin: 0;
-      color: var(--primary-strong);
-      font-family: var(--font-display);
-      line-height: 1.08;
-    }
-
-    h1 {
-      color: #ffffff;
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      margin-bottom: 12px;
-      max-width: 11ch;
-    }
-
-    h2 {
-      font-size: clamp(1.7rem, 2.4vw, 2.2rem);
-    }
-
-    h3 {
-      font-size: 1.4rem;
-    }
-
-    h4 {
-      font-size: 1.05rem;
-    }
-
-    .hero-lead {
-      margin: 0;
-      max-width: 60ch;
-      font-size: 1.02rem;
-      line-height: 1.7;
-      color: rgba(245, 251, 255, 0.92);
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 22px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      min-width: 150px;
-    }
-
-    .hero-badge strong {
-      font-size: 1.2rem;
-      color: #ffffff;
-    }
-
-    .hero-badge span {
-      font-size: 0.92rem;
-      color: rgba(245, 251, 255, 0.9);
-    }
-
-    .hero-aside {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 24px;
-      padding: 22px;
-      backdrop-filter: blur(8px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .hero-aside h3,
-    .hero-aside p {
-      color: #ffffff;
-    }
-
-    .hero-aside p {
-      margin: 14px 0 0;
-      line-height: 1.65;
-      color: rgba(245, 251, 255, 0.88);
-    }
-
-    .hero-aside-list {
-      margin: 18px 0 0;
-      padding-left: 18px;
-      color: rgba(245, 251, 255, 0.88);
-      line-height: 1.7;
-    }
-
-    .app-card {
-      background: var(--surface);
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      backdrop-filter: blur(12px);
-    }
-
-    .app-card-header {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 18px;
-      padding-bottom: 18px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid rgba(13, 95, 140, 0.08);
-    }
-
-    .section-kicker {
-      margin: 0 0 8px;
-      color: var(--secondary);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.82rem;
-    }
-
-    .subtitle {
-      margin: 10px 0 0;
-      max-width: 72ch;
-      color: var(--text-soft);
-      line-height: 1.7;
-    }
-
-    .subtitle.small {
-      font-size: 0.93rem;
-      margin-top: 6px;
-    }
-
-    .step-indicator {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-    }
-
-    .step-pill {
-      appearance: none;
-      border: 1px solid rgba(13, 95, 140, 0.12);
-      background: #eff5fb;
-      color: var(--text-soft);
-      border-radius: 18px;
-      padding: 12px 14px;
-      text-align: left;
-      font-size: 0.9rem;
-      line-height: 1.35;
-      cursor: default;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    }
-
-    .step-pill.active {
-      background: linear-gradient(135deg, rgba(13, 95, 140, 0.94), rgba(8, 61, 91, 0.96));
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 12px 24px rgba(13, 95, 140, 0.18);
-    }
-
-    .step-pill span {
-      display: block;
-      font-size: 0.76rem;
-      opacity: 0.8;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .step {
-      display: none;
-      animation: stepFade 0.35s ease;
-    }
-
-    .step.active {
-      display: block;
-    }
-
-    @keyframes stepFade {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .welcome-grid,
-    .visual-grid,
-    .results-hero {
-      display: grid;
-      gap: 18px;
-    }
-
-    .welcome-grid {
-      grid-template-columns: minmax(0, 1fr);
-      align-items: start;
-    }
-
-    .visual-grid {
-      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-      margin-bottom: 22px;
-    }
-
-    .results-hero {
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
-      margin-bottom: 22px;
-    }
-
-    .panel,
-    .result-card,
-    .summary-card,
-    .mini-card,
-    .welcome-stat,
-    .question-item {
-      background: var(--surface-strong);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-    }
-
-    .panel,
-    .result-card,
-    .summary-card,
-    .mini-card,
-    .welcome-stat {
-      padding: 18px;
-    }
-
-    .summary-card {
-      background:
-        radial-gradient(circle at top right, rgba(240, 139, 51, 0.16), transparent 30%),
-        linear-gradient(180deg, #ffffff, #f8fbff);
-    }
-
-    .summary-heading {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: start;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .summary-heading .pill-note,
-    .status-pill,
-    .count-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
-
-    .pill-note {
-      background: rgba(13, 95, 140, 0.1);
-      color: var(--primary);
-    }
-
-    .status-pill {
-      background: rgba(46, 139, 87, 0.12);
-      color: var(--success);
-    }
-
-    .status-pill.medium {
-      background: rgba(217, 162, 39, 0.16);
-      color: #9c6c00;
-    }
-
-    .status-pill.low {
-      background: rgba(198, 65, 59, 0.12);
-      color: var(--danger);
-    }
-
-    .summary-metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .metric {
-      padding: 14px;
-      border-radius: 18px;
-      background: var(--surface-soft);
-      border: 1px solid rgba(13, 95, 140, 0.08);
-    }
-
-    .metric-label {
-      display: block;
-      font-size: 0.82rem;
-      color: var(--text-faint);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .metric-value {
-      font-size: 1.28rem;
-      font-weight: 700;
-      color: var(--primary-strong);
-    }
-
-    .metric-value small {
-      font-size: 0.88rem;
-      color: var(--text-soft);
-    }
-
-    .info-list,
-    .clean-list {
-      margin: 0;
-      padding-left: 18px;
-      line-height: 1.7;
-      color: var(--text-soft);
-    }
-
-    .info-list li + li,
-    .clean-list li + li {
-      margin-top: 8px;
-    }
-
-    .welcome-side {
-      display: grid;
-      gap: 14px;
-    }
-
-    .welcome-stat {
-      background: linear-gradient(180deg, #ffffff, #f5faff);
-    }
-
-    .welcome-stat strong {
-      display: block;
-      font-size: 1.55rem;
-      color: var(--primary-strong);
-      margin-bottom: 4px;
-    }
-
-    .welcome-stat span {
-      display: block;
-      font-size: 0.84rem;
-      color: var(--text-faint);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-    }
-
-    .welcome-stat p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.6;
-    }
-
-    .alert {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(217, 162, 39, 0.28);
-      background: linear-gradient(180deg, rgba(255, 248, 224, 0.95), rgba(255, 251, 237, 0.95));
-      color: #7a5b00;
-      line-height: 1.65;
-    }
-
-    .btn-row {
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      margin-top: 22px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      appearance: none;
-      border: none;
-      border-radius: 999px;
-      padding: 12px 20px;
-      cursor: pointer;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
-      color: #ffffff;
-      box-shadow: 0 14px 22px rgba(13, 95, 140, 0.22);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 18px 26px rgba(13, 95, 140, 0.26);
-    }
-
-    .btn-secondary {
-      background: #e6eef6;
-      color: var(--primary-strong);
-      border: 1px solid rgba(13, 95, 140, 0.1);
-    }
-
-    .btn-secondary:hover {
-      background: #dce9f4;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 18px 20px;
-    }
-
-    .field-card {
-      padding: 14px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      border: 1px solid rgba(13, 95, 140, 0.08);
-    }
-
-    label {
-      display: block;
-      font-weight: 700;
-      font-size: 0.92rem;
-      margin-bottom: 8px;
-      color: var(--primary-strong);
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="date"],
-    input[type="number"],
-    select {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid rgba(13, 95, 140, 0.18);
-      padding: 12px 14px;
-      background: #ffffff;
-      color: var(--text-main);
-      transition: border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(13, 95, 140, 0.12);
-    }
-
-    .hint {
-      margin-top: 8px;
-      font-size: 0.84rem;
-      line-height: 1.55;
-      color: var(--text-faint);
-    }
-
-    .assessment-shell {
-      display: grid;
-      gap: 18px;
-    }
-
-    .assessment-intro {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    .assessment-copy,
-    .assessment-stats,
-    .progress-panel {
-      padding: 18px;
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      border: 1px solid rgba(13, 95, 140, 0.08);
-      border-radius: 22px;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .assessment-stats {
-      display: grid;
-      gap: 12px;
-    }
-
-    .mini-stat-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-    }
-
-    .mini-card {
-      padding: 14px;
-      background: linear-gradient(180deg, #ffffff, #f7fbff);
-    }
-
-    .mini-card strong {
-      display: block;
-      font-size: 1.35rem;
-      color: var(--primary-strong);
-      margin-bottom: 4px;
-    }
-
-    .mini-card span {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--text-faint);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-    }
-
-    .mini-card p {
-      margin: 0;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: var(--text-soft);
-    }
-
-    .progress-panel {
-      position: sticky;
-      top: 12px;
-      z-index: 2;
-    }
-
-    .progress-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 12px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: #dfeaf3;
-    }
-
-    .progress-bar-inner {
-      height: 100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
-      transition: width 0.28s ease;
-    }
-
-    .progress-text {
-      margin-top: 10px;
-      text-align: right;
-      color: var(--text-soft);
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
-
-    .question-list {
-      max-height: 68vh;
-      overflow-y: auto;
-      display: grid;
-      gap: 14px;
-      padding-right: 8px;
-    }
-
-    .question-list::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    .question-list::-webkit-scrollbar-thumb {
-      background: rgba(13, 95, 140, 0.22);
-      border-radius: 999px;
-    }
-
-    .question-item {
-      padding: 18px;
-      transition: border-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .question-item:hover {
-      border-color: rgba(13, 95, 140, 0.18);
-      transform: translateY(-1px);
-    }
-
-    .question-item.unanswered {
-      border-color: rgba(198, 65, 59, 0.34);
-      box-shadow: 0 0 0 3px rgba(198, 65, 59, 0.08), var(--shadow-soft);
-      background: linear-gradient(180deg, #fffafa, #fff4f4);
-    }
-
-    .question-item.answered {
-      border-color: rgba(13, 95, 140, 0.16);
-    }
-
-    .question-item.advance-target {
-      box-shadow: 0 0 0 4px rgba(240, 139, 51, 0.18), var(--shadow-soft);
-      border-color: rgba(240, 139, 51, 0.34);
-    }
-
-    .question-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .question-number {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--secondary);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .question-section {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(13, 95, 140, 0.08);
-      color: var(--primary);
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-
-    .question-title {
-      margin: 0 0 14px;
-      font-size: 1rem;
-      line-height: 1.55;
-      color: var(--text-main);
-    }
-
-    .question-item.unanswered .question-title::after {
-      content: " Falta responder";
-      color: var(--danger);
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-left: 8px;
-    }
-
-    .choice-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .choice-grid.two-columns {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-
-    .choice-grid.scale-grid {
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-    }
-
-    .choice-card {
-      position: relative;
-      display: block;
-      cursor: pointer;
-    }
-
-    .choice-card input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .choice-card-body {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      min-height: 100%;
-      padding: 15px 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(13, 95, 140, 0.12);
-      background: linear-gradient(180deg, #ffffff, #f8fbff);
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-      color: var(--text-main);
-      line-height: 1.5;
-    }
-
-    .choice-card:hover .choice-card-body {
-      transform: translateY(-1px);
-      border-color: rgba(13, 95, 140, 0.18);
-      box-shadow: 0 14px 24px rgba(13, 95, 140, 0.08);
-    }
-
-    .choice-card input:checked + .choice-card-body {
-      background: linear-gradient(180deg, rgba(13, 95, 140, 0.1), rgba(13, 95, 140, 0.04));
-      border-color: rgba(13, 95, 140, 0.42);
-      box-shadow: 0 18px 28px rgba(13, 95, 140, 0.12);
-    }
-
-    .choice-key {
-      flex: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: rgba(13, 95, 140, 0.08);
-      color: var(--primary);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .choice-text {
-      display: block;
-      font-size: 0.95rem;
-      line-height: 1.55;
-    }
-
-    .scale-title {
-      display: block;
-      font-weight: 700;
-      color: var(--primary-strong);
-      margin-bottom: 4px;
-    }
-
-    .scale-subtitle {
-      display: block;
-      font-size: 0.84rem;
-      color: var(--text-soft);
-      line-height: 1.45;
-    }
-
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .factors-grid {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .result-card p,
-    .summary-card p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.65;
-    }
-
-    .card-heading {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: start;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .factor-meter {
-      margin: 14px 0 10px;
-    }
-
-    .factor-meter-track,
-    .compat-meter-track {
-      width: 100%;
-      height: 10px;
-      border-radius: 999px;
-      background: #dfeaf3;
-      overflow: hidden;
-    }
-
-    .factor-meter-fill,
-    .compat-meter-fill {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
-    }
-
-    .factor-meta,
-    .compatibility-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-      font-size: 0.84rem;
-      color: var(--text-faint);
-    }
-
-    .factor-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .factor-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(13, 95, 140, 0.12);
-      background: #f2f7fb;
-      color: var(--primary-strong);
-      font-size: 0.82rem;
-      line-height: 1.25;
-    }
-
-    .factor-chip::before {
-      content: "";
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--chip-color, var(--primary));
-      box-shadow: 0 0 0 3px rgba(13, 95, 140, 0.08);
-    }
-
-    .factor-chip strong {
-      font-size: 0.82rem;
-    }
-
-    .factor-chip.match {
-      background: rgba(46, 139, 87, 0.1);
-      border-color: rgba(46, 139, 87, 0.18);
-      color: #256844;
-    }
-
-    .factor-chip.missing {
-      background: rgba(240, 139, 51, 0.12);
-      border-color: rgba(240, 139, 51, 0.2);
-      color: #9d5c11;
-    }
-
-    .factor-chip.highlight {
-      background: rgba(13, 95, 140, 0.1);
-      border-color: rgba(13, 95, 140, 0.16);
-    }
-
-    .factor-chip.neutral {
-      background: #f2f7fb;
-    }
-
-    .factor-chip.empty {
-      background: rgba(13, 95, 140, 0.04);
-      color: var(--text-faint);
-    }
-
-    .factor-chip.empty::before {
-      display: none;
-    }
-
-    .radar-card,
-    .legend-card {
-      min-height: 100%;
-    }
-
-    .radar-container {
-      min-height: 420px;
-      display: grid;
-      place-items: center;
-    }
-
-    .radar-svg {
-      width: 100%;
-      max-width: 470px;
-      height: auto;
-      overflow: visible;
-    }
-
-    .radar-shape {
-      fill: rgba(240, 139, 51, 0.28);
-      stroke: var(--primary);
-      stroke-width: 3;
-      stroke-linejoin: round;
-      stroke-dasharray: 1600;
-      stroke-dashoffset: 1600;
-      animation: radarReveal 1.15s ease forwards;
-    }
-
-    @keyframes radarReveal {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
-    .radar-point {
-      fill: #ffffff;
-      stroke: var(--primary);
-      stroke-width: 2;
-    }
-
-    .radar-ring {
-      fill: none;
-      stroke: rgba(13, 95, 140, 0.12);
-      stroke-width: 1;
-    }
-
-    .radar-axis {
-      stroke: rgba(13, 95, 140, 0.18);
-      stroke-width: 1;
-    }
-
-    .radar-label {
-      fill: var(--primary-strong);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .radar-level {
-      fill: var(--text-faint);
-      font-size: 12px;
-    }
-
-    .factor-legend {
-      display: grid;
-      gap: 12px;
-    }
-
-    .legend-row {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 10px;
-      align-items: center;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: #f7fbff;
-      border: 1px solid rgba(13, 95, 140, 0.08);
-    }
-
-    .legend-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--legend-color, var(--primary));
-      box-shadow: 0 0 0 4px rgba(13, 95, 140, 0.08);
-    }
-
-    .legend-text strong {
-      display: block;
-      color: var(--primary-strong);
-      font-size: 0.92rem;
-      margin-bottom: 2px;
-    }
-
-    .legend-text span {
-      display: block;
-      color: var(--text-faint);
-      font-size: 0.8rem;
-    }
-
-    .legend-value {
-      text-align: right;
-      font-weight: 700;
-      color: var(--primary-strong);
-      font-size: 0.92rem;
-    }
-
-    .compatibility-card .compat-meter-track {
-      margin-top: 14px;
-      height: 12px;
-    }
-
-    .compatibility-card .compat-meter-fill {
-      background: linear-gradient(90deg, var(--secondary), var(--success));
-    }
-
-    .compat-block {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(13, 95, 140, 0.08);
-    }
-
-    .compat-block h4 {
-      font-size: 0.98rem;
-      margin-bottom: 10px;
-    }
-
-    .compat-note {
-      margin-top: 12px;
-      color: var(--text-soft);
-      line-height: 1.6;
-    }
-
-    .result-empty {
-      color: var(--text-faint);
-      font-style: italic;
-    }
-
-    .unacar-footer {
-      margin-top: 24px;
-      padding: 0 8px;
-      text-align: center;
-      color: var(--text-faint);
-      font-size: 0.84rem;
-      line-height: 1.75;
-    }
-
-    @media (max-width: 980px) {
-      .hero-grid,
-      .welcome-grid,
-      .visual-grid,
-      .results-hero,
-      .assessment-intro {
-        grid-template-columns: 1fr;
-      }
-
-      .progress-panel {
-        position: static;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .app-container {
-        padding-inline: 14px;
-      }
-
-      .hero-header,
-      .app-card {
-        padding: 20px;
-      }
-
-      .step-indicator {
-        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      }
-
-      .choice-grid.scale-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-badge {
-        min-width: unset;
-        width: 100%;
-      }
-    }
-
-    @media print {
-      body {
-        background: #ffffff;
-      }
-
-      .radar-shape {
-        animation: none;
-        stroke-dasharray: none;
-        stroke-dashoffset: 0;
-      }
-    }
+      --laguna: #0b4f6c;      /* azul institucional profundo */
+      --agua: #1f8a9e;        /* azul verdoso de la laguna */
+      --agua-claro: #e3f2f4;
+      --sol: #e3a72f;         /* ámbar: selección y énfasis */
+      --sol-claro: #fbf1dc;
+      --mangle: #3c7a4e;      /* verde: afinidad alta */
+      --coral: #c4553f;       /* faltantes y errores */
+      --tinta: #13293d;
+      --tinta-suave: #4a5d6e;
+      --tinta-tenue: #7a8b99;
+      --fondo: #f5f8fa;
+      --papel: #ffffff;
+      --linea: #d8e2e8;
+      --radio: 14px;
+      --f-titulo: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+      --f-texto: "Source Sans 3", "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+    body { margin: 0; font-family: var(--f-texto); font-size: 1.0625rem; line-height: 1.6; color: var(--tinta); background: var(--fondo); }
+    button, input, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 3px solid var(--sol); outline-offset: 2px; }
+    h1, h2, h3, h4 { font-family: var(--f-titulo); line-height: 1.15; margin: 0; color: var(--laguna); }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 1.9rem); }
+    h3 { font-size: 1.25rem; }
+    p { margin: 0 0 .8em; }
+    .contenedor { max-width: 820px; margin: 0 auto; padding: 0 16px; }
+    .contenedor.ancho { max-width: 1080px; }
+
+    /* Cabecera */
+    .cabecera { background: var(--laguna); color: #fff; padding: 22px 0 56px; position: relative; overflow: hidden; }
+    .cabecera::after { /* oleaje discreto: la laguna */
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 40px;
+      background: var(--fondo);
+      -webkit-mask: radial-gradient(28px 18px at 50% 0, transparent 98%, #000) 0 0 / 56px 40px repeat-x;
+              mask: radial-gradient(28px 18px at 50% 0, transparent 98%, #000) 0 0 / 56px 40px repeat-x;
+    }
+    .logos { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 20px; }
+    .logos img { height: 56px; width: auto; max-width: 120px; object-fit: contain; background: #fff; border-radius: 10px; padding: 6px 8px; }
+    .cabecera h1 { color: #fff; max-width: 24ch; }
+    .cabecera p { color: #cfe6ec; margin: 10px 0 0; max-width: 56ch; }
+
+    /* Avance */
+    .avance { position: sticky; top: 0; z-index: 5; background: var(--fondo); border-bottom: 1px solid var(--linea); }
+    .avance-pasos { display: flex; gap: 4px; padding: 12px 0 8px; list-style: none; margin: 0; }
+    .avance-pasos li { flex: 1; font-size: .82rem; color: var(--tinta-tenue); }
+    .avance-pasos li::before { content: ""; display: block; height: 5px; border-radius: 3px; background: var(--linea); margin-bottom: 6px; }
+    .avance-pasos li.hecho::before { background: var(--agua); }
+    .avance-pasos li.actual { color: var(--laguna); font-weight: 700; }
+    .avance-pasos li.actual::before { background: var(--sol); }
+    .avance-detalle { font-size: .85rem; color: var(--tinta-suave); padding-bottom: 8px; min-height: 1.4em; }
+
+    main { padding: 28px 0 56px; }
+    .paso { display: none; }
+    .paso.activo { display: block; }
+
+    .bloque { background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio); padding: 24px; margin-bottom: 20px; }
+    .nota { background: var(--agua-claro); border-radius: var(--radio); padding: 16px 20px; margin-bottom: 20px; }
+    .nota h3 { margin-bottom: 6px; }
+    .nota ul { margin: 0; padding-left: 20px; }
+    .aviso { background: var(--sol-claro); border-left: 4px solid var(--sol); border-radius: 6px; padding: 16px 20px; margin-bottom: 20px; }
+
+    .etapas { list-style: none; padding: 0; margin: 16px 0 0; counter-reset: etapa; }
+    .etapas li { counter-increment: etapa; display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 12px 0; border-top: 1px solid var(--linea); }
+    .etapas li::before { content: counter(etapa); width: 32px; height: 32px; border-radius: 50%; background: var(--laguna); color: #fff; display: grid; place-items: center; font-family: var(--f-titulo); font-weight: 700; }
+    .etapas strong { display: block; }
+    .etapas span { color: var(--tinta-suave); font-size: .95rem; }
+
+    /* Botones */
+    .acciones { display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; margin-top: 24px; }
+    .acciones .derecha { margin-left: auto; display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { border: 0; border-radius: 10px; padding: 12px 22px; font-weight: 700; cursor: pointer; }
+    .btn-principal { background: var(--laguna); color: #fff; }
+    .btn-principal:hover { background: #083d54; }
+    .btn-secundario { background: transparent; color: var(--laguna); border: 2px solid var(--laguna); padding: 10px 20px; }
+    .btn-secundario:hover { background: var(--agua-claro); }
+    .btn-texto { background: none; border: 0; color: var(--agua); text-decoration: underline; cursor: pointer; padding: 12px 4px; }
+
+    /* Formulario */
+    .campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; font-size: .95rem; }
+    input[type=text], input[type=email], input[type=number], input[type=date], select {
+      width: 100%; padding: 11px 12px; border: 1.5px solid var(--linea); border-radius: 10px; background: #fff;
+    }
+    input:focus, select:focus { border-color: var(--agua); outline: none; box-shadow: 0 0 0 3px var(--agua-claro); }
+    .ayuda { font-size: .85rem; color: var(--tinta-tenue); margin-top: 4px; }
+    .consentimiento { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; margin-top: 20px; font-weight: 400; font-size: .95rem; }
+    .consentimiento input { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--laguna); }
+
+    /* Reactivos de intereses: el elemento distintivo */
+    .reactivo { padding: 18px 0; border-top: 1px solid var(--linea); scroll-margin-top: 110px; }
+    .reactivo:first-child { border-top: 0; }
+    .reactivo-num { font-size: .85rem; color: var(--tinta-tenue); margin-bottom: 8px; }
+    .reactivo.falta .reactivo-num { color: var(--coral); font-weight: 700; }
+    .par { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
+    .par .o { align-self: center; font-family: var(--f-titulo); color: var(--tinta-tenue); font-size: .95rem; }
+    .opcion input { position: absolute; opacity: 0; pointer-events: none; }
+    .opcion span {
+      display: flex; align-items: center; justify-content: center; text-align: center; min-height: 72px; height: 100%;
+      padding: 12px 14px; border: 2px solid var(--linea); border-radius: 12px; background: #fff; cursor: pointer;
+      font-family: var(--f-titulo); font-weight: 500; font-size: 1.12rem; color: var(--tinta);
+      transition: border-color .15s, background .15s;
+    }
+    .opcion span:hover { border-color: var(--agua); }
+    .opcion input:focus-visible + span { outline: 3px solid var(--sol); outline-offset: 2px; }
+    .opcion input:checked + span { border-color: var(--laguna); background: var(--laguna); color: #fff; }
+    @media (max-width: 520px) { .par { grid-template-columns: 1fr; } .par .o { text-align: center; } }
+
+    /* Reactivos de aptitudes */
+    .pregunta-apt { font-weight: 600; margin-bottom: 10px; }
+    .escala { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .escala .opcion span { min-height: 56px; font-family: var(--f-texto); font-size: .92rem; font-weight: 600; }
+    @media (max-width: 520px) { .escala { grid-template-columns: 1fr 1fr; } }
+
+    .pagina-pie { display: flex; justify-content: space-between; align-items: center; color: var(--tinta-suave); font-size: .9rem; margin-top: 8px; }
+
+    /* Resultados */
+    .resumen h2 { margin-bottom: 6px; }
+    .resumen .meta { color: var(--tinta-suave); font-size: .95rem; }
+    .perfil { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+    @media (max-width: 820px) { .perfil { grid-template-columns: 1fr; } }
+    .radar { width: 100%; max-width: 460px; margin: 0 auto; display: block; }
+    .radar .anillo { fill: none; stroke: var(--linea); }
+    .radar .eje { stroke: var(--linea); }
+    .radar .forma { fill: rgba(31, 138, 158, .25); stroke: var(--laguna); stroke-width: 2.5; stroke-linejoin: round; }
+    .radar .punto { fill: #fff; stroke: var(--laguna); stroke-width: 2; }
+    .radar .etiqueta { font: 600 12px var(--f-texto); fill: var(--tinta-suave); }
+    .radar .etiqueta.top { fill: var(--laguna); font-weight: 700; }
+    .factor { padding: 10px 0; border-top: 1px solid var(--linea); }
+    .factor:first-child { border-top: 0; }
+    .factor-cab { display: flex; justify-content: space-between; gap: 12px; font-weight: 700; }
+    .barra { height: 8px; background: var(--linea); border-radius: 4px; margin: 6px 0; overflow: hidden; }
+    .barra i { display: block; height: 100%; background: var(--agua); border-radius: 4px; }
+    .factor p { font-size: .92rem; color: var(--tinta-suave); margin: 0; }
+
+    .carrera { border: 1px solid var(--linea); border-left: 5px solid var(--linea); border-radius: 10px; padding: 16px 18px; margin-bottom: 12px; background: #fff; }
+    .carrera.alta { border-left-color: var(--mangle); }
+    .carrera.media { border-left-color: var(--sol); }
+    .carrera.baja { border-left-color: var(--coral); }
+    .carrera-cab { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+    .carrera .facultad { color: var(--tinta-tenue); font-size: .88rem; margin: 2px 0 8px; }
+    .nivel { font-size: .82rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+    .nivel.alta { background: #e3f1e7; color: var(--mangle); }
+    .nivel.media { background: var(--sol-claro); color: #8a6210; }
+    .nivel.baja { background: #f8e4df; color: var(--coral); }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .chip { font-size: .85rem; padding: 3px 10px; border-radius: 20px; background: var(--agua-claro); color: var(--laguna); }
+    .chip.falta { background: #f8e4df; color: var(--coral); }
+    .chip.si { background: #e3f1e7; color: var(--mangle); }
+    .familia { font-size: .9rem; color: var(--tinta-suave); margin-top: 8px; }
+    .reflexion li { margin-bottom: 6px; }
+
+    .pie { color: var(--tinta-tenue); font-size: .85rem; text-align: center; padding: 24px 16px 40px; }
+    .pie p { margin: 4px 0; }
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
-  <div class="page-shell">
-    <div class="app-container">
-      <header class="hero-header">
-        <div class="hero-grid">
-          <div>
-            <div class="unacar-logos">
-              <img src="img/logo_unacar.png" alt="Universidad Autónoma del Carmen" class="unacar-logo">
-              <img src="img/logo_dgse.png" alt="Dirección General de Servicios al Estudiante" class="unacar-logo">
-              <img src="img/logo_usp.png" alt="Unidad de Servicios Psicopedagógicos" class="unacar-logo">
-            </div>
-
-            <div class="hero-eyebrow">UNACAR · DGSE · Unidad de Servicios Psicopedagógicos</div>
-            <h1>Guía de Orientación Vocacional</h1>
-          </div>
-        </div>
-      </header>
-
-      <div class="app-card">
-        <div class="app-card-header">
-          <div>
-            <p class="section-kicker" id="step-counter">Paso 1 de 5</p>
-            <h2 id="step-summary-title">Bienvenida</h2>
-          </div>
-
-          <div class="step-indicator">
-            <button class="step-pill step-pill-0 active" type="button" tabindex="-1">
-              <span>Paso 1</span>
-              Bienvenida
-            </button>
-            <button class="step-pill step-pill-1" type="button" tabindex="-1">
-              <span>Paso 2</span>
-              Datos generales
-            </button>
-            <button class="step-pill step-pill-2" type="button" tabindex="-1">
-              <span>Paso 3</span>
-              Intereses
-            </button>
-            <button class="step-pill step-pill-3" type="button" tabindex="-1">
-              <span>Paso 4</span>
-              Aptitudes
-            </button>
-            <button class="step-pill step-pill-4" type="button" tabindex="-1">
-              <span>Paso 5</span>
-              Resultados
-            </button>
-          </div>
-        </div>
-
-        <section class="step step-0 active">
-          <div class="panel">
-            <p>
-              La guia de orientacion vocacional es herramienta para explorar qué carreras de la Universidad Autónoma del Carmen se ajustan mejor a tus intereses y aptitudes.
-            </p>
-            <p>
-              Esta guía está pensada para estudiantes de nivel medio superior que están por elegir una carrera universitaria. A través de dos cuestionarios, se analizan tus intereses y tus aptitudes en diferentes áreas y se genera una sugerencia de programas educativos de la UNACAR que podrían ser compatibles contigo.
-            </p>
-          </div>
-
-          <div class="btn-row">
-            <button class="btn-primary" type="button" onclick="goToStep(1)">
-              Comenzar nueva guía
-            </button>
-            <button class="btn-secondary" type="button" onclick="document.getElementById('input-cargar-reporte').click()">
-              Cargar archivo de respuestas
-            </button>
-          </div>
-          <input type="file" id="input-cargar-reporte" accept="application/json" style="display:none" />
-        </section>
-
-        <section class="step step-1">
-          <div class="panel">
-            <div class="summary-heading">
-              <div>
-                <h3>Datos del alumno</h3>
-              </div>
-            </div>
-
-            <form id="form-datos">
-              <div class="form-grid">
-                <div class="field-card">
-                  <label for="nombre">Nombre completo*</label>
-                  <input type="text" id="nombre" name="nombre" required />
-                </div>
-                <div class="field-card">
-                  <label for="edad">Edad*</label>
-                  <input type="number" id="edad" name="edad" min="14" required />
-                </div>
-                <div class="field-card">
-                  <label for="fecha_nacimiento">Fecha de nacimiento*</label>
-                  <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required />
-                </div>
-                <div class="field-card">
-                  <label for="ciudad">Ciudad*</label>
-                  <input type="text" id="ciudad" name="ciudad" required />
-                </div>
-                <div class="field-card">
-                  <label for="estado">Estado*</label>
-                  <input type="text" id="estado" name="estado" required />
-                </div>
-                <div class="field-card">
-                  <label for="preparatoria">Preparatoria / Bachillerato*</label>
-                  <input type="text" id="preparatoria" name="preparatoria" required />
-                </div>
-                <div class="field-card">
-                  <label for="correo">Correo electrónico*</label>
-                  <input type="email" id="correo" name="correo" required />
-                  <div class="hint">Se usa solo para identificar el reporte si la UNACAR decide habilitar seguimiento institucional.</div>
-                </div>
-                <div class="field-card">
-                  <label for="opcion1">Primera opción de carrera en la UNACAR*</label>
-                  <select id="opcion1" name="opcion1" required>
-                    <option value="">Selecciona una opción</option>
-                  </select>
-                </div>
-                <div class="field-card">
-                  <label for="opcion2">Segunda opción de carrera en la UNACAR*</label>
-                  <select id="opcion2" name="opcion2" required>
-                    <option value="">Selecciona una opción</option>
-                    <option value="NO_SE">No sé</option>
-                  </select>
-                  <div class="hint">Si todavía no tiene una segunda opción clara, puede elegir la alternativa que hoy más le llame la atención.</div>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <div class="btn-row">
-            <button class="btn-secondary" type="button" onclick="goToStep(0)">Regresar</button>
-            <button class="btn-primary" type="button" onclick="handleDatosNext()">Continuar</button>
-          </div>
-        </section>
-
-        <section class="step step-2">
-          <div class="assessment-shell">
-            <div class="assessment-intro">
-              <div class="assessment-copy">
-                <h3>Cuestionario de intereses</h3>
-              </div>
-
-            </div>
-
-            <div class="progress-panel">
-              <div class="progress-bar">
-                <div id="progress-intereses" class="progress-bar-inner"></div>
-              </div>
-              <div class="progress-text">
-                <span id="progress-intereses-text">0 / 0 contestadas</span>
-              </div>
-            </div>
-
-            <div id="contenedor-intereses" class="question-list"></div>
-          </div>
-
-          <div class="btn-row">
-            <button class="btn-secondary" type="button" onclick="goToStep(1)">Regresar</button>
-            <button class="btn-primary" type="button" onclick="handleInteresesNext()">Continuar</button>
-          </div>
-        </section>
-
-        <section class="step step-3">
-          <div class="assessment-shell">
-            <div class="assessment-intro">
-              <div class="assessment-copy">
-                <h3>Cuestionario de aptitudes</h3>
-              </div>
-
-            </div>
-
-            <div class="progress-panel">
-              <div class="progress-bar">
-                <div id="progress-aptitudes" class="progress-bar-inner"></div>
-              </div>
-              <div class="progress-text">
-                <span id="progress-aptitudes-text">0 / 0 contestadas</span>
-              </div>
-            </div>
-
-            <div id="contenedor-aptitudes" class="question-list"></div>
-          </div>
-
-          <div class="btn-row">
-            <button class="btn-secondary" type="button" onclick="goToStep(2)">Regresar</button>
-            <button class="btn-primary" type="button" onclick="handleAptitudesNext()">Ver resultados</button>
-          </div>
-        </section>
-
-        <section class="step step-4">
-          <div class="results-hero">
-            <div id="resumen-destacado" class="summary-card"></div>
-            <div id="resumen-alumno" class="result-card"></div>
-          </div>
-
-          <div class="visual-grid">
-            <div class="result-card radar-card">
-              <div class="card-heading">
-                <div>
-                  <h3>Gráfica de telaraña</h3>
-                  <p class="subtitle small">
-                    Vista global de todos los factores del perfil, normalizados para compararlos de forma más clara.
-                  </p>
-                </div>
-                <div class="pill-note">Perfil completo</div>
-              </div>
-              <div id="grafica-telarana" class="radar-container"></div>
-            </div>
-
-            <div class="result-card legend-card">
-              <div class="card-heading">
-                <div>
-                  <h3>Lectura por factor</h3>
-                  <p class="subtitle small">
-                    Cada fila muestra el porcentaje relativo del factor y su valor alcanzado dentro de la guía.
-                  </p>
-                </div>
-              </div>
-              <div id="leyenda-factores" class="factor-legend"></div>
-            </div>
-          </div>
-
-          <h3>Tus factores más altos</h3>
-          <p class="subtitle small">Los seis factores más fuertes del alumno, con una lectura resumida de cada uno.</p>
-          <div id="contenedor-factores" class="results-grid factors-grid"></div>
-
-          <h3>Carreras de la UNACAR sugeridas</h3>
-          <p class="subtitle small">Programas mejor alineados con los factores principales detectados por la guía.</p>
-          <div id="contenedor-carreras" class="results-grid"></div>
-
-          <h3>Compatibilidad con tus opciones elegidas</h3>
-          <p class="subtitle small">
-            Además del porcentaje de compatibilidad, aquí se muestran los factores presentes y los factores que faltaron para mejorar la afinidad con cada carrera elegida.
-          </p>
-          <div id="compat-elecciones" class="results-grid"></div>
-
-          <div class="alert">
-            <strong>Recuerda:</strong> este resultado es orientativo. Puede ayudar a abrir conversación con el alumno, pero no sustituye una entrevista o proceso formal de orientación vocacional.
-          </div>
-
-          <div class="btn-row">
-            <button class="btn-secondary" type="button" onclick="goToStep(0)">Volver al inicio</button>
-            <button class="btn-secondary" type="button" onclick="downloadRawReport()">Descargar respuestas</button>
-            <button class="btn-primary" type="button" onclick="generatePDF()">Descargar / guardar reporte en PDF</button>
-          </div>
-        </section>
+  <header class="cabecera">
+    <div class="contenedor">
+      <div class="logos">
+        <img src="img/logo_unacar.png" alt="Universidad Autónoma del Carmen" />
+        <img src="img/logo_dgse.png" alt="Dirección General de Servicios al Estudiante" />
+        <img src="img/logo_usp.png" alt="Unidad de Servicios Psicopedagógicos" />
       </div>
-
-      <footer class="unacar-footer">
-        <p>Universidad Autónoma del Carmen · Dirección General de Servicios al Estudiante · Unidad de Servicios Psicopedagógicos</p>
-        <p>Guía de orientación vocacional (versión piloto). Este instrumento es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.</p>
-        <p>Esta herramienta es de uso universal, sin fines de lucro y de uso exclusivo de la Universidad Autónoma del Carmen (UNACAR).</p>
-      </footer>
+      <h1>Guía de Orientación Vocacional</h1>
+      <p>Descubre qué carreras de la UNACAR se parecen más a lo que te gusta hacer y a lo que se te facilita.</p>
     </div>
-  </div>
+  </header>
+
+  <nav class="avance" aria-label="Avance de la guía">
+    <div class="contenedor">
+      <ol class="avance-pasos" id="avance-pasos">
+        <li>Inicio</li><li>Tus datos</li><li>Intereses</li><li>Habilidades</li><li>Resultados</li>
+      </ol>
+      <div class="avance-detalle" id="avance-detalle" aria-live="polite"></div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Paso 0: Inicio -->
+    <section class="paso activo contenedor" id="paso-0">
+      <div class="bloque">
+        <h2>Antes de empezar</h2>
+        <p>Esta guía te ayuda a explorar qué carreras de la Universidad Autónoma del Carmen van con tus intereses y con las actividades que se te facilitan. Al terminar verás tu perfil y las carreras más cercanas a él.</p>
+        <ol class="etapas">
+          <li><div><strong>Tus datos</strong><span>Nombre, escuela y las carreras que hoy estás considerando.</span></div></li>
+          <li><div><strong>Intereses</strong><span>66 pares de ocupaciones. En cada par eliges la que preferirías. Unos 10 minutos.</span></div></li>
+          <li><div><strong>Habilidades</strong><span>71 actividades. Indicas qué tanto se te facilita cada una. Unos 10 minutos.</span></div></li>
+          <li><div><strong>Resultados</strong><span>Tu perfil, las carreras sugeridas y qué tan cerca están las que elegiste.</span></div></li>
+        </ol>
+      </div>
+      <div class="nota">
+        <h3>Para que tu resultado sea útil</h3>
+        <ul>
+          <li>No hay respuestas correctas ni incorrectas.</li>
+          <li>Responde pensando en cómo eres hoy, no en lo que crees que deberías contestar.</li>
+          <li>Hazlo solo(a) y sin prisa. Si te cansas, puedes hacer una pausa: tus respuestas se guardan mientras no cierres la pestaña.</li>
+        </ul>
+      </div>
+      <div class="acciones">
+        <button class="btn-texto" type="button" id="btn-cargar">Abrir un archivo de respuestas guardado</button>
+        <div class="derecha"><button class="btn btn-principal" type="button" data-ir="1">Comenzar</button></div>
+      </div>
+      <input type="file" id="input-cargar" accept="application/json" hidden />
+    </section>
+
+    <!-- Paso 1: Datos -->
+    <section class="paso contenedor" id="paso-1">
+      <form class="bloque" id="form-datos" novalidate>
+        <h2>Tus datos</h2>
+        <p class="ayuda">Todos los campos son obligatorios.</p>
+        <div class="campos">
+          <div><label for="nombre">Nombre completo</label><input type="text" id="nombre" name="nombre" required autocomplete="name" /></div>
+          <div><label for="fecha_nacimiento">Fecha de nacimiento</label><input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required /></div>
+          <div><label for="edad">Edad</label><input type="number" id="edad" name="edad" min="14" max="60" required /></div>
+          <div><label for="correo">Correo electrónico</label><input type="email" id="correo" name="correo" required autocomplete="email" /></div>
+          <div><label for="ciudad">Ciudad</label><input type="text" id="ciudad" name="ciudad" required /></div>
+          <div><label for="estado">Estado</label><input type="text" id="estado" name="estado" required /></div>
+          <div><label for="preparatoria">Preparatoria o bachillerato</label><input type="text" id="preparatoria" name="preparatoria" required /></div>
+          <div>
+            <label for="opcion1">Carrera que más te interesa hoy</label>
+            <select id="opcion1" name="opcion1" required><option value="">Elige una carrera</option></select>
+          </div>
+          <div>
+            <label for="opcion2">Segunda carrera que considerarías</label>
+            <select id="opcion2" name="opcion2" required><option value="">Elige una carrera</option><option value="No sé">Todavía no lo sé</option></select>
+          </div>
+        </div>
+        <label class="consentimiento">
+          <input type="checkbox" id="consentimiento" name="consentimiento" required />
+          <span id="texto-consentimiento"></span>
+        </label>
+      </form>
+      <div class="acciones">
+        <button class="btn btn-secundario" type="button" data-ir="0">Regresar</button>
+        <div class="derecha"><button class="btn btn-principal" type="button" id="btn-datos">Continuar</button></div>
+      </div>
+    </section>
+
+    <!-- Paso 2: Intereses -->
+    <section class="paso contenedor" id="paso-2">
+      <div class="nota" id="instr-intereses">
+        <h3>¿Cuál preferirías?</h3>
+        <p>En cada par, elige la ocupación en la que preferirías trabajar. Si te gustan las dos, elige la que más. Si no te gusta ninguna, elige la que te desagrada menos. Tienes que elegir una en cada par.</p>
+      </div>
+      <div class="bloque" id="lista-intereses"></div>
+      <div class="acciones">
+        <button class="btn btn-secundario" type="button" id="int-atras">Regresar</button>
+        <div class="derecha"><button class="btn btn-principal" type="button" id="int-sig">Siguiente</button></div>
+      </div>
+    </section>
+
+    <!-- Paso 3: Habilidades -->
+    <section class="paso contenedor" id="paso-3">
+      <div class="nota" id="instr-aptitudes">
+        <h3>¿Qué tanto se te facilita?</h3>
+        <p>Para cada actividad, indica qué tan capaz te sientes de hacerla. Piensa en lo que has hecho en la escuela, en casa o con tus amigos. Si nunca la has hecho, imagina cómo te iría.</p>
+      </div>
+      <div class="bloque" id="lista-aptitudes"></div>
+      <div class="acciones">
+        <button class="btn btn-secundario" type="button" id="apt-atras">Regresar</button>
+        <div class="derecha"><button class="btn btn-principal" type="button" id="apt-sig">Siguiente</button></div>
+      </div>
+    </section>
+
+    <!-- Paso 4: Resultados -->
+    <section class="paso contenedor ancho" id="paso-4">
+      <div id="resultados"></div>
+      <div class="acciones">
+        <button class="btn btn-secundario" type="button" id="btn-nueva">Comenzar una guía nueva</button>
+        <div class="derecha">
+          <button class="btn btn-secundario" type="button" id="btn-json">Guardar archivo de respuestas</button>
+          <button class="btn btn-principal" type="button" id="btn-pdf">Imprimir o guardar en PDF</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Universidad Autónoma del Carmen. Dirección General de Servicios al Estudiante. Unidad de Servicios Psicopedagógicos.</p>
+    <p>Guía de orientación vocacional, versión piloto 3. Es un apoyo orientativo y no sustituye un proceso de orientación con un profesional.</p>
+  </footer>
 
   <script src="datos_cuestionarios.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="modelo.js"></script>
   <script>
-    const thurstoneDataset = (typeof thurstoneItems !== "undefined" && Array.isArray(thurstoneItems)) ? thurstoneItems : [];
-    const aptitudeDataset = (typeof aptitudeItems !== "undefined" && Array.isArray(aptitudeItems)) ? aptitudeItems : [];
+  (function () {
+    "use strict";
+    const M = window.ModeloVocacional;
+    const ITEMS_INT = thurstoneItems;
+    const VERSION = 3;
 
-    const factorDefinitions = [
-      {
-        id: 1,
-        key: "cientifico",
-        label: "Científico",
-        shortLabel: "Científico",
-        interestArea: "C. Biologicas",
-        aptitudeSection: "F",
-        projectionSection: null,
-        divisor: 2,
-        color: "#0f4c81",
-        description: "Te interesan la investigación, la observación rigurosa y la comprensión de fenómenos naturales o científicos."
-      },
-      {
-        id: 2,
-        key: "numerico",
-        label: "Numérico",
-        shortLabel: "Numérico",
-        interestArea: "Calculo",
-        aptitudeSection: "B",
-        projectionSection: null,
-        divisor: 2,
-        color: "#1b6ca8",
-        description: "Te sientes cómodo trabajando con números, operaciones, comparaciones cuantitativas y lectura de resultados."
-      },
-      {
-        id: 3,
-        key: "razonamiento_mecanico",
-        label: "Razonamiento mecánico",
-        shortLabel: "Mecánico",
-        interestArea: "C. Fisicas",
-        aptitudeSection: "C",
-        projectionSection: null,
-        divisor: 2,
-        color: "#248d95",
-        description: "Te llama la atención comprender el funcionamiento de máquinas, sistemas físicos, estructuras y soluciones técnicas."
-      },
-      {
-        id: 4,
-        key: "artistico",
-        label: "Artístico",
-        shortLabel: "Artístico",
-        interestArea: "Artisticas",
-        aptitudeSection: "D",
-        projectionSection: null,
-        divisor: 2,
-        color: "#d16c4f",
-        description: "Tiendes a expresarte con creatividad y valoras la estética, el diseño y las formas originales de comunicar ideas."
-      },
-      {
-        id: 5,
-        key: "musical",
-        label: "Musical",
-        shortLabel: "Musical",
-        interestArea: "Musicales",
-        aptitudeSection: "E",
-        projectionSection: null,
-        divisor: 2,
-        color: "#b1537a",
-        description: "Tienes sensibilidad por el ritmo, la melodía y los matices sonoros, ya sea para escuchar, interpretar o crear."
-      },
-      {
-        id: 6,
-        key: "social",
-        label: "Social",
-        shortLabel: "Social",
-        interestArea: "Humanitarias",
-        aptitudeSection: "G",
-        projectionSection: null,
-        divisor: 2,
-        color: "#4e8d52",
-        description: "Te interesa trabajar con personas, comprender necesidades, acompañar procesos y colaborar de manera cercana."
-      },
-      {
-        id: 7,
-        key: "destreza_manual",
-        label: "Destreza manual",
-        shortLabel: "Manual",
-        interestArea: null,
-        aptitudeSection: "H",
-        projectionSection: null,
-        divisor: 1,
-        color: "#8a6f48",
-        description: "Muestras facilidad para manipular herramientas, materiales o componentes con precisión y coordinación."
-      },
-      {
-        id: 8,
-        key: "practica",
-        label: "Práctico",
-        shortLabel: "Práctico",
-        interestArea: null,
-        aptitudeSection: "I",
-        projectionSection: null,
-        divisor: 1,
-        color: "#628f5a",
-        description: "Prefieres actividades concretas, aplicadas y orientadas a resolver situaciones reales de manera directa."
-      },
-      {
-        id: 9,
-        key: "ejecutivo_persuasivo",
-        label: "Ejecutivo-persuasivo",
-        shortLabel: "Ejecutivo",
-        interestArea: "Ejecutivas",
-        aptitudeSection: "J",
-        projectionSection: null,
-        divisor: 2,
-        color: "#8a5fa8",
-        description: "Te ves coordinando personas, organizando recursos, tomando decisiones y comunicando ideas con seguridad."
-      },
-      {
-        id: 10,
-        key: "verbal_literaria",
-        label: "Verbal-literario",
-        shortLabel: "Verbal",
-        interestArea: "Literarias",
-        aptitudeSection: "A",
-        projectionSection: null,
-        divisor: 2,
-        color: "#b05f4b",
-        description: "Disfrutas leer, redactar, argumentar y explicar ideas por escrito o verbalmente con claridad."
-      },
-      {
-        id: 11,
-        key: "trabajo_oficina",
-        label: "Trabajo de oficina",
-        shortLabel: "Oficina",
-        interestArea: null,
-        aptitudeSection: "K",
-        projectionSection: null,
-        divisor: 1,
-        color: "#567d9e",
-        description: "Te sientes cómodo con tareas administrativas, orden, seguimiento de procesos y registro de información."
-      },
-      {
-        id: 12,
-        key: "negocios",
-        label: "Negocios",
-        shortLabel: "Negocios",
-        interestArea: "Negocios",
-        aptitudeSection: null,
-        projectionSection: null,
-        divisor: 1,
-        color: "#d0882d",
-        description: "Te atraen actividades relacionadas con empresas, emprendimiento, ventas, gestión económica y toma de decisiones."
+    // ---------- Configuración ----------
+    const CONFIG = {
+      porPaginaIntereses: 11,
+      porPaginaAptitudes: 10,
+      // Escribe aquí la dirección del aviso de privacidad institucional
+      avisoPrivacidadUrl: "",
+      supabase: {
+        enabled: true,
+        url: "https://vdzzasuvoseisfpyphqs.supabase.co",
+        anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkenphc3V2b3NlaXNmcHlwaHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMjUwNDgsImV4cCI6MjA4NTkwMTA0OH0.0oDlks7s7V47y_k_o90UnoIVa0YWmYJAub5uCB0-nMY",
+        table: "vocacional_respuestas"
       }
-    ];
-
-    const factorMap = new Map(factorDefinitions.map(factor => [factor.id, factor]));
-
-    const programFactors = [
-      { name: "Lic. En Derecho", factors: [1, 6, 10, 11] },
-      { name: "Lic. En Criminología y Criminalística", factors: [1, 2, 6, 9, 10, 11] },
-      { name: "Lic en Administración de Empresas", factors: [2, 6, 9, 10, 11] },
-      { name: "Lic. En Contaduría", factors: [2, 6, 9, 10, 11] },
-      { name: "Lic. En Administración Turística", factors: [2, 6, 8, 9, 10, 11] },
-      { name: "Lic. En Mercadotecnia", factors: [2, 4, 6, 9, 10, 11] },
-      { name: "Lic. En Negocios Internacionales", factors: [1, 2, 6, 9, 10, 11, 12] },
-      { name: "Lic. En Educación", factors: [1, 6, 9, 11] },
-      { name: "Lic. En Lengua Inglesa", factors: [1, 6, 10, 11] },
-      { name: "Lic. En Educación y Gestión Cultural", factors: [1, 4, 6, 9, 10, 11] },
-      { name: "Lic. En Ingenieria Química", factors: [1, 2, 3, 9, 11] },
-      { name: "Lic. En Ingenieria Petrolera", factors: [1, 2, 3, 8] },
-      { name: "Lic. En Geología", factors: [1, 2, 3, 7, 8] },
-      { name: "Lic. En Ingeniería en Sistemas Computacionales", factors: [1, 2, 3, 8, 9, 11] },
-      { name: "Lic. En Ingeniería en Diseño Multimedia", factors: [1, 2, 3, 4, 8, 11] },
-      { name: "Lic. En Ingeniería en Tecnologías de Cómputo y Comunicaciones", factors: [1, 2, 3, 8, 9, 11] },
-      { name: "Lic. En Ingeniería Mecatrónica", factors: [1, 2, 3, 7, 8, 9] },
-      { name: "Lic. En Ingeniería Civil", factors: [1, 2, 3, 8, 9] },
-      { name: "Lic. En Ingeniería Mecánica", factors: [1, 2, 3, 8, 9] },
-      { name: "Lic. En Ingeniería Geofísica", factors: [1, 2, 3, 7, 8] },
-      { name: "Lic. En Ingeniería en Energía", factors: [1, 2, 3, 9] },
-      { name: "Lic. En Arquitectura Sustentable", factors: [1, 2, 3, 4, 8, 11] },
-      { name: "Lic. En Educación Fisica y Deportes", factors: [1, 3, 6, 7, 8, 9] },
-      { name: "Lic. En Enfermería", factors: [1, 3, 6, 9, 11] },
-      { name: "Lic. En Nutrición", factors: [1, 3, 6, 9, 10, 11] },
-      { name: "Lic. En Psicología", factors: [1, 3, 6, 9, 10, 11] },
-      { name: "Lic. En Fisioterapia", factors: [1, 3, 6, 7, 8, 9, 11] },
-      { name: "Lic. En Medicina", factors: [1, 2, 3, 6, 8, 9, 11] },
-      { name: "Lic. En Biología Marina", factors: [1, 2, 3, 4, 11] }
-    ];
-
-    const thurstoneAreas = [
-      "Artisticas",
-      "C. Biologicas",
-      "C. Fisicas",
-      "Calculo",
-      "Ejecutivas",
-      "Humanitarias",
-      "Literarias",
-      "Musicales",
-      "Negocios",
-      "Persuasivas"
-    ];
-
-    const aptitudeSections = [
-      { code: "A", name: "Verbal" },
-      { code: "B", name: "Numérica" },
-      { code: "C", name: "Mecánica constructivista" },
-      { code: "D", name: "Artística" },
-      { code: "E", name: "Musical" },
-      { code: "F", name: "Científica" },
-      { code: "G", name: "Social" },
-      { code: "H", name: "Destreza manual" },
-      { code: "I", name: "Práctica" },
-      { code: "J", name: "Ejecutiva" },
-      { code: "K", name: "Oficina" }
-    ];
-
-    const STEP_META = [
-      {
-        title: "Bienvenida",
-        description: "Conoce cómo funciona la guía y qué tipo de lectura recibirá el alumno al finalizar."
-      },
-      {
-        title: "Datos generales",
-        description: "Captura la información básica y las opciones de carrera que quiere contrastar con el resultado."
-      },
-      {
-        title: "Cuestionario de intereses",
-        description: "Evalúa preferencias vocacionales mediante pares de ocupaciones."
-      },
-      {
-        title: "Cuestionario de aptitudes",
-        description: "Autoevalúa qué tan competente se siente el alumno en distintas actividades."
-      },
-      {
-        title: "Resultados",
-        description: "Visualiza factores, telaraña, carreras sugeridas y factores faltantes para sus opciones elegidas."
-      }
-    ];
-
-    const DEFAULT_WEIGHTS = [4, 4, 3, 2, 2, 1];
-    const TOTAL_REACTIVOS = thurstoneDataset.length + aptitudeDataset.length;
-
-    const interestMaximums = computeInterestAreaMaximums();
-    const aptitudeMaximums = computeSectionMaximums(aptitudeDataset);
-
-    const BACKEND_CONFIG = {
-      enabled: false,
-      endpoint: "https://script.google.com/macros/s/AKfycbzo8hh-1qh-7_nEH05Oyt6EkYOl6SsGSXETaVoycmLWXOuNm4iVm8g9H4u22nRd-P3O/exec",
-      apiKey: ""
     };
+    const ESCALA = ["Me cuesta mucho", "Me cuesta un poco", "Se me facilita", "Se me facilita mucho"];
 
-    const SUPABASE_CONFIG = {
-      enabled: true,
-      url: "https://vdzzasuvoseisfpyphqs.supabase.co",
-      anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkenphc3V2b3NlaXNmcHlwaHFzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMjUwNDgsImV4cCI6MjA4NTkwMTA0OH0.0oDlks7s7V47y_k_o90UnoIVa0YWmYJAub5uCB0-nMY",
-      table: "vocacional_respuestas"
-    };
+    // Orden fijo y mezclado de las habilidades, para no agrupar por área
+    const ITEMS_APT = (function () {
+      const arr = aptitudeItems.slice();
+      let s = 7331; const r = () => (s = (s * 1103515245 + 12345) % 2147483648) / 2147483648;
+      for (let i = arr.length - 1; i > 0; i--) { const k = Math.floor(r() * (i + 1)); [arr[i], arr[k]] = [arr[k], arr[i]]; }
+      return arr;
+    })();
 
-    let currentStep = 0;
-    const datosAlumno = {};
-    const respuestasIntereses = {};
-    const respuestasAptitudes = {};
-
-    const cachedResultados = {
-      intereses: null,
-      aptitudes: null,
-      factores: null,
-      topFactores: null,
-      topCarreras: null,
-      allCompatibilities: null,
-      topFactorIds: null,
-      topFactorCount: null,
-      weights: DEFAULT_WEIGHTS,
-      factorMaxima: null
-    };
-
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
+    // ---------- Estado ----------
+    const estado = { paso: 0, datos: {}, intereses: {}, aptitudes: {}, pagInt: 0, pagApt: 0, resultado: null };
+    const CLAVE = "guia_vocacional_unacar_v3";
+    function guardarSesion() {
+      try { sessionStorage.setItem(CLAVE, JSON.stringify({ datos: estado.datos, intereses: estado.intereses, aptitudes: estado.aptitudes, pagInt: estado.pagInt, pagApt: estado.pagApt, paso: estado.paso })); } catch (e) {}
     }
-
-    function resetObject(target) {
-      Object.keys(target).forEach(key => delete target[key]);
+    function cargarSesion() {
+      try { const g = JSON.parse(sessionStorage.getItem(CLAVE) || "null"); if (g) Object.assign(estado, g); } catch (e) {}
     }
+    function borrarSesion() { try { sessionStorage.removeItem(CLAVE); } catch (e) {} }
 
-    function computeInterestAreaMaximums() {
-      const scores = {};
-      thurstoneAreas.forEach(area => {
-        scores[area] = 0;
+    const $ = id => document.getElementById(id);
+    const esc = v => String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    const nombreCorto = n => n.replace(/^Lic\. en /, "");
+
+    // ---------- Navegación ----------
+    function irA(paso) {
+      estado.paso = paso;
+      document.querySelectorAll(".paso").forEach((s, i) => s.classList.toggle("activo", i === paso));
+      document.querySelectorAll("#avance-pasos li").forEach((li, i) => {
+        li.classList.toggle("hecho", i < paso); li.classList.toggle("actual", i === paso);
+        if (i === paso) li.setAttribute("aria-current", "step"); else li.removeAttribute("aria-current");
       });
+      if (paso === 2) pintarIntereses();
+      if (paso === 3) pintarAptitudes();
+      actualizarDetalle();
+      guardarSesion();
+      window.scrollTo({ top: 0 });
+    }
+    function actualizarDetalle() {
+      const d = $("avance-detalle");
+      if (estado.paso === 2) d.textContent = `Intereses: ${Object.keys(estado.intereses).length} de ${ITEMS_INT.length} respondidos`;
+      else if (estado.paso === 3) d.textContent = `Habilidades: ${Object.keys(estado.aptitudes).length} de ${ITEMS_APT.length} respondidas`;
+      else d.textContent = "";
+    }
+    document.querySelectorAll("[data-ir]").forEach(b => b.addEventListener("click", () => irA(Number(b.dataset.ir))));
 
-      thurstoneDataset.forEach(item => {
-        thurstoneAreas.forEach(area => {
-          const optionsForArea = item.options.filter(option => option.area === area);
-          if (!optionsForArea.length) return;
-          const bestScore = Math.max(...optionsForArea.map(option => Number(option.score) || 0));
-          scores[area] += bestScore;
+    // ---------- Datos ----------
+    function llenarCarreras() {
+      const porFac = {};
+      M.CARRERAS.forEach(c => (porFac[c.fac] = porFac[c.fac] || []).push(c.name));
+      ["opcion1", "opcion2"].forEach(id => {
+        const sel = $(id);
+        Object.entries(porFac).forEach(([fac, lista]) => {
+          const g = document.createElement("optgroup"); g.label = fac.replace("Facultad de ", "");
+          lista.forEach(n => { const o = document.createElement("option"); o.value = n; o.textContent = nombreCorto(n); g.appendChild(o); });
+          sel.appendChild(g);
         });
       });
-
-      return scores;
+      const enlace = CONFIG.avisoPrivacidadUrl
+        ? `<a href="${esc(CONFIG.avisoPrivacidadUrl)}" target="_blank" rel="noopener">aviso de privacidad</a>`
+        : "aviso de privacidad";
+      $("texto-consentimiento").innerHTML = `Leí el ${enlace} y acepto que la Unidad de Servicios Psicopedagógicos de la UNACAR guarde mis respuestas y resultados para darme orientación y para mejorar esta guía. Si soy menor de edad, cuento con la autorización de mi madre, padre o tutor.`;
     }
-
-    function computeSectionMaximums(items, maxPerQuestion = 4) {
-      const scores = {};
-      items.forEach(item => {
-        const code = item.section;
-        scores[code] = (scores[code] || 0) + maxPerQuestion;
+    function llenarFormulario() {
+      Object.entries(estado.datos).forEach(([k, v]) => {
+        const el = $(k); if (!el) return;
+        if (el.type === "checkbox") el.checked = !!v; else el.value = v;
       });
-      return scores;
     }
+    $("btn-datos").addEventListener("click", () => {
+      const f = $("form-datos");
+      if (!f.reportValidity()) return;
+      const fd = new FormData(f);
+      estado.datos = {};
+      fd.forEach((v, k) => estado.datos[k] = String(v).trim());
+      estado.datos.consentimiento = $("consentimiento").checked;
+      if (estado.datos.opcion1 === estado.datos.opcion2) { alert("Elige dos carreras distintas, o «Todavía no lo sé» en la segunda."); return; }
+      irA(2);
+    });
 
-    function getFactorDefinition(id) {
-      return factorMap.get(id) || null;
-    }
+    // ---------- Paginación de reactivos ----------
+    function paginar(items, porPag, pag) { return items.slice(pag * porPag, (pag + 1) * porPag); }
+    function totalPags(items, porPag) { return Math.ceil(items.length / porPag); }
 
-    function getFactorLabel(id) {
-      const factor = getFactorDefinition(id);
-      return factor ? factor.label : `Factor ${id}`;
-    }
-
-    function getFactorShortLabel(id) {
-      const factor = getFactorDefinition(id);
-      return factor ? factor.shortLabel : `F${id}`;
-    }
-
-    function getFactorColor(id) {
-      const factor = getFactorDefinition(id);
-      return factor ? factor.color : "#0d5f8c";
-    }
-
-    function getStatusMeta(percent) {
-      if (percent >= 70) return { label: "Alta afinidad", className: "" };
-      if (percent >= 50) return { label: "Afinidad media", className: "medium" };
-      return { label: "Compatibilidad baja", className: "low" };
-    }
-
-    function formatScore(value) {
-      const num = Number(value || 0);
-      return num.toFixed(2);
-    }
-
-    function scoreThurstone(responses) {
-      const scores = {};
-      thurstoneAreas.forEach(area => {
-        scores[area] = 0;
-      });
-
-      thurstoneDataset.forEach(item => {
-        const chosenKey = responses[String(item.id)];
-        if (!chosenKey) return;
-        const option = item.options.find(current => current.key === chosenKey);
-        if (!option) return;
-        scores[option.area] += Number(option.score) || 0;
-      });
-
-      return scores;
-    }
-
-    function scoreAptitudes(responses) {
-      const scores = {};
-      aptitudeSections.forEach(section => {
-        scores[section.code] = 0;
-      });
-
-      aptitudeDataset.forEach(item => {
-        const value = Number(responses[item.id]);
-        if (Number.isNaN(value)) return;
-        scores[item.section] += value;
-      });
-
-      return scores;
-    }
-
-    function computeFactors(thurstoneScores, aptitudeScores) {
-      const factorScores = {};
-
-      factorDefinitions.forEach(factor => {
-        const interest = factor.interestArea ? (thurstoneScores[factor.interestArea] || 0) : 0;
-        const aptitude = factor.aptitudeSection ? (aptitudeScores[factor.aptitudeSection] || 0) : 0;
-        const raw = interest + aptitude;
-        const value = raw / factor.divisor;
-
-        const interestMax = factor.interestArea ? (interestMaximums[factor.interestArea] || 0) : 0;
-        const aptitudeMax = factor.aptitudeSection ? (aptitudeMaximums[factor.aptitudeSection] || 0) : 0;
-        const rawMax = interestMax + aptitudeMax;
-        const maxValue = rawMax > 0 ? rawMax / factor.divisor : 1;
-        const normalized = maxValue > 0 ? Math.min(100, (value / maxValue) * 100) : 0;
-
-        factorScores[factor.id] = {
-          id: factor.id,
-          key: factor.key,
-          label: factor.label,
-          shortLabel: factor.shortLabel,
-          description: factor.description,
-          color: factor.color,
-          value,
-          maxValue,
-          normalized,
-          interest,
-          aptitude
-        };
-      });
-
-      return factorScores;
-    }
-
-    function getTopFactors(factorScores, topN = 6) {
-      return Object.values(factorScores)
-        .sort((a, b) => b.value - a.value)
-        .slice(0, topN);
-    }
-
-    function computeCareerCompatibilities(factorScores, topFactorCount = 6) {
-      const sortedFactors = Object.values(factorScores || {}).sort((a, b) => b.value - a.value);
-      const selected = sortedFactors.slice(0, topFactorCount);
-      const topIds = selected.map(item => item.id);
-      const globalTotal = topIds.length > 0 ? topIds.length : 1;
-
-      function maxPointsForCareer(requiredCount) {
-        const k = Math.min(globalTotal, requiredCount > 0 ? requiredCount : globalTotal);
-        const maxPoints = DEFAULT_WEIGHTS.slice(0, k).reduce((acc, current) => acc + current, 0);
-        return { k, maxPoints: maxPoints || 1 };
-      }
-
-      const all = programFactors.map(program => {
-        const required = Array.isArray(program.factors) ? program.factors : [];
-        const { k, maxPoints } = maxPointsForCareer(required.length);
-
-        let matches = 0;
-        let points = 0;
-        const matchedFactorIds = [];
-
-        topIds.forEach((id, index) => {
-          if (required.includes(id)) {
-            matches += 1;
-            points += DEFAULT_WEIGHTS[index] || 0;
-            matchedFactorIds.push(id);
-          }
-        });
-
-        const missingFactorIds = required.filter(id => !topIds.includes(id));
-        const percent = (points / maxPoints) * 100;
-
-        return {
-          program,
-          percent,
-          score: percent,
-          matches,
-          topFactorCount: k,
-          points,
-          maxPoints,
-          matchedFactorIds,
-          missingFactorIds,
-          weights: DEFAULT_WEIGHTS
-        };
-      }).sort((a, b) => b.percent - a.percent);
-
-      return {
-        all,
-        topFactorIds: topIds,
-        topFactorCount: globalTotal,
-        weights: DEFAULT_WEIGHTS
-      };
-    }
-
-    function findProgramByName(name) {
-      if (!name) return null;
-      return programFactors.find(program => program.name === name) || null;
-    }
-
-    function buildFactorChips(ids, variant = "neutral", factorScores = cachedResultados.factores, options = {}) {
-      const safeIds = Array.isArray(ids) ? ids : [];
-      if (!safeIds.length) {
-        return `<span class="factor-chip empty">Sin factores para mostrar</span>`;
-      }
-
-      const {
-        includeScore = false,
-        includeNormalized = false
-      } = options;
-
-      return safeIds.map(id => {
-        const factor = getFactorDefinition(id);
-        const score = factorScores && factorScores[id] ? factorScores[id] : null;
-        const extras = [];
-
-        if (includeScore && score) extras.push(`puntaje ${formatScore(score.value)}`);
-        if (includeNormalized && score) extras.push(`${Math.round(score.normalized)}% del máximo`);
-
-        const info = extras.length ? ` · ${extras.join(" · ")}` : "";
-        return `
-          <span class="factor-chip ${variant}" style="--chip-color:${escapeHtml(factor ? factor.color : "#0d5f8c")}">
-            <strong>${escapeHtml(factor ? factor.label : `Factor ${id}`)}</strong>${escapeHtml(info)}
-          </span>
-        `;
-      }).join("");
-    }
-
-    function buildFactorSourceText(factor) {
-      const sources = [];
-      if (factor.interest) sources.push(`Intereses: ${factor.interest}`);
-      if (factor.aptitude) sources.push(`Aptitudes: ${factor.aptitude}`);
-      return sources.length ? sources.join(" · ") : "Factor construido con una sola fuente.";
-    }
-
-    function getRadarChartMarkup(factorScores) {
-      const factors = Object.values(factorScores || {}).sort((a, b) => a.id - b.id);
-      if (!factors.length) {
-        return `<p class="result-empty">Aún no hay factores para mostrar.</p>`;
-      }
-
-      const cx = 260;
-      const cy = 260;
-      const radius = 178;
-      const levels = 5;
-
-      function polarToCartesian(angle, localRadius) {
-        const x = cx + Math.cos(angle) * localRadius;
-        const y = cy + Math.sin(angle) * localRadius;
-        return { x, y };
-      }
-
-      function buildPolygonPoints(ratio) {
-        return factors.map((factor, index) => {
-          const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
-          const point = polarToCartesian(angle, radius * ratio);
-          return `${point.x.toFixed(2)},${point.y.toFixed(2)}`;
-        }).join(" ");
-      }
-
-      const ringMarkup = Array.from({ length: levels }, (_, levelIndex) => {
-        const ratio = (levelIndex + 1) / levels;
-        return `<polygon class="radar-ring" points="${buildPolygonPoints(ratio)}"></polygon>`;
-      }).join("");
-
-      const axisMarkup = factors.map((factor, index) => {
-        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
-        const point = polarToCartesian(angle, radius);
-        return `<line class="radar-axis" x1="${cx}" y1="${cy}" x2="${point.x.toFixed(2)}" y2="${point.y.toFixed(2)}"></line>`;
-      }).join("");
-
-      const dataPoints = factors.map((factor, index) => {
-        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
-        const point = polarToCartesian(angle, radius * (factor.normalized / 100));
-        return `${point.x.toFixed(2)},${point.y.toFixed(2)}`;
-      }).join(" ");
-
-      const labelMarkup = factors.map((factor, index) => {
-        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
-        const labelPoint = polarToCartesian(angle, radius + 30);
-        const cos = Math.cos(angle);
-        let anchor = "middle";
-        if (cos > 0.25) anchor = "start";
-        if (cos < -0.25) anchor = "end";
-        return `
-          <text class="radar-label" x="${labelPoint.x.toFixed(2)}" y="${labelPoint.y.toFixed(2)}" text-anchor="${anchor}">
-            ${escapeHtml(factor.shortLabel)}
-          </text>
-        `;
-      }).join("");
-
-      const pointsMarkup = factors.map((factor, index) => {
-        const angle = (-Math.PI / 2) + (index * (Math.PI * 2 / factors.length));
-        const point = polarToCartesian(angle, radius * (factor.normalized / 100));
-        return `
-          <circle class="radar-point" cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="4.5">
-            <title>${escapeHtml(factor.label)}: ${Math.round(factor.normalized)}% (${formatScore(factor.value)} de ${formatScore(factor.maxValue)})</title>
-          </circle>
-        `;
-      }).join("");
-
-      const levelMarkup = Array.from({ length: levels }, (_, levelIndex) => {
-        const ratio = (levelIndex + 1) / levels;
-        const y = cy - (radius * ratio);
-        return `<text class="radar-level" x="${cx + 8}" y="${y.toFixed(2)}">${ratio * 100}%</text>`;
-      }).join("");
-
-      return `
-        <svg class="radar-svg" viewBox="0 0 520 520" role="img" aria-label="Grafica de telaraña de factores">
-          ${ringMarkup}
-          ${axisMarkup}
-          <polygon class="radar-shape" points="${dataPoints}"></polygon>
-          ${pointsMarkup}
-          ${levelMarkup}
-          ${labelMarkup}
-        </svg>
-      `;
-    }
-
-    function buildRadarLegendMarkup(factorScores) {
-      const factors = Object.values(factorScores || {}).sort((a, b) => b.normalized - a.normalized);
-      if (!factors.length) {
-        return `<p class="result-empty">Aún no hay factores para mostrar.</p>`;
-      }
-
-      return factors.map(factor => `
-        <div class="legend-row">
-          <span class="legend-dot" style="--legend-color:${escapeHtml(factor.color)}"></span>
-          <div class="legend-text">
-            <strong>${escapeHtml(factor.label)}</strong>
-            <span>${formatScore(factor.value)} de ${formatScore(factor.maxValue)} posibles</span>
+    function pintarIntereses() {
+      const pag = estado.pagInt, items = paginar(ITEMS_INT, CONFIG.porPaginaIntereses, pag);
+      $("instr-intereses").hidden = pag > 0;
+      $("lista-intereses").innerHTML = items.map(q => `
+        <fieldset class="reactivo" data-id="${q.id}" style="border:0;margin:0;padding-left:0;padding-right:0">
+          <legend class="reactivo-num">Par ${q.id} de ${ITEMS_INT.length}</legend>
+          <div class="par">
+            ${q.options.map((o, i) => `
+              ${i === 1 ? '<span class="o" aria-hidden="true">o</span>' : ""}
+              <label class="opcion"><input type="radio" name="int-${q.id}" value="${o.key}" ${estado.intereses[q.id] === o.key ? "checked" : ""}/><span>${esc(o.text)}</span></label>`).join("")}
           </div>
-          <div class="legend-value">${Math.round(factor.normalized)}%</div>
-        </div>
-      `).join("");
+        </fieldset>`).join("") +
+        `<div class="pagina-pie"><span>Página ${pag + 1} de ${totalPags(ITEMS_INT, CONFIG.porPaginaIntereses)}</span></div>`;
+      $("int-sig").textContent = pag === totalPags(ITEMS_INT, CONFIG.porPaginaIntereses) - 1 ? "Continuar con habilidades" : "Siguiente";
     }
+    $("lista-intereses").addEventListener("change", e => {
+      const m = e.target.name && e.target.name.match(/^int-(\d+)$/); if (!m) return;
+      estado.intereses[m[1]] = e.target.value;
+      const r = e.target.closest(".reactivo"); r.classList.remove("falta");
+      avanzarAlSiguiente(r); actualizarDetalle(); guardarSesion();
+    });
 
-    function buildCompatibilityDetails(program) {
-      if (!program || !cachedResultados.factores) return null;
-
-      const topIds = cachedResultados.topFactorIds || [];
-      const globalTotal = cachedResultados.topFactorCount || (topIds.length || 1);
-      const required = Array.isArray(program.factors) ? program.factors : [];
-      const weights = Array.isArray(cachedResultados.weights) ? cachedResultados.weights : DEFAULT_WEIGHTS;
-
-      const k = Math.min(globalTotal, required.length > 0 ? required.length : globalTotal);
-      const maxPoints = weights.slice(0, k).reduce((acc, current) => acc + current, 0) || 1;
-
-      let matches = 0;
-      let points = 0;
-      const matchedFactorIds = [];
-
-      topIds.forEach((id, position) => {
-        if (required.includes(id)) {
-          matches += 1;
-          points += weights[position] || 0;
-          matchedFactorIds.push(id);
-        }
-      });
-
-      const missingFactorIds = required.filter(id => !topIds.includes(id));
-      const percent = (points / maxPoints) * 100;
-      const status = getStatusMeta(percent);
-
-      return {
-        program,
-        percent,
-        matches,
-        topFactorCount: k,
-        points,
-        maxPoints,
-        matchedFactorIds,
-        missingFactorIds,
-        status
-      };
+    function pintarAptitudes() {
+      const pag = estado.pagApt, items = paginar(ITEMS_APT, CONFIG.porPaginaAptitudes, pag);
+      const base = pag * CONFIG.porPaginaAptitudes;
+      $("instr-aptitudes").hidden = pag > 0;
+      $("lista-aptitudes").innerHTML = items.map((q, i) => `
+        <fieldset class="reactivo" data-id="${q.id}" style="border:0;margin:0;padding-left:0;padding-right:0">
+          <legend class="reactivo-num">Actividad ${base + i + 1} de ${ITEMS_APT.length}</legend>
+          <p class="pregunta-apt">${esc(q.text.replace(/^¿Para /, "¿Qué tanto se te facilita "))}</p>
+          <div class="escala">
+            ${ESCALA.map((t, v) => `<label class="opcion"><input type="radio" name="apt-${q.id}" value="${v + 1}" ${Number(estado.aptitudes[q.id]) === v + 1 ? "checked" : ""}/><span>${t}</span></label>`).join("")}
+          </div>
+        </fieldset>`).join("") +
+        `<div class="pagina-pie"><span>Página ${pag + 1} de ${totalPags(ITEMS_APT, CONFIG.porPaginaAptitudes)}</span></div>`;
+      $("apt-sig").textContent = pag === totalPags(ITEMS_APT, CONFIG.porPaginaAptitudes) - 1 ? "Ver mis resultados" : "Siguiente";
     }
+    $("lista-aptitudes").addEventListener("change", e => {
+      const m = e.target.name && e.target.name.match(/^apt-(.+)$/); if (!m) return;
+      estado.aptitudes[m[1]] = Number(e.target.value);
+      const r = e.target.closest(".reactivo"); r.classList.remove("falta");
+      avanzarAlSiguiente(r); actualizarDetalle(); guardarSesion();
+    });
 
-    function goToStep(step) {
-      currentStep = step;
-
-      document.querySelectorAll(".step").forEach((element, index) => {
-        element.classList.toggle("active", index === step);
-      });
-
-      document.querySelectorAll(".step-pill").forEach((element, index) => {
-        element.classList.toggle("active", index === step);
-      });
-
-      updateStepSummary(step);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    function avanzarAlSiguiente(actual) {
+      let sig = actual.nextElementSibling;
+      while (sig && !sig.classList.contains("reactivo")) sig = sig.nextElementSibling;
+      if (sig && !sig.querySelector("input:checked")) sig.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-
-    function updateStepSummary(step) {
-      const meta = STEP_META[step] || STEP_META[0];
-      document.getElementById("step-counter").textContent = `Paso ${step + 1} de ${STEP_META.length}`;
-      document.getElementById("step-summary-title").textContent = meta.title;
-    }
-
-    function handleDatosNext() {
-      const form = document.getElementById("form-datos");
-      if (!form.reportValidity()) return;
-
-      const formData = new FormData(form);
-      formData.forEach((value, key) => {
-        datosAlumno[key] = value.toString().trim();
-      });
-
-      if (datosAlumno.opcion2 === "NO_SE") {
-        datosAlumno.opcion2 = "No sé";
-      }
-
-      if (datosAlumno.opcion1 && datosAlumno.opcion1 === datosAlumno.opcion2) {
-        alert("La primera y la segunda opción de carrera no deben ser la misma. Elige una alternativa distinta.");
-        return;
-      }
-
-      goToStep(2);
-    }
-
-    function collectQuestionnaireResponses(items, namePrefix, dataAttribute, targetStore, progressUpdater) {
-      const missingIds = [];
-      let firstMissing = null;
-
-      items.forEach(item => {
-        const selected = document.querySelector(`input[name="${namePrefix}${item.id}"]:checked`);
-        const itemElement = document.querySelector(`.question-item[${dataAttribute}="${item.id}"]`);
-
-        if (selected) {
-          if (itemElement) itemElement.classList.remove("unanswered");
-        } else {
-          missingIds.push(item.id);
-          if (!firstMissing) firstMissing = itemElement;
-          if (itemElement) itemElement.classList.add("unanswered");
-        }
-      });
-
-      if (missingIds.length > 0) {
-        progressUpdater();
-        alert(`Te faltan ${missingIds.length} reactivos por contestar. Los marcamos para que puedas identificarlos rápidamente.`);
-        if (firstMissing) {
-          firstMissing.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
+    function validarPagina(contenedorId) {
+      const faltan = [...$(contenedorId).querySelectorAll(".reactivo")].filter(r => !r.querySelector("input:checked"));
+      faltan.forEach(r => r.classList.add("falta"));
+      if (faltan.length) {
+        faltan[0].scrollIntoView({ behavior: "smooth", block: "center" });
+        faltan[0].querySelector("input").focus({ preventScroll: true });
         return false;
       }
-
-      resetObject(targetStore);
-      items.forEach(item => {
-        const selected = document.querySelector(`input[name="${namePrefix}${item.id}"]:checked`);
-        if (selected) targetStore[item.id] = selected.value;
-      });
-
       return true;
     }
 
-    function handleInteresesNext() {
-      const ok = collectQuestionnaireResponses(
-        thurstoneDataset,
-        "thurstone-",
-        "data-thurstone-id",
-        respuestasIntereses,
-        actualizarProgresoIntereses
-      );
-      if (!ok) return;
-      goToStep(3);
-    }
-
-    function handleAptitudesNext() {
-      const ok = collectQuestionnaireResponses(
-        aptitudeDataset,
-        "apt-",
-        "data-apt-id",
-        respuestasAptitudes,
-        actualizarProgresoAptitudes
-      );
-      if (!ok) return;
-      calcularYMostrarResultados();
-      goToStep(4);
-    }
-
-    function updateProgress(items, namePrefix, barId, textId) {
-      const total = items.length;
-      let answered = 0;
-
-      items.forEach(item => {
-        const selected = document.querySelector(`input[name="${namePrefix}${item.id}"]:checked`);
-        if (selected) answered += 1;
-      });
-
-      const percent = total ? (answered / total) * 100 : 0;
-      document.getElementById(barId).style.width = `${percent}%`;
-      document.getElementById(textId).textContent = `${answered} / ${total} contestadas`;
-    }
-
-    function moveToNextQuestion(container, currentItem) {
-      if (!container || !currentItem) return;
-
-      const items = Array.from(container.querySelectorAll(".question-item"));
-      const currentIndex = items.indexOf(currentItem);
-      if (currentIndex === -1) return;
-
-      const nextPending = items.slice(currentIndex + 1).find(item => !item.classList.contains("answered"));
-      const nextItem = nextPending || items[currentIndex + 1];
-
-      if (nextItem) {
-        nextItem.classList.add("advance-target");
-        nextItem.scrollIntoView({ behavior: "smooth", block: "center" });
-        window.setTimeout(() => {
-          nextItem.classList.remove("advance-target");
-        }, 1200);
-        return;
-      }
-
-      const actionButton = currentItem.closest(".step")?.querySelector(".btn-primary");
-      if (actionButton) {
-        actionButton.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }
-
-    function actualizarProgresoIntereses() {
-      updateProgress(thurstoneDataset, "thurstone-", "progress-intereses", "progress-intereses-text");
-    }
-
-    function actualizarProgresoAptitudes() {
-      updateProgress(aptitudeDataset, "apt-", "progress-aptitudes", "progress-aptitudes-text");
-    }
-
-    function renderIntereses() {
-      const container = document.getElementById("contenedor-intereses");
-      if (!container) return;
-
-      container.innerHTML = thurstoneDataset.map(item => {
-        const optionA = item.options.find(option => option.key === "a");
-        const optionB = item.options.find(option => option.key === "b");
-        const checkedA = respuestasIntereses[item.id] === "a" ? "checked" : "";
-        const checkedB = respuestasIntereses[item.id] === "b" ? "checked" : "";
-        const questionState = (checkedA || checkedB) ? "question-item answered" : "question-item";
-
-        return `
-          <article class="${questionState}" data-thurstone-id="${escapeHtml(item.id)}">
-            <div class="question-meta">
-              <span class="question-number">Reactivo ${escapeHtml(item.id)}</span>
-              <span class="question-section">Intereses vocacionales</span>
-            </div>
-            <p class="question-title">¿En cuál de las siguientes ocupaciones preferirías trabajar?</p>
-            <div class="choice-grid two-columns">
-              <label class="choice-card">
-                <input type="radio" name="thurstone-${escapeHtml(item.id)}" value="a" ${checkedA} />
-                <span class="choice-card-body">
-                  <span class="choice-key">A</span>
-                  <span class="choice-text">${escapeHtml(optionA ? optionA.text : "Opción A")}</span>
-                </span>
-              </label>
-              <label class="choice-card">
-                <input type="radio" name="thurstone-${escapeHtml(item.id)}" value="b" ${checkedB} />
-                <span class="choice-card-body">
-                  <span class="choice-key">B</span>
-                  <span class="choice-text">${escapeHtml(optionB ? optionB.text : "Opción B")}</span>
-                </span>
-              </label>
-            </div>
-          </article>
-        `;
-      }).join("");
-
-      container.onchange = event => {
-        if (event.target && event.target.name && event.target.name.startsWith("thurstone-")) {
-          actualizarProgresoIntereses();
-          const itemElement = event.target.closest(".question-item");
-          const shouldAdvance = itemElement && !itemElement.classList.contains("answered");
-          if (itemElement) {
-            itemElement.classList.remove("unanswered");
-            itemElement.classList.add("answered");
-          }
-          if (shouldAdvance) moveToNextQuestion(container, itemElement);
-        }
-      };
-
-      actualizarProgresoIntereses();
-    }
-
-    function renderAptitudes() {
-      const container = document.getElementById("contenedor-aptitudes");
-      if (!container) return;
-
-      container.innerHTML = aptitudeDataset.map((item, index) => {
-        const currentValue = respuestasAptitudes[item.id];
-        const questionState = currentValue ? "question-item answered" : "question-item";
-        return `
-          <article class="${questionState}" data-apt-id="${escapeHtml(item.id)}">
-            <div class="question-meta">
-              <span class="question-number">Reactivo ${index + 1}</span>
-              <span class="question-section">${escapeHtml(item.sectionName)}</span>
-            </div>
-            <p class="question-title">${escapeHtml(item.text)}</p>
-            <div class="choice-grid scale-grid">
-              ${[1, 2, 3, 4].map(value => `
-                <label class="choice-card">
-                  <input type="radio" name="apt-${escapeHtml(item.id)}" value="${value}" ${String(currentValue) === String(value) ? "checked" : ""} />
-                  <span class="choice-card-body">
-                    <span class="choice-key">${value}</span>
-                    <span class="choice-text">
-                      <span class="scale-title">${value === 1 ? "Incompetente" : value === 2 ? "Medianamente apto(a)" : value === 3 ? "Bastante apto(a)" : "Muy apto(a)"}</span>
-                      <span class="scale-subtitle">${value === 1 ? "No me siento capaz de hacerlo." : value === 2 ? "Podría hacerlo con apoyo." : value === 3 ? "Me siento competente en esa actividad." : "Es una fortaleza clara para mí."}</span>
-                    </span>
-                  </span>
-                </label>
-              `).join("")}
-            </div>
-          </article>
-        `;
-      }).join("");
-
-      container.onchange = event => {
-        if (event.target && event.target.name && event.target.name.startsWith("apt-")) {
-          actualizarProgresoAptitudes();
-          const itemElement = event.target.closest(".question-item");
-          const shouldAdvance = itemElement && !itemElement.classList.contains("answered");
-          if (itemElement) {
-            itemElement.classList.remove("unanswered");
-            itemElement.classList.add("answered");
-          }
-          if (shouldAdvance) moveToNextQuestion(container, itemElement);
-        }
-      };
-
-      actualizarProgresoAptitudes();
-    }
-
-    function renderStudentSummary() {
-      const target = document.getElementById("resumen-alumno");
-      if (!target) return;
-
-      target.innerHTML = `
-        <div class="card-heading">
-          <div>
-            <h3>Datos del alumno</h3>
-            <p class="subtitle small">Información capturada al inicio de la guía.</p>
-          </div>
-        </div>
-        <p><strong>Nombre:</strong> ${escapeHtml(datosAlumno.nombre || "-")}</p>
-        <p><strong>Edad:</strong> ${escapeHtml(datosAlumno.edad || "-")} · <strong>Fecha de nacimiento:</strong> ${escapeHtml(datosAlumno.fecha_nacimiento || "-")}</p>
-        <p><strong>Ciudad y estado:</strong> ${escapeHtml(datosAlumno.ciudad || "-")}, ${escapeHtml(datosAlumno.estado || "-")}</p>
-        <p><strong>Preparatoria / Bachillerato:</strong> ${escapeHtml(datosAlumno.preparatoria || "-")}</p>
-        <p><strong>Correo:</strong> ${escapeHtml(datosAlumno.correo || "-")}</p>
-        <p><strong>Primera opción UNACAR:</strong> ${escapeHtml(datosAlumno.opcion1 || "-")}</p>
-        <p><strong>Segunda opción UNACAR:</strong> ${escapeHtml(datosAlumno.opcion2 || "-")}</p>
-      `;
-    }
-
-    function renderOverview() {
-      const target = document.getElementById("resumen-destacado");
-      if (!target || !cachedResultados.topCarreras || !cachedResultados.topFactores) return;
-
-      const bestCareer = cachedResultados.topCarreras[0];
-      const bestStatus = bestCareer ? getStatusMeta(bestCareer.percent) : getStatusMeta(0);
-      const topThreeFactors = cachedResultados.topFactores.slice(0, 3);
-
-      target.innerHTML = `
-        <div class="summary-heading">
-          <div>
-            <h3>Resumen principal</h3>
-            <p class="subtitle small">Una lectura rápida del perfil detectado por la guía.</p>
-          </div>
-          <span class="status-pill ${bestStatus.className}">${bestStatus.label}</span>
-        </div>
-
-        <p>
-          La carrera con mejor alineación general es
-          <strong>${escapeHtml(bestCareer ? bestCareer.program.name : "Sin resultado")}</strong>,
-          con una compatibilidad estimada de
-          <strong>${bestCareer ? bestCareer.percent.toFixed(0) : "0"}%</strong>.
-        </p>
-
-        <div class="summary-metrics">
-          <div class="metric">
-            <span class="metric-label">Top de factores</span>
-            <div class="metric-value">${cachedResultados.topFactores.length} <small>considerados</small></div>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Factor más alto</span>
-            <div class="metric-value">${escapeHtml(topThreeFactors[0] ? topThreeFactors[0].label : "-")}</div>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Compatibilidad líder</span>
-            <div class="metric-value">${bestCareer ? bestCareer.percent.toFixed(0) : "0"}<small>%</small></div>
-          </div>
-        </div>
-
-        <div class="factor-chip-row">
-          ${buildFactorChips(topThreeFactors.map(factor => factor.id), "highlight", cachedResultados.factores, { includeScore: true })}
-        </div>
-      `;
-    }
-
-    function renderTopFactors() {
-      const target = document.getElementById("contenedor-factores");
-      if (!target || !cachedResultados.topFactores) return;
-
-      target.innerHTML = cachedResultados.topFactores.map(factor => `
-        <article class="result-card">
-          <div class="card-heading">
-            <div>
-              <h4>${escapeHtml(factor.label)}</h4>
-              <p class="subtitle small">Puntaje ${formatScore(factor.value)} de ${formatScore(factor.maxValue)}</p>
-            </div>
-            <span class="pill-note">${Math.round(factor.normalized)}%</span>
-          </div>
-          <div class="factor-meter">
-            <div class="factor-meter-track">
-              <div class="factor-meter-fill" style="width:${factor.normalized.toFixed(2)}%; background: linear-gradient(90deg, ${escapeHtml(factor.color)}, var(--primary));"></div>
-            </div>
-          </div>
-          <p>${escapeHtml(factor.description)}</p>
-          <div class="factor-meta">
-            <span>${escapeHtml(buildFactorSourceText(factor))}</span>
-          </div>
-        </article>
-      `).join("");
-    }
-
-    function renderRadarSection() {
-      const chartTarget = document.getElementById("grafica-telarana");
-      const legendTarget = document.getElementById("leyenda-factores");
-      if (!chartTarget || !legendTarget || !cachedResultados.factores) return;
-
-      chartTarget.innerHTML = getRadarChartMarkup(cachedResultados.factores);
-      legendTarget.innerHTML = buildRadarLegendMarkup(cachedResultados.factores);
-    }
-
-    function renderTopCareers() {
-      const target = document.getElementById("contenedor-carreras");
-      if (!target || !cachedResultados.topCarreras) return;
-
-      target.innerHTML = cachedResultados.topCarreras.map((career, index) => {
-        const status = getStatusMeta(career.percent);
-        return `
-          <article class="result-card">
-            <div class="card-heading">
-              <div>
-                <h4>${index + 1}. ${escapeHtml(career.program.name)}</h4>
-                <p class="subtitle small">Compatibilidad estimada ${career.percent.toFixed(0)}%</p>
-              </div>
-              <span class="status-pill ${status.className}">${status.label}</span>
-            </div>
-            <div class="compat-meter-track">
-              <div class="compat-meter-fill" style="width:${career.percent.toFixed(2)}%"></div>
-            </div>
-            <div class="compatibility-meta">
-              <span>Coincidencias: ${career.matches} de ${career.topFactorCount}</span>
-              <span>Puntos: ${career.points.toFixed(0)} / ${career.maxPoints}</span>
-            </div>
-            <div class="compat-block">
-              <h4>Factores ya alineados</h4>
-              <div class="factor-chip-row">
-                ${buildFactorChips(career.matchedFactorIds, "match", cachedResultados.factores, { includeNormalized: true })}
-              </div>
-            </div>
-            <div class="compat-block">
-              <h4>Factores asociados a la carrera</h4>
-              <div class="factor-chip-row">
-                ${buildFactorChips(career.program.factors, "neutral", cachedResultados.factores)}
-              </div>
-            </div>
-          </article>
-        `;
-      }).join("");
-    }
-
-    function renderChosenProgramsCompatibility() {
-      const target = document.getElementById("compat-elecciones");
-      if (!target) return;
-
-      const blocks = ["opcion1", "opcion2"].map((key, index) => {
-        const optionLabel = index === 0 ? "Primera opción" : "Segunda opción";
-        const selectedName = datosAlumno[key];
-
-        if (!selectedName) return "";
-
-        if (selectedName === "No sé") {
-          return `
-            <article class="result-card compatibility-card">
-              <div class="card-heading">
-                <div>
-                  <h4>${optionLabel}: No sé</h4>
-                  <p class="subtitle small">No se definió una segunda opción concreta.</p>
-                </div>
-              </div>
-              <p>La guía puede ayudar a abrir una segunda alternativa a partir de las carreras sugeridas.</p>
-            </article>
-          `;
-        }
-
-        const program = findProgramByName(selectedName);
-        if (!program) {
-          return `
-            <article class="result-card compatibility-card">
-              <div class="card-heading">
-                <div>
-                  <h4>${optionLabel}: ${escapeHtml(selectedName)}</h4>
-                </div>
-              </div>
-              <p>No se encontró esta carrera en el catálogo de programas de la guía.</p>
-            </article>
-          `;
-        }
-
-        const detail = buildCompatibilityDetails(program);
-        const status = detail ? detail.status : getStatusMeta(0);
-        const missingMessage = detail && detail.missingFactorIds.length
-          ? "Estos son los factores que faltaron entre tus factores principales para que esta opción se alineara mejor."
-          : "Tus factores principales ya cubren los factores clave asociados con esta carrera.";
-
-        return `
-          <article class="result-card compatibility-card">
-            <div class="card-heading">
-              <div>
-                <h4>${optionLabel}: ${escapeHtml(program.name)}</h4>
-                <p class="subtitle small">Compatibilidad estimada con tus factores principales.</p>
-              </div>
-              <span class="status-pill ${status.className}">${status.label}</span>
-            </div>
-            <div class="compat-meter-track">
-              <div class="compat-meter-fill" style="width:${detail.percent.toFixed(2)}%"></div>
-            </div>
-            <div class="compatibility-meta">
-              <span>${detail.percent.toFixed(0)}% de compatibilidad</span>
-              <span>Coincidencias: ${detail.matches} de ${detail.topFactorCount}</span>
-            </div>
-
-            <div class="compat-block">
-              <h4>Factores presentes en esta compatibilidad</h4>
-              <div class="factor-chip-row">
-                ${buildFactorChips(detail.matchedFactorIds, "match", cachedResultados.factores, { includeNormalized: true })}
-              </div>
-            </div>
-
-            <div class="compat-block">
-              <h4>Factores que faltaron para mejorar la compatibilidad</h4>
-              <div class="factor-chip-row">
-                ${buildFactorChips(detail.missingFactorIds, "missing", cachedResultados.factores)}
-              </div>
-              <p class="compat-note">${escapeHtml(missingMessage)}</p>
-            </div>
-
-            <div class="compat-block">
-              <h4>Factores esperados por la carrera</h4>
-              <div class="factor-chip-row">
-                ${buildFactorChips(program.factors, "neutral", cachedResultados.factores)}
-              </div>
-            </div>
-          </article>
-        `;
-      }).filter(Boolean);
-
-      target.innerHTML = blocks.join("") || `<p class="result-empty">No hay opciones elegidas para comparar.</p>`;
-    }
-
-    function calcularYMostrarResultados(triggerSave = true) {
-      const intereses = scoreThurstone(respuestasIntereses);
-      const aptitudes = scoreAptitudes(respuestasAptitudes);
-      const factores = computeFactors(intereses, aptitudes);
-      const topFactores = getTopFactors(factores, 6);
-      const compatData = computeCareerCompatibilities(factores, 6);
-
-      let topCarreras = compatData.all.filter(item => item.percent >= 50).slice(0, 3);
-      if (topCarreras.length < 3) {
-        const extras = compatData.all.filter(item => !topCarreras.includes(item)).slice(0, 3 - topCarreras.length);
-        topCarreras = topCarreras.concat(extras);
-      }
-
-      cachedResultados.intereses = intereses;
-      cachedResultados.aptitudes = aptitudes;
-      cachedResultados.factores = factores;
-      cachedResultados.topFactores = topFactores;
-      cachedResultados.topCarreras = topCarreras;
-      cachedResultados.allCompatibilities = compatData.all;
-      cachedResultados.topFactorIds = compatData.topFactorIds;
-      cachedResultados.topFactorCount = compatData.topFactorCount;
-      cachedResultados.weights = compatData.weights;
-      cachedResultados.factorMaxima = Object.fromEntries(
-        Object.values(factores).map(factor => [factor.id, factor.maxValue])
-      );
-
-      renderStudentSummary();
-      renderOverview();
-      renderRadarSection();
-      renderTopFactors();
-      renderTopCareers();
-      renderChosenProgramsCompatibility();
-
-      if (triggerSave) enviarResultadosAlServidor();
-    }
-
-    function poblarSelectCarreras() {
-      const select1 = document.getElementById("opcion1");
-      const select2 = document.getElementById("opcion2");
-      if (!select1 || !select2) return;
-
-      const names = Array.from(new Set(programFactors.map(program => program.name))).sort();
-
-      names.forEach(name => {
-        const option1 = document.createElement("option");
-        option1.value = name;
-        option1.textContent = name;
-        select1.appendChild(option1);
-
-        const option2 = document.createElement("option");
-        option2.value = name;
-        option2.textContent = name;
-        select2.appendChild(option2);
-      });
-    }
-
-    function fillFormFromData() {
-      const fieldIds = [
-        "nombre",
-        "edad",
-        "fecha_nacimiento",
-        "ciudad",
-        "estado",
-        "preparatoria",
-        "correo",
-        "opcion1",
-        "opcion2"
-      ];
-
-      fieldIds.forEach(fieldId => {
-        const element = document.getElementById(fieldId);
-        if (!element) return;
-
-        if (fieldId === "opcion2" && datosAlumno[fieldId] === "No sé") {
-          element.value = "NO_SE";
-          return;
-        }
-
-        if (datosAlumno[fieldId] != null) {
-          element.value = datosAlumno[fieldId];
-        }
-      });
-    }
-
-    function buildExportObject() {
-      return {
-        version: 2,
-        timestamp: new Date().toISOString(),
-        datosAlumno: { ...datosAlumno },
-        respuestasIntereses: { ...respuestasIntereses },
-        respuestasAptitudes: { ...respuestasAptitudes }
-      };
-    }
-
-    function downloadRawReport() {
-      const exportData = buildExportObject();
-      const json = JSON.stringify(exportData, null, 2);
-      const blob = new Blob([json], { type: "application/json;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const fileName = (datosAlumno.nombre || "reporte").replace(/[^a-z0-9_-]/gi, "_");
-      const link = document.createElement("a");
-
-      link.href = url;
-      link.download = `orientacion_unacar_respuestas_${fileName}.json`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    }
-
-    function applyImportedReport(data) {
-      if (!data || typeof data !== "object") {
-        alert("El archivo no tiene el formato esperado.");
-        return;
-      }
-
-      if (!data.datosAlumno || !data.respuestasIntereses || !data.respuestasAptitudes) {
-        alert("El archivo no contiene la información mínima necesaria para restaurar un reporte.");
-        return;
-      }
-
-      resetObject(datosAlumno);
-      Object.assign(datosAlumno, data.datosAlumno || {});
-
-      resetObject(respuestasIntereses);
-      Object.assign(respuestasIntereses, data.respuestasIntereses || {});
-
-      resetObject(respuestasAptitudes);
-      Object.assign(respuestasAptitudes, data.respuestasAptitudes || {});
-
-      fillFormFromData();
-      renderIntereses();
-      renderAptitudes();
-      calcularYMostrarResultados(true);
-      goToStep(4);
-    }
-
-    function handleReportFileInput(event) {
-      const file = event.target.files && event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = loadEvent => {
-        try {
-          const text = loadEvent.target.result;
-          const data = JSON.parse(text);
-          applyImportedReport(data);
-        } catch (error) {
-          console.error("Error al leer el archivo importado:", error);
-          alert("No se pudo leer el archivo. Verifica que haya sido generado por esta guía.");
-        } finally {
-          event.target.value = "";
-        }
-      };
-
-      reader.readAsText(file, "utf-8");
-    }
-
-    function buildBackendPayload() {
-      const raw = buildExportObject();
-      const hasResults = cachedResultados.factores && cachedResultados.topFactores && cachedResultados.topCarreras;
-
-      const results = hasResults ? {
-        factores: cachedResultados.factores,
-        topFactores: (cachedResultados.topFactores || []).map(factor => ({
-          id: factor.id,
-          label: factor.label,
-          value: factor.value,
-          normalized: factor.normalized,
-          interest: factor.interest,
-          aptitude: factor.aptitude
-        })),
-        topCarreras: (cachedResultados.topCarreras || []).map(career => ({
-          name: career.program.name,
-          score: career.percent,
-          percent: career.percent,
-          matches: career.matches,
-          topFactorCount: career.topFactorCount,
-          points: career.points,
-          maxPoints: career.maxPoints,
-          factors: career.program.factors
-        })),
-        topFactorIds: cachedResultados.topFactorIds || null,
-        weights: cachedResultados.weights || DEFAULT_WEIGHTS
-      } : null;
-
-      return {
-        app: "guia_vocacional_unacar",
-        version_app: 2,
-        exportRaw: raw,
-        resultados: results
-      };
-    }
-
-    let _supabaseClient = null;
-
-    function getSupabaseClient() {
-      if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled) return null;
-      if (!SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return null;
-
-      try {
-        if (_supabaseClient) return _supabaseClient;
-        if (typeof supabase === "undefined" || !supabase.createClient) {
-          console.warn("Supabase JS no está disponible.");
-          return null;
-        }
-
-        const { createClient } = supabase;
-        _supabaseClient = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-        return _supabaseClient;
-      } catch (error) {
-        console.error("No se pudo inicializar Supabase:", error);
-        return null;
-      }
-    }
-
-    async function enviarResultadosASupabase(payload) {
-      const client = getSupabaseClient();
-      if (!client) return { ok: false, skipped: true, reason: "Supabase no configurado" };
-
-      const row = {
-        app: payload.app || "guia_vocacional_unacar",
-        version_app: payload.version_app || 2,
-        datos_alumno: payload.exportRaw?.datosAlumno || null,
-        export_raw: payload.exportRaw || null,
-        resultados: payload.resultados || null,
-        page_url: (typeof window !== "undefined" ? window.location.href : ""),
-        user_agent: (typeof navigator !== "undefined" ? navigator.userAgent : "")
-      };
-
-      try {
-        const { error } = await client.from(SUPABASE_CONFIG.table).insert(row);
-        if (error) {
-          console.error("Supabase insert error:", error);
-          return { ok: false, error };
-        }
-        return { ok: true };
-      } catch (error) {
-        console.error("Supabase insert exception:", error);
-        return { ok: false, error };
-      }
-    }
-
-    function enviarResultadosAlServidor() {
-      if (!cachedResultados || !cachedResultados.factores) return;
-
-      const payload = buildBackendPayload();
-
-      if (SUPABASE_CONFIG && SUPABASE_CONFIG.enabled) {
-        enviarASupabase();
-      }
-
-      if (BACKEND_CONFIG && BACKEND_CONFIG.enabled && BACKEND_CONFIG.endpoint) {
-        try {
-          const headers = { "Content-Type": "application/json" };
-          if (BACKEND_CONFIG.apiKey) headers["X-API-Key"] = BACKEND_CONFIG.apiKey;
-
-          fetch(BACKEND_CONFIG.endpoint, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(payload)
-          }).then(response => {
-            if (!response.ok) console.error("Error al enviar a Google Script. Código:", response.status);
-          }).catch(error => {
-            console.error("Error de red al enviar a Google Script:", error);
-          });
-        } catch (error) {
-          console.error("Error inesperado al enviar a Google Script:", error);
-        }
-      }
-    }
-
-    function buildFactoresTexto(factoresObj) {
-      try {
-        if (!factoresObj) return "";
-        const entries = Object.values(factoresObj).map(factor => `${factor.id}-${factor.label}:${Number(factor.value).toFixed(2)}`);
-        return entries.join(" | ");
-      } catch (error) {
-        return "";
-      }
-    }
-
-    function buildTopFactoresTexto(topFactors) {
-      try {
-        return (topFactors || []).map(factor => `${factor.id}-${factor.label}:${Number(factor.value).toFixed(2)}`).join(" | ");
-      } catch (error) {
-        return "";
-      }
-    }
-
-    function buildTopCarrerasTexto(topCareers) {
-      try {
-        return (topCareers || []).map(career => {
-          const percent = career.percent != null ? career.percent : (career.score != null ? career.score : "");
-          return `${career.name || career.program?.name}:${percent}% (${career.matches}/${career.topFactorCount})`;
-        }).join(" | ");
-      } catch (error) {
-        return "";
-      }
-    }
-
-    function buildSupabaseRow(includeExtras = false, stringifyJson = false) {
-      const raw = buildExportObject();
-      const resultsObject = {
-        factores: cachedResultados.factores || {},
-        topFactores: (cachedResultados.topFactores || []).map(factor => ({
-          id: factor.id,
-          label: factor.label,
-          value: factor.value,
-          normalized: factor.normalized,
-          interest: factor.interest,
-          aptitude: factor.aptitude
-        })),
-        topCarreras: (cachedResultados.topCarreras || []).map(career => ({
-          name: career.program?.name || career.name,
-          percent: career.percent ?? career.score,
-          matches: career.matches,
-          topFactorCount: career.topFactorCount,
-          points: career.points,
-          maxPoints: career.maxPoints,
-          factors: career.program?.factors || career.factors
-        }))
-      };
-
-      const student = raw.datosAlumno || {};
-      const base = {
-        fecha: new Date().toISOString(),
-        nombre: student.nombre || "",
-        edad: student.edad ? Number(student.edad) : null,
-        fecha_nacimiento: student.fecha_nacimiento || null,
-        ciudad: student.ciudad || "",
-        estado: student.estado || "",
-        preparatoria: student.preparatoria || "",
-        correo: student.correo || "",
-        opcion1: student.opcion1 || "",
-        opcion2: student.opcion2 || "",
-        factores_texto: buildFactoresTexto(cachedResultados.factores),
-        top_factores_texto: buildTopFactoresTexto(cachedResultados.topFactores),
-        top_carreras_texto: buildTopCarrerasTexto(cachedResultados.topCarreras)
-      };
-
-      base.respuestas_intereses = stringifyJson ? JSON.stringify(raw.respuestasIntereses || {}) : (raw.respuestasIntereses || {});
-      base.respuestas_aptitudes = stringifyJson ? JSON.stringify(raw.respuestasAptitudes || {}) : (raw.respuestasAptitudes || {});
-
-      if (includeExtras) {
-        base.resultados = stringifyJson ? JSON.stringify(resultsObject) : resultsObject;
-        base.export_raw = stringifyJson ? JSON.stringify(raw) : raw;
-        base.page_url = (typeof window !== "undefined" ? window.location.href : "");
-        base.user_agent = (typeof navigator !== "undefined" ? navigator.userAgent : "");
-      }
-
-      return base;
-    }
-
-    async function enviarASupabase() {
-      if (!SUPABASE_CONFIG || !SUPABASE_CONFIG.enabled || !SUPABASE_CONFIG.url || !SUPABASE_CONFIG.anonKey) return;
-      if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) return;
-
-      const endpoint = `${SUPABASE_CONFIG.url}/rest/v1/${SUPABASE_CONFIG.table}`;
-      const headers = {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_CONFIG.anonKey,
-        "Authorization": "Bearer " + SUPABASE_CONFIG.anonKey,
-        "Prefer": "return=minimal"
-      };
-
-      const attempts = [
-        { row: buildSupabaseRow(true, false), label: "full_json" },
-        { row: buildSupabaseRow(false, false), label: "base_json" },
-        { row: buildSupabaseRow(false, true), label: "base_string" }
-      ];
-
-      for (const attempt of attempts) {
-        try {
-          const response = await fetch(endpoint, {
-            method: "POST",
-            headers,
-            body: JSON.stringify(attempt.row)
-          });
-
-          if (response.ok) {
-            console.log(`Supabase: guardado OK (${attempt.label}).`);
-            return;
-          }
-
-          const body = await response.text().catch(() => "");
-          console.error(`Supabase: error al insertar (${attempt.label}). Código:`, response.status, body);
-
-          if (response.status === 401 || response.status === 403) {
-            console.error("Supabase: parece un bloqueo por RLS. Revisa la policy de INSERT para el rol anon.");
-            return;
-          }
-        } catch (error) {
-          console.error(`Supabase: error de red (${attempt.label}):`, error);
-          return;
-        }
-      }
-
-      console.error("Supabase: no se pudo guardar el registro con ninguna variante.");
-    }
-
-    function generatePDF() {
-      if (!cachedResultados.factores || !cachedResultados.topFactores || !cachedResultados.topCarreras) {
-        alert("Primero completa los cuestionarios y visualiza tus resultados.");
-        return;
-      }
-
-      const win = window.open("", "_blank");
-      if (!win) {
-        alert("El navegador bloqueó la ventana emergente. Permite las ventanas emergentes para esta página para generar el reporte.");
-        return;
-      }
-
-      const topFactorsHtml = (cachedResultados.topFactores || []).map(factor => `
-        <div class="block-card">
-          <h4>${escapeHtml(factor.label)}</h4>
-          <p><strong>Puntaje:</strong> ${formatScore(factor.value)} de ${formatScore(factor.maxValue)} (${Math.round(factor.normalized)}%)</p>
-          <p>${escapeHtml(factor.description)}</p>
-          <p class="small-note">${escapeHtml(buildFactorSourceText(factor))}</p>
-        </div>
-      `).join("");
-
-      const topCareersHtml = (cachedResultados.topCarreras || []).map((career, index) => {
-        const status = getStatusMeta(career.percent);
-        return `
-          <div class="block-card">
-            <h4>${index + 1}. ${escapeHtml(career.program.name)}</h4>
-            <p><strong>Compatibilidad:</strong> ${career.percent.toFixed(0)}% · ${escapeHtml(status.label)}</p>
-            <p><strong>Coincidencias:</strong> ${career.matches} de ${career.topFactorCount} · <strong>Puntos:</strong> ${career.points.toFixed(0)} / ${career.maxPoints}</p>
-            <p><strong>Factores alineados:</strong> ${escapeHtml(career.matchedFactorIds.map(getFactorLabel).join(", ") || "Sin coincidencias claras")}</p>
-          </div>
-        `;
-      }).join("");
-
-      const selectedOptionsHtml = ["opcion1", "opcion2"].map((key, index) => {
-        const label = index === 0 ? "Primera opción" : "Segunda opción";
-        const name = datosAlumno[key];
-
-        if (!name) return "";
-        if (name === "No sé") {
-          return `<div class="block-card"><h4>${label}: No sé</h4><p>No se definió una segunda opción concreta.</p></div>`;
-        }
-
-        const program = findProgramByName(name);
-        if (!program) {
-          return `<div class="block-card"><h4>${label}: ${escapeHtml(name)}</h4><p>No se encontró esta carrera en el catálogo de la guía.</p></div>`;
-        }
-
-        const detail = buildCompatibilityDetails(program);
-        return `
-          <div class="block-card">
-            <h4>${label}: ${escapeHtml(program.name)}</h4>
-            <p><strong>Compatibilidad:</strong> ${detail.percent.toFixed(0)}% · ${escapeHtml(detail.status.label)}</p>
-            <p><strong>Factores presentes:</strong> ${escapeHtml(detail.matchedFactorIds.map(getFactorLabel).join(", ") || "Sin coincidencias fuertes")}</p>
-            <p><strong>Factores que faltaron:</strong> ${escapeHtml(detail.missingFactorIds.map(getFactorLabel).join(", ") || "Ninguno dentro de los factores principales")}</p>
-          </div>
-        `;
-      }).join("");
-
-      const html = `
-        <!DOCTYPE html>
-        <html lang="es">
-        <head>
-          <meta charset="UTF-8">
-          <title>Reporte de orientación vocacional UNACAR</title>
-          <style>
-            body {
-              margin: 28px;
-              font-family: Arial, sans-serif;
-              color: #163047;
-            }
-            h1, h2, h3, h4 {
-              margin: 0;
-              color: #083d5b;
-            }
-            h1 {
-              text-align: center;
-              margin-bottom: 8px;
-              font-size: 24px;
-            }
-            h2 {
-              margin-top: 24px;
-              margin-bottom: 10px;
-              font-size: 18px;
-            }
-            p {
-              margin: 4px 0;
-              line-height: 1.55;
-            }
-            .header {
-              text-align: center;
-              margin-bottom: 20px;
-            }
-            .header p {
-              margin: 2px 0;
-            }
-            .grid {
-              display: grid;
-              grid-template-columns: repeat(2, minmax(0, 1fr));
-              gap: 14px;
-            }
-            .block-card {
-              border: 1px solid rgba(13, 95, 140, 0.18);
-              border-radius: 14px;
-              padding: 12px 14px;
-              background: #f8fbff;
-              break-inside: avoid;
-            }
-            .small-note {
-              color: #5d7385;
-              font-size: 12px;
-            }
-            .radar-wrap {
-              display: grid;
-              justify-items: center;
-              margin-top: 12px;
-            }
-            .radar-svg {
-              width: 100%;
-              max-width: 420px;
-              height: auto;
-              overflow: visible;
-            }
-            .radar-ring {
-              fill: none;
-              stroke: rgba(13, 95, 140, 0.14);
-              stroke-width: 1;
-            }
-            .radar-axis {
-              stroke: rgba(13, 95, 140, 0.2);
-              stroke-width: 1;
-            }
-            .radar-shape {
-              fill: rgba(240, 139, 51, 0.28);
-              stroke: #0d5f8c;
-              stroke-width: 2.5;
-              stroke-linejoin: round;
-              stroke-dasharray: none;
-              stroke-dashoffset: 0;
-            }
-            .radar-point {
-              fill: #ffffff;
-              stroke: #0d5f8c;
-              stroke-width: 1.5;
-            }
-            .radar-label {
-              fill: #083d5b;
-              font-size: 12px;
-              font-weight: 700;
-            }
-            .radar-level {
-              fill: #5d7385;
-              font-size: 11px;
-            }
-            .legend-list {
-              margin-top: 14px;
-              display: grid;
-              grid-template-columns: repeat(2, minmax(0, 1fr));
-              gap: 8px 12px;
-              font-size: 12px;
-            }
-            .legend-item {
-              padding: 8px 10px;
-              border-radius: 10px;
-              border: 1px solid rgba(13, 95, 140, 0.12);
-              background: #f8fbff;
-            }
-            .note-legal {
-              margin-top: 22px;
-              padding: 10px 12px;
-              border-radius: 12px;
-              border: 1px solid rgba(198, 65, 59, 0.22);
-              background: #fff5f5;
-              color: #7f1d1d;
-              font-size: 12px;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <p><strong>Universidad Autónoma del Carmen</strong></p>
-            <p>Dirección General de Servicios al Estudiante</p>
-            <p>Unidad de Servicios Psicopedagógicos</p>
-            <h1>Reporte individual de orientación vocacional</h1>
-          </div>
-
-          <h2>Datos del alumno</h2>
-          <div class="grid">
-            <div class="block-card">
-              <p><strong>Nombre:</strong> ${escapeHtml(datosAlumno.nombre || "-")}</p>
-              <p><strong>Edad:</strong> ${escapeHtml(datosAlumno.edad || "-")}</p>
-              <p><strong>Fecha de nacimiento:</strong> ${escapeHtml(datosAlumno.fecha_nacimiento || "-")}</p>
-              <p><strong>Ciudad y estado:</strong> ${escapeHtml(datosAlumno.ciudad || "-")}, ${escapeHtml(datosAlumno.estado || "-")}</p>
-            </div>
-            <div class="block-card">
-              <p><strong>Preparatoria:</strong> ${escapeHtml(datosAlumno.preparatoria || "-")}</p>
-              <p><strong>Correo:</strong> ${escapeHtml(datosAlumno.correo || "-")}</p>
-              <p><strong>Primera opción:</strong> ${escapeHtml(datosAlumno.opcion1 || "-")}</p>
-              <p><strong>Segunda opción:</strong> ${escapeHtml(datosAlumno.opcion2 || "-")}</p>
-            </div>
-          </div>
-
-          <h2>Perfil de factores</h2>
-          <div class="radar-wrap">
-            ${getRadarChartMarkup(cachedResultados.factores)}
-          </div>
-          <div class="legend-list">
-            ${Object.values(cachedResultados.factores).sort((a, b) => b.normalized - a.normalized).map(factor => `
-              <div class="legend-item">
-                <strong>${escapeHtml(factor.label)}</strong><br>
-                ${Math.round(factor.normalized)}% · ${formatScore(factor.value)} de ${formatScore(factor.maxValue)}
-              </div>
-            `).join("")}
-          </div>
-
-          <h2>Factores más altos</h2>
-          <div class="grid">
-            ${topFactorsHtml}
-          </div>
-
-          <h2>Carreras sugeridas</h2>
-          <div class="grid">
-            ${topCareersHtml}
-          </div>
-
-          <h2>Compatibilidad con las opciones elegidas</h2>
-          <div class="grid">
-            ${selectedOptionsHtml}
-          </div>
-
-          <div class="note-legal">
-            <strong>Nota importante:</strong> Este reporte es un apoyo orientativo y no sustituye un proceso formal de orientación vocacional con un profesional.
-          </div>
-        </body>
-        </html>
-      `;
-
-      win.document.open();
-      win.document.write(html);
-      win.document.close();
-
-      setTimeout(() => {
-        win.focus();
-        win.print();
-      }, 350);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      if (!thurstoneDataset.length) {
-        console.warn("thurstoneItems no está definido o está vacío.");
-      }
-      if (!aptitudeDataset.length) {
-        console.warn("aptitudeItems no está definido o está vacío.");
-      }
-
-      poblarSelectCarreras();
-      fillFormFromData();
-      renderIntereses();
-      renderAptitudes();
-      updateStepSummary(0);
-
-      const reportInput = document.getElementById("input-cargar-reporte");
-      if (reportInput) {
-        reportInput.addEventListener("change", handleReportFileInput);
-      }
+    $("int-sig").addEventListener("click", () => {
+      if (!validarPagina("lista-intereses")) return;
+      if (estado.pagInt < totalPags(ITEMS_INT, CONFIG.porPaginaIntereses) - 1) { estado.pagInt++; pintarIntereses(); guardarSesion(); window.scrollTo({ top: 0 }); }
+      else irA(3);
     });
+    $("int-atras").addEventListener("click", () => {
+      if (estado.pagInt > 0) { estado.pagInt--; pintarIntereses(); guardarSesion(); window.scrollTo({ top: 0 }); } else irA(1);
+    });
+    $("apt-sig").addEventListener("click", () => {
+      if (!validarPagina("lista-aptitudes")) return;
+      if (estado.pagApt < totalPags(ITEMS_APT, CONFIG.porPaginaAptitudes) - 1) { estado.pagApt++; pintarAptitudes(); guardarSesion(); window.scrollTo({ top: 0 }); }
+      else { calcularYMostrar(true); irA(4); }
+    });
+    $("apt-atras").addEventListener("click", () => {
+      if (estado.pagApt > 0) { estado.pagApt--; pintarAptitudes(); guardarSesion(); window.scrollTo({ top: 0 }); } else irA(2);
+    });
+
+    // ---------- Resultados ----------
+    function calcularYMostrar(enviar) {
+      estado.resultado = M.calcular(ITEMS_INT, aptitudeItems, estado.intereses, estado.aptitudes);
+      $("resultados").innerHTML = htmlResultados(estado.resultado, false);
+      if (enviar) enviarASupabase();
+    }
+
+    function radarSVG(factores) {
+      const cx = 250, cy = 230, R = 160, n = factores.length;
+      const ang = i => -Math.PI / 2 + i * 2 * Math.PI / n;
+      const pt = (i, r) => [cx + Math.cos(ang(i)) * r, cy + Math.sin(ang(i)) * r];
+      const poly = rf => factores.map((f, i) => pt(i, R * rf(f)).map(v => v.toFixed(1)).join(",")).join(" ");
+      let s = `<svg class="radar" viewBox="0 0 500 470" role="img" aria-label="Gráfica de tu perfil en 15 factores">`;
+      [.25, .5, .75, 1].forEach(k => s += `<polygon class="anillo" points="${poly(() => k)}"/>`);
+      factores.forEach((f, i) => { const [x, y] = pt(i, R); s += `<line class="eje" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`; });
+      s += `<polygon class="forma" points="${poly(f => Math.max(.02, f.score))}"/>`;
+      factores.forEach((f, i) => { const [x, y] = pt(i, R * Math.max(.02, f.score)); s += `<circle class="punto" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4"><title>${esc(f.label)}: ${f.pct}%</title></circle>`; });
+      factores.forEach((f, i) => {
+        const [x, y] = pt(i, R + 22), c = Math.cos(ang(i));
+        const a = c > .3 ? "start" : c < -.3 ? "end" : "middle";
+        s += `<text class="etiqueta ${f.rango <= 5 ? "top" : ""}" x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="${a}">${esc(f.short)}</text>`;
+      });
+      return s + "</svg>";
+    }
+
+    const TEXTO_NIVEL = { alta: "Afinidad alta", media: "Afinidad media", baja: "Afinidad baja" };
+
+    function familiaDe(nombre) { return M.FAMILIAS.find(f => f.includes(nombre)); }
+
+    function htmlCarrera(c, posicion) {
+      const fam = familiaDe(c.name);
+      const otras = fam ? fam.filter(n => n !== c.name).map(nombreCorto) : [];
+      return `
+        <article class="carrera ${c.nivel}">
+          <div class="carrera-cab"><h3>${posicion ? posicion + ". " : ""}${esc(nombreCorto(c.name))}</h3><span class="nivel ${c.nivel}">${TEXTO_NIVEL[c.nivel]}</span></div>
+          <p class="facultad">${esc(c.fac)}</p>
+          ${c.coincidencias.length ? `<div>Coincide con tus puntos fuertes en:</div><div class="chips">${c.coincidencias.map(f => `<span class="chip si">${esc(f.label)}</span>`).join("")}</div>` : ""}
+          ${otras.length ? `<p class="familia">Se parece mucho a ${esc(otras.join(" y "))}. Vale la pena que las compares conociendo sus planes de estudio.</p>` : ""}
+        </article>`;
+    }
+
+    function htmlOpcion(etiqueta, nombre, res) {
+      if (!nombre) return "";
+      if (nombre === "No sé") return `<article class="carrera"><h3>${etiqueta}: todavía no lo sabes</h3><p class="facultad">Las carreras sugeridas arriba pueden darte ideas para una segunda opción.</p></article>`;
+      const pos = res.carreras.findIndex(c => c.name === nombre);
+      if (pos < 0) return `<article class="carrera"><h3>${etiqueta}: ${esc(nombre)}</h3><p>Esta carrera no está en el catálogo actual de la guía.</p></article>`;
+      const c = res.carreras[pos];
+      let explicacion;
+      if (c.pasa) explicacion = "Tus puntos fuertes incluyen lo esencial de esta carrera.";
+      else {
+        const partes = [];
+        if (c.faltantes.length) partes.push(`lo esencial de esta carrera incluye ${c.faltantes.map(f => f.label.toLowerCase()).join(", ")}, y eso no aparece entre tus puntos fuertes por ahora`);
+        if (!c.requisitoOk) partes.push(`esta carrera pide ${c.requisito.texto}, y en tus respuestas no se ve todavía`);
+        explicacion = "Su afinidad es baja porque " + partes.join("; además, ") + ". Eso no te descarta: es algo para conversar en tu entrevista de orientación.";
+      }
+      return `
+        <article class="carrera ${c.nivel}">
+          <div class="carrera-cab"><h3>${etiqueta}: ${esc(nombreCorto(c.name))}</h3><span class="nivel ${c.nivel}">${TEXTO_NIVEL[c.nivel]}</span></div>
+          <p class="facultad">Lugar ${pos + 1} de ${res.carreras.length} según tu perfil</p>
+          <div>Lo esencial de esta carrera:</div>
+          <div class="chips">${c.nucleos.map(f => `<span class="chip ${c.faltantes.includes(f) ? "falta" : "si"}">${c.faltantes.includes(f) ? "Falta: " : ""}${esc(f.label)}</span>`).join("")}</div>
+          <p class="familia">${explicacion}</p>
+        </article>`;
+    }
+
+    function htmlResultados(res, impresion) {
+      const d = estado.datos;
+      const porRango = res.factores.slice().sort((a, b) => b.score - a.score);
+      const top = porRango.slice(0, 5);
+      const sugeridas = res.carreras.slice(0, 3);
+      const fecha = new Date().toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+      return `
+        <div class="bloque resumen">
+          <h2>Resultados de ${esc(d.nombre || "la guía")}</h2>
+          <p class="meta">${esc(d.preparatoria || "")}${d.preparatoria ? ", " : ""}${fecha}</p>
+          ${res.indiferenciado ? `
+            <div class="aviso" style="margin:12px 0 0">
+              <h3>Tu perfil todavía no muestra preferencias claras</h3>
+              <p style="margin:6px 0 0">Tus respuestas se parecen poco entre sí y a las carreras de la guía. Es algo común, y no significa que algo esté mal. Te recomendamos una entrevista con la Unidad de Servicios Psicopedagógicos para explorar juntos tus intereses. Las carreras de abajo son solo un punto de partida para esa conversación.</p>
+            </div>` : `<p style="margin:6px 0 0">Estas son las carreras más cercanas a tu perfil. Úsalas para explorar, no como una decisión tomada.</p>`}
+        </div>
+
+        <div class="bloque">
+          <h2>Tu perfil</h2>
+          <p>Cada eje combina lo que te interesa con lo que se te facilita. Mientras más lejos del centro, más fuerte aparece ese aspecto en tus respuestas.</p>
+          <div class="perfil">
+            <div>${radarSVG(res.factores)}</div>
+            <div>
+              <h3 style="margin-bottom:6px">Tus puntos más fuertes</h3>
+              ${top.map(f => `<div class="factor"><div class="factor-cab"><span>${esc(f.label)}</span><span>${f.pct}%</span></div><div class="barra"><i style="width:${f.pct}%;background:${f.color}"></i></div><p>${esc(f.desc)}</p></div>`).join("")}
+            </div>
+          </div>
+        </div>
+
+        <div class="bloque">
+          <h2>${res.indiferenciado ? "Carreras para explorar en tu entrevista" : "Carreras sugeridas"}</h2>
+          ${sugeridas.map((c, i) => htmlCarrera(c, i + 1)).join("")}
+        </div>
+
+        <div class="bloque">
+          <h2>Las carreras que elegiste</h2>
+          ${htmlOpcion("Primera opción", d.opcion1, res)}
+          ${htmlOpcion("Segunda opción", d.opcion2, res)}
+        </div>
+
+        <div class="bloque">
+          <h2>Para pensar antes de decidir</h2>
+          <ul class="reflexion">
+            <li>¿Qué de tus resultados te sorprendió y qué confirmó lo que ya sabías de ti?</li>
+            <li>De las carreras sugeridas, ¿cuál te imaginas estudiando un día cualquiera, con sus materias reales?</li>
+            <li>¿Tu elección viene de lo que tú quieres o de lo que otras personas esperan de ti?</li>
+            <li>Revisa el plan de estudios de tus opciones y, si puedes, habla con alguien que ya las estudie.</li>
+          </ul>
+          <p style="margin-top:12px">Si quieres platicarlo, la Unidad de Servicios Psicopedagógicos de la UNACAR te puede acompañar en tu proceso de elección.</p>
+        </div>
+        ${impresion ? "" : ""}`;
+    }
+
+    // ---------- Archivo de respuestas ----------
+    function exportar() {
+      return { version: VERSION, timestamp: new Date().toISOString(), datosAlumno: { ...estado.datos }, respuestasIntereses: { ...estado.intereses }, respuestasAptitudes: { ...estado.aptitudes } };
+    }
+    $("btn-json").addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(exportar(), null, 2)], { type: "application/json" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `orientacion_unacar_${(estado.datos.nombre || "respuestas").replace(/[^a-z0-9_-]/gi, "_")}.json`;
+      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(a.href);
+    });
+    $("btn-cargar").addEventListener("click", () => $("input-cargar").click());
+    $("input-cargar").addEventListener("change", e => {
+      const f = e.target.files[0]; if (!f) return;
+      const lector = new FileReader();
+      lector.onload = () => {
+        try {
+          const d = JSON.parse(lector.result);
+          if (!d || !d.datosAlumno || !d.respuestasIntereses || !d.respuestasAptitudes) throw new Error("formato");
+          if ((d.version || 1) < VERSION) {
+            alert("Este archivo se generó con una versión anterior de la guía. Las preguntas cambiaron, así que no se puede recalcular con la versión actual.");
+            return;
+          }
+          estado.datos = d.datosAlumno; estado.intereses = d.respuestasIntereses; estado.aptitudes = d.respuestasAptitudes;
+          llenarFormulario();
+          calcularYMostrar(false); // un archivo cargado no se vuelve a enviar
+          irA(4);
+        } catch (err) {
+          alert("No se pudo abrir el archivo. Verifica que sea un archivo de respuestas guardado desde esta guía.");
+        } finally { e.target.value = ""; }
+      };
+      lector.readAsText(f, "utf-8");
+    });
+    $("btn-nueva").addEventListener("click", () => {
+      if (!confirm("Se borrarán las respuestas de esta pantalla. ¿Comenzar una guía nueva?")) return;
+      Object.assign(estado, { paso: 0, datos: {}, intereses: {}, aptitudes: {}, pagInt: 0, pagApt: 0, resultado: null });
+      borrarSesion(); $("form-datos").reset(); irA(0);
+    });
+
+    // ---------- PDF ----------
+    $("btn-pdf").addEventListener("click", () => {
+      if (!estado.resultado) return;
+      const w = window.open("", "_blank");
+      if (!w) { alert("El navegador bloqueó la ventana del reporte. Permite las ventanas emergentes para este sitio e inténtalo de nuevo."); return; }
+      const estilos = [...document.querySelectorAll("style")].map(s => s.outerHTML).join("");
+      w.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Reporte de orientación vocacional – ${esc(estado.datos.nombre || "")}</title>${estilos}
+        <style>body{background:#fff;font-size:11pt}.bloque{break-inside:avoid;border:1px solid #ccd;padding:14px;margin-bottom:12px}.carrera{break-inside:avoid}.encabezado{text-align:center;margin:0 0 16px}.encabezado p{margin:2px 0}</style></head>
+        <body><div class="contenedor ancho" style="padding-top:16px">
+        <div class="encabezado"><p><strong>Universidad Autónoma del Carmen</strong></p><p>Dirección General de Servicios al Estudiante. Unidad de Servicios Psicopedagógicos.</p><h2 style="margin-top:8px">Reporte individual de orientación vocacional</h2></div>
+        ${htmlResultados(estado.resultado, true)}
+        <p style="font-size:9pt;color:#666">Este reporte es un apoyo orientativo y no sustituye un proceso de orientación con un profesional.</p>
+        </div></body></html>`);
+      w.document.close();
+      setTimeout(() => { w.focus(); w.print(); }, 400);
+    });
+
+    // ---------- Supabase ----------
+    async function enviarASupabase() {
+      const cfg = CONFIG.supabase, res = estado.resultado;
+      if (!cfg.enabled || !cfg.url || !cfg.anonKey || !res) return;
+      const crudo = exportar(), d = crudo.datosAlumno;
+      const top = res.factores.slice().sort((a, b) => b.score - a.score).slice(0, 5);
+      const resultados = {
+        version: VERSION,
+        indiferenciado: res.indiferenciado,
+        factores: Object.fromEntries(res.factores.map(f => [f.key, { score: +f.score.toFixed(4), interes: f.interes, aptitud: f.aptitud, rango: f.rango }])),
+        carreras: res.carreras.map(c => ({ name: c.name, r: +c.r.toFixed(4), pasa: c.pasa, nivel: c.nivel, faltantes: c.faltantes.map(f => f.key), requisitoOk: c.requisitoOk }))
+      };
+      const fila = {
+        fecha: new Date().toISOString(),
+        nombre: d.nombre || "", edad: d.edad ? Number(d.edad) : null, fecha_nacimiento: d.fecha_nacimiento || null,
+        ciudad: d.ciudad || "", estado: d.estado || "", preparatoria: d.preparatoria || "", correo: d.correo || "",
+        opcion1: d.opcion1 || "", opcion2: d.opcion2 || "",
+        factores_texto: res.factores.map(f => `${f.id}-${f.label}:${f.pct}`).join(" | "),
+        top_factores_texto: top.map(f => `${f.label}:${f.pct}`).join(" | "),
+        top_carreras_texto: res.carreras.slice(0, 3).map(c => `${c.name}:${c.nivel}(r=${c.r.toFixed(2)})`).join(" | "),
+        respuestas_intereses: crudo.respuestasIntereses,
+        respuestas_aptitudes: crudo.respuestasAptitudes
+      };
+      const comoTexto = { ...fila, respuestas_intereses: JSON.stringify(fila.respuestas_intereses), respuestas_aptitudes: JSON.stringify(fila.respuestas_aptitudes) };
+      const intentos = [{ ...fila, resultados, export_raw: crudo, page_url: location.href, user_agent: navigator.userAgent }, fila, comoTexto];
+      for (const cuerpo of intentos) {
+        try {
+          const r = await fetch(`${cfg.url}/rest/v1/${cfg.table}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", apikey: cfg.anonKey, Authorization: "Bearer " + cfg.anonKey, Prefer: "return=minimal" },
+            body: JSON.stringify(cuerpo)
+          });
+          if (r.ok) return;
+          console.error("Supabase:", r.status, await r.text().catch(() => ""));
+          if (r.status === 401 || r.status === 403) return;
+        } catch (err) { console.error("Supabase, error de red:", err); return; }
+      }
+    }
+
+    // ---------- Inicio ----------
+    llenarCarreras();
+    cargarSesion();
+    llenarFormulario();
+    if (estado.paso === 4 && Object.keys(estado.aptitudes).length === ITEMS_APT.length) { calcularYMostrar(false); irA(4); }
+    else irA(Math.min(estado.paso, 3));
+  })();
   </script>
 </body>
 </html>
