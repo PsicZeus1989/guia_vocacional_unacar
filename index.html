@@ -108,21 +108,35 @@
     .par { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
     .par .o { align-self: center; font-family: var(--f-titulo); color: var(--tinta-tenue); font-size: .95rem; }
     .opcion input { position: absolute; opacity: 0; pointer-events: none; }
-    .opcion span {
-      display: flex; align-items: center; justify-content: center; text-align: center; min-height: 72px; height: 100%;
+    .opcion { position: relative; display: block; }
+    .opcion > span {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 72px; height: 100%;
       padding: 12px 14px; border: 2px solid var(--linea); border-radius: 12px; background: #fff; cursor: pointer;
       font-family: var(--f-titulo); font-weight: 500; font-size: 1.12rem; color: var(--tinta);
       transition: border-color .15s, background .15s;
     }
-    .opcion span:hover { border-color: var(--agua); }
+    .opcion > span:hover { border-color: var(--agua); }
     .opcion input:focus-visible + span { outline: 3px solid var(--sol); outline-offset: 2px; }
     .opcion input:checked + span { border-color: var(--laguna); background: var(--laguna); color: #fff; }
+    .opcion .desc { font-family: var(--f-texto); font-weight: 400; font-size: .85rem; line-height: 1.35; color: var(--tinta-suave); margin-top: 4px; }
+    .opcion input:checked + span .desc { color: #d6ebf0; }
+    @media (hover: hover) and (pointer: fine) {
+      /* En computadora la descripción aparece al pasar el mouse o al llegar con el teclado */
+      .opcion .desc {
+        position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%);
+        width: max-content; max-width: 260px; margin: 0; padding: 8px 12px; border-radius: 8px;
+        background: var(--tinta); color: #fff !important; font-size: .85rem; text-align: left;
+        box-shadow: 0 6px 18px rgba(19, 41, 61, .25); opacity: 0; visibility: hidden; transition: opacity .12s; z-index: 3; pointer-events: none;
+      }
+      .opcion .desc::after { content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px; border: 6px solid transparent; border-top-color: var(--tinta); }
+      .opcion:hover .desc, .opcion input:focus-visible + span .desc { opacity: 1; visibility: visible; }
+    }
     @media (max-width: 520px) { .par { grid-template-columns: 1fr; } .par .o { text-align: center; } }
 
     /* Reactivos de aptitudes */
     .pregunta-apt { font-weight: 600; margin-bottom: 10px; }
     .escala { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .escala .opcion span { min-height: 56px; font-family: var(--f-texto); font-size: .92rem; font-weight: 600; }
+    .escala .opcion > span { min-height: 56px; font-family: var(--f-texto); font-size: .92rem; font-weight: 600; }
     @media (max-width: 520px) { .escala { grid-template-columns: 1fr 1fr; } }
 
     .pagina-pie { display: flex; justify-content: space-between; align-items: center; color: var(--tinta-suave); font-size: .9rem; margin-top: 8px; }
@@ -165,6 +179,58 @@
 
     .pie { color: var(--tinta-tenue); font-size: .85rem; text-align: center; padding: 24px 16px 40px; }
     .pie p { margin: 4px 0; }
+    @media not ((hover: hover) and (pointer: fine)) { .solo-mouse { display: none; } }
+    .tabla-factores { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    .tabla-factores th { text-align: left; font-weight: 700; color: var(--tinta-suave); border-bottom: 2px solid var(--linea); padding: 6px 8px; }
+    .tabla-factores td { border-bottom: 1px solid var(--linea); padding: 6px 8px; vertical-align: middle; }
+    .tabla-factores td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .tabla-factores .mini { display: inline-block; width: 70px; height: 7px; background: var(--linea); border-radius: 4px; vertical-align: middle; margin-left: 8px; overflow: hidden; }
+    .tabla-factores .mini i { display: block; height: 100%; }
+    details.detalle { margin-top: 16px; }
+    details.detalle summary { cursor: pointer; color: var(--agua); font-weight: 600; }
+
+    /* ---------- Reporte impreso (carta) ---------- */
+    #reporte { display: none; }
+    @media print {
+      @page { size: letter; margin: 14mm 14mm 16mm; }
+      html, body { background: #fff !important; font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      body > *:not(#reporte) { display: none !important; }
+      #reporte { display: block; color: var(--tinta); }
+      .r-cab { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; border-bottom: 3px solid var(--laguna); padding-bottom: 8px; }
+      .r-cab .logos-r { display: flex; gap: 8px; }
+      .r-cab .logos-r img { height: 40px; width: auto; max-width: 90px; object-fit: contain; }
+      .r-cab .inst { text-align: right; font-size: 8.5pt; color: var(--tinta-suave); line-height: 1.35; }
+      .r-cab .inst strong { color: var(--laguna); font-size: 10pt; }
+      .r-titulo { display: flex; justify-content: space-between; align-items: baseline; margin: 10px 0 8px; }
+      .r-titulo h1 { font-size: 16pt; color: var(--laguna); }
+      .r-titulo span { font-size: 9pt; color: var(--tinta-suave); }
+      .r-datos { width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 10px; }
+      .r-datos td { border: 1px solid var(--linea); padding: 4px 7px; }
+      .r-datos td.k { background: #eef4f7; color: var(--tinta-suave); width: 17%; }
+      .r-sec { margin-top: 12px; break-inside: avoid; }
+      .r-sec h2 { font-size: 12pt; color: var(--laguna); border-bottom: 1px solid var(--linea); padding-bottom: 3px; margin-bottom: 6px; }
+      .r-sintesis { border: 1.5px solid var(--agua); background: var(--agua-claro); border-radius: 8px; padding: 8px 12px; font-size: 9.5pt; }
+      .r-sintesis ol { margin: 4px 0 0; padding-left: 18px; }
+      .r-sintesis.alerta { border-color: var(--sol); background: var(--sol-claro); }
+      .r-perfil { display: grid; grid-template-columns: 84mm 1fr; gap: 8mm; align-items: center; }
+      .r-perfil .radar { max-width: 84mm; }
+      .r-perfil .radar .etiqueta { font-size: 13px; }
+      .tabla-factores { font-size: 8.5pt; }
+      .tabla-factores td, .tabla-factores th { padding: 2.5px 5px; }
+      .tabla-factores .mini { width: 50px; }
+      .r-sec h2 { break-after: avoid; }
+      .r-sugeridas { break-before: page; }
+      .r-sec { break-inside: auto; }
+      .carrera > div:not(.carrera-cab):not(.chips) { display: inline; font-size: 8.5pt; color: var(--tinta-suave); margin-right: 4px; }
+      .carrera .chips { display: inline-flex; margin-top: 0; vertical-align: middle; }
+      .carrera { padding: 7px 10px; margin-bottom: 6px; break-inside: avoid; border-left-width: 4px; }
+      .carrera h3 { font-size: 10.5pt; }
+      .carrera .facultad { margin: 0 0 3px; font-size: 8.5pt; }
+      .chip, .nivel { font-size: 8pt; padding: 1px 7px; }
+      .familia { font-size: 8.5pt; margin-top: 4px; }
+      .reflexion { font-size: 9pt; margin: 0; padding-left: 16px; }
+      .r-nota { margin-top: 10px; font-size: 7.5pt; color: var(--tinta-tenue); text-align: center; }
+    }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -195,21 +261,8 @@
     <section class="paso activo contenedor" id="paso-0">
       <div class="bloque">
         <h2>Antes de empezar</h2>
-        <p>Esta guía te ayuda a explorar qué carreras de la Universidad Autónoma del Carmen van con tus intereses y con las actividades que se te facilitan. Al terminar verás tu perfil y las carreras más cercanas a él.</p>
-        <ol class="etapas">
-          <li><div><strong>Tus datos</strong><span>Nombre, escuela y las carreras que hoy estás considerando.</span></div></li>
-          <li><div><strong>Intereses</strong><span>66 pares de ocupaciones. En cada par eliges la que preferirías. Unos 10 minutos.</span></div></li>
-          <li><div><strong>Habilidades</strong><span>71 actividades. Indicas qué tanto se te facilita cada una. Unos 10 minutos.</span></div></li>
-          <li><div><strong>Resultados</strong><span>Tu perfil, las carreras sugeridas y qué tan cerca están las que elegiste.</span></div></li>
-        </ol>
-      </div>
-      <div class="nota">
-        <h3>Para que tu resultado sea útil</h3>
-        <ul>
-          <li>No hay respuestas correctas ni incorrectas.</li>
-          <li>Responde pensando en cómo eres hoy, no en lo que crees que deberías contestar.</li>
-          <li>Hazlo solo(a) y sin prisa. Si te cansas, puedes hacer una pausa: tus respuestas se guardan mientras no cierres la pestaña.</li>
-        </ul>
+        <p>Primero te pediremos algunos datos. Después elegirás entre pares de ocupaciones la que preferirías, y al final indicarás qué tanto se te facilitan distintas actividades. Te tomará unos 20 minutos.</p>
+        <p>Al terminar verás tu perfil de intereses y habilidades, las carreras de la UNACAR más cercanas a él y qué tan cerca están las que tú elegiste. No hay respuestas correctas: responde pensando en cómo eres hoy.</p>
       </div>
       <div class="acciones">
         <button class="btn-texto" type="button" id="btn-cargar">Abrir un archivo de respuestas guardado</button>
@@ -255,7 +308,7 @@
     <section class="paso contenedor" id="paso-2">
       <div class="nota" id="instr-intereses">
         <h3>¿Cuál preferirías?</h3>
-        <p>En cada par, elige la ocupación en la que preferirías trabajar. Si te gustan las dos, elige la que más. Si no te gusta ninguna, elige la que te desagrada menos. Tienes que elegir una en cada par.</p>
+        <p>En cada par, elige la ocupación en la que preferirías trabajar. <span class="solo-mouse">Si no conoces alguna, pasa el mouse sobre ella para ver qué hace.</span> Si te gustan las dos, elige la que más. Si no te gusta ninguna, elige la que te desagrada menos. Tienes que elegir una en cada par.</p>
       </div>
       <div class="bloque" id="lista-intereses"></div>
       <div class="acciones">
@@ -294,6 +347,8 @@
     <p>Universidad Autónoma del Carmen. Dirección General de Servicios al Estudiante. Unidad de Servicios Psicopedagógicos.</p>
     <p>Guía de orientación vocacional, versión piloto 3. Es un apoyo orientativo y no sustituye un proceso de orientación con un profesional.</p>
   </footer>
+
+  <div id="reporte" aria-hidden="true"></div>
 
   <script src="datos_cuestionarios.js"></script>
   <script src="modelo.js"></script>
@@ -411,7 +466,7 @@
           <div class="par">
             ${q.options.map((o, i) => `
               ${i === 1 ? '<span class="o" aria-hidden="true">o</span>' : ""}
-              <label class="opcion"><input type="radio" name="int-${q.id}" value="${o.key}" ${estado.intereses[q.id] === o.key ? "checked" : ""}/><span>${esc(o.text)}</span></label>`).join("")}
+              <label class="opcion"><input type="radio" name="int-${q.id}" value="${o.key}" ${estado.intereses[q.id] === o.key ? "checked" : ""}/><span>${esc(o.text)}${o.desc ? `<small class="desc">${esc(o.desc)}</small>` : ""}</span></label>`).join("")}
           </div>
         </fieldset>`).join("") +
         `<div class="pagina-pie"><span>Página ${pag + 1} de ${totalPags(ITEMS_INT, CONFIG.porPaginaIntereses)}</span></div>`;
@@ -504,6 +559,14 @@
       return s + "</svg>";
     }
 
+    const pctONada = v => v === null || v === undefined ? "—" : Math.round(v * 100) + "%";
+    function tablaFactores(factores) {
+      const filas = factores.slice().sort((a, b) => b.score - a.score).map(f => `
+        <tr><td>${esc(f.label)}</td><td class="num">${pctONada(f.interes)}</td><td class="num">${pctONada(f.aptitud)}</td>
+        <td class="num"><strong>${f.pct}%</strong><span class="mini"><i style="width:${f.pct}%;background:${f.color}"></i></span></td></tr>`).join("");
+      return `<table class="tabla-factores"><thead><tr><th>Factor</th><th class="num">Interés</th><th class="num">Habilidad</th><th class="num">Total</th></tr></thead><tbody>${filas}</tbody></table>`;
+    }
+
     const TEXTO_NIVEL = { alta: "Afinidad alta", media: "Afinidad media", baja: "Afinidad baja" };
 
     function familiaDe(nombre) { return M.FAMILIAS.find(f => f.includes(nombre)); }
@@ -532,7 +595,7 @@
         const partes = [];
         if (c.faltantes.length) partes.push(`lo esencial de esta carrera incluye ${c.faltantes.map(f => f.label.toLowerCase()).join(", ")}, y eso no aparece entre tus puntos fuertes por ahora`);
         if (!c.requisitoOk) partes.push(`esta carrera pide ${c.requisito.texto}, y en tus respuestas no se ve todavía`);
-        explicacion = "Su afinidad es baja porque " + partes.join("; además, ") + ". Eso no te descarta: es algo para conversar en tu entrevista de orientación.";
+        explicacion = "Su afinidad es baja porque " + partes.join("; además, ") + ". Eso no te descarta: vale la pena que revises el plan de estudios y lo platiques con tu orientador(a).";
       }
       return `
         <article class="carrera ${c.nivel}">
@@ -557,7 +620,7 @@
           ${res.indiferenciado ? `
             <div class="aviso" style="margin:12px 0 0">
               <h3>Tu perfil todavía no muestra preferencias claras</h3>
-              <p style="margin:6px 0 0">Tus respuestas se parecen poco entre sí y a las carreras de la guía. Es algo común, y no significa que algo esté mal. Te recomendamos una entrevista con la Unidad de Servicios Psicopedagógicos para explorar juntos tus intereses. Las carreras de abajo son solo un punto de partida para esa conversación.</p>
+              <p style="margin:6px 0 0">Tus respuestas se parecen poco entre sí y a las carreras de la guía. Es algo común, y no significa que algo esté mal. Te recomendamos platicar tus resultados con tu orientador(a) escolar o con alguien de confianza. Las carreras de abajo son solo un punto de partida.</p>
             </div>` : `<p style="margin:6px 0 0">Estas son las carreras más cercanas a tu perfil. Úsalas para explorar, no como una decisión tomada.</p>`}
         </div>
 
@@ -571,10 +634,12 @@
               ${top.map(f => `<div class="factor"><div class="factor-cab"><span>${esc(f.label)}</span><span>${f.pct}%</span></div><div class="barra"><i style="width:${f.pct}%;background:${f.color}"></i></div><p>${esc(f.desc)}</p></div>`).join("")}
             </div>
           </div>
+          <details class="detalle"><summary>Ver el detalle de tus 15 factores</summary>${tablaFactores(res.factores)}
+            <p class="ayuda">Interés: qué tan seguido elegiste ocupaciones de esa área. Habilidad: qué tanto dijiste que se te facilitan esas actividades. Un guion indica que ese factor se mide con una sola fuente.</p></details>
         </div>
 
         <div class="bloque">
-          <h2>${res.indiferenciado ? "Carreras para explorar en tu entrevista" : "Carreras sugeridas"}</h2>
+          <h2>${res.indiferenciado ? "Carreras para empezar a explorar" : "Carreras sugeridas"}</h2>
           ${sugeridas.map((c, i) => htmlCarrera(c, i + 1)).join("")}
         </div>
 
@@ -592,7 +657,7 @@
             <li>¿Tu elección viene de lo que tú quieres o de lo que otras personas esperan de ti?</li>
             <li>Revisa el plan de estudios de tus opciones y, si puedes, habla con alguien que ya las estudie.</li>
           </ul>
-          <p style="margin-top:12px">Si quieres platicarlo, la Unidad de Servicios Psicopedagógicos de la UNACAR te puede acompañar en tu proceso de elección.</p>
+          
         </div>
         ${impresion ? "" : ""}`;
     }
@@ -636,21 +701,70 @@
       borrarSesion(); $("form-datos").reset(); irA(0);
     });
 
-    // ---------- PDF ----------
+    // ---------- Reporte impreso / PDF ----------
+    function htmlReporte(res) {
+      const d = estado.datos;
+      const fecha = new Date().toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+      const sug = res.carreras.slice(0, 3);
+      const fila = (k1, v1, k2, v2) => `<tr><td class="k">${k1}</td><td>${esc(v1 || "—")}</td><td class="k">${k2}</td><td>${esc(v2 || "—")}</td></tr>`;
+      const opc = v => !v ? "—" : v === "No sé" ? "Todavía no lo sabe" : nombreCorto(v);
+      return `
+        <div class="r-cab">
+          <div class="logos-r">
+            <img src="img/logo_unacar.png" alt="UNACAR" /><img src="img/logo_dgse.png" alt="DGSE" /><img src="img/logo_usp.png" alt="USP" />
+          </div>
+          <div class="inst"><strong>Universidad Autónoma del Carmen</strong><br>Dirección General de Servicios al Estudiante<br>Unidad de Servicios Psicopedagógicos</div>
+        </div>
+        <div class="r-titulo"><h1>Reporte individual de orientación vocacional</h1><span>${fecha}</span></div>
+        <table class="r-datos">
+          ${fila("Nombre", d.nombre, "Edad", d.edad ? d.edad + " años" : "")}
+          ${fila("Escuela", d.preparatoria, "Fecha de nac.", d.fecha_nacimiento)}
+          ${fila("Ciudad", [d.ciudad, d.estado].filter(Boolean).join(", "), "Correo", d.correo)}
+          ${fila("1ª opción", opc(d.opcion1), "2ª opción", opc(d.opcion2))}
+        </table>
+
+        <div class="r-sintesis ${res.indiferenciado ? "alerta" : ""}">
+          ${res.indiferenciado
+            ? `<strong>Tu perfil todavía no muestra preferencias claras.</strong> Es algo común. Te recomendamos platicar tus resultados con tu orientador(a) escolar antes de tomar en cuenta las carreras sugeridas.`
+            : `<strong>Carreras más cercanas al perfil</strong><ol>${sug.map(c => `<li>${esc(nombreCorto(c.name))}: ${TEXTO_NIVEL[c.nivel].toLowerCase()}</li>`).join("")}</ol>`}
+        </div>
+
+        <div class="r-sec">
+          <h2>Perfil de intereses y habilidades</h2>
+          <div class="r-perfil">
+            <div>${radarSVG(res.factores)}</div>
+            <div>${tablaFactores(res.factores)}</div>
+          </div>
+        </div>
+
+        <div class="pagina2">
+          <div class="r-sec r-sugeridas">
+            <h2>${res.indiferenciado ? "Carreras para empezar a explorar" : "Carreras sugeridas"}</h2>
+            ${sug.map((c, i) => htmlCarrera(c, i + 1)).join("")}
+          </div>
+          <div class="r-sec">
+            <h2>Las carreras que elegiste</h2>
+            ${htmlOpcion("Primera opción", d.opcion1, res)}
+            ${htmlOpcion("Segunda opción", d.opcion2, res)}
+          </div>
+          <div class="r-sec">
+            <h2>Para pensar antes de decidir</h2>
+            <ul class="reflexion">
+              <li>¿Qué te sorprendió de tus resultados y qué confirmó lo que ya sabías de ti?</li>
+              <li>¿Cuál de estas carreras te imaginas estudiando un día cualquiera?</li>
+              <li>¿Tu elección viene de lo que tú quieres o de lo que otros esperan de ti?</li>
+              <li>Revisa los planes de estudio y habla con alguien que estudie tus opciones.</li>
+            </ul>
+          </div>
+          <p class="r-nota">Este reporte es un apoyo orientativo y no sustituye un proceso de orientación con un profesional. Guía de orientación vocacional UNACAR, versión piloto 3.</p>
+        </div>`;
+    }
     $("btn-pdf").addEventListener("click", () => {
       if (!estado.resultado) return;
-      const w = window.open("", "_blank");
-      if (!w) { alert("El navegador bloqueó la ventana del reporte. Permite las ventanas emergentes para este sitio e inténtalo de nuevo."); return; }
-      const estilos = [...document.querySelectorAll("style")].map(s => s.outerHTML).join("");
-      w.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>Reporte de orientación vocacional – ${esc(estado.datos.nombre || "")}</title>${estilos}
-        <style>body{background:#fff;font-size:11pt}.bloque{break-inside:avoid;border:1px solid #ccd;padding:14px;margin-bottom:12px}.carrera{break-inside:avoid}.encabezado{text-align:center;margin:0 0 16px}.encabezado p{margin:2px 0}</style></head>
-        <body><div class="contenedor ancho" style="padding-top:16px">
-        <div class="encabezado"><p><strong>Universidad Autónoma del Carmen</strong></p><p>Dirección General de Servicios al Estudiante. Unidad de Servicios Psicopedagógicos.</p><h2 style="margin-top:8px">Reporte individual de orientación vocacional</h2></div>
-        ${htmlResultados(estado.resultado, true)}
-        <p style="font-size:9pt;color:#666">Este reporte es un apoyo orientativo y no sustituye un proceso de orientación con un profesional.</p>
-        </div></body></html>`);
-      w.document.close();
-      setTimeout(() => { w.focus(); w.print(); }, 400);
+      $("reporte").innerHTML = htmlReporte(estado.resultado);
+      document.title = `Orientación vocacional – ${estado.datos.nombre || "reporte"}`;
+      const imgs = [...$("reporte").querySelectorAll("img")];
+      Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(() => window.print());
     });
 
     // ---------- Supabase ----------
